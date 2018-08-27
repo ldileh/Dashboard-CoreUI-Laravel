@@ -1,6 +1,6 @@
 # admin-coreui-laravel
 
-## Feature
+## Features
 - bootstrap v4
 - font awesome
 - flag-icon
