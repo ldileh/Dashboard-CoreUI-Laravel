@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-header"><i class="fa fa-th-list"></i> Form User Data</div>
 
-            <form class="form-horizontal" action="{{ route('user.data.create') }}" method="post" aria-label="{{ __('Create User') }}">
+            <form class="form-horizontal" action="{{ route('user.data.edit', $data->id) }}" method="post" aria-label="{{ __('Edit User') }}">
                 @csrf
                 <div class="card-body">
                     @include('layouts.info-layout')
@@ -17,7 +17,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label is-required" for="input-name">{{ __('Name') }}</label>
                         <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" id="input-name" maxlength="191" value="{{ old('name') }}">
+                            <input type="text" name="name" class="form-control" id="input-name" maxlength="191" value="{{ old('name') ? old('name') : $data->name }}">
                             
                             @if ($errors->has('name'))
                             <span class="invalid-feedback" role="alert">
@@ -30,7 +30,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label is-required" for="input-email">{{ __('E-Mail Address') }}</label>
                         <div class="col-md-9">
-                            <input type="email" name="email" class="form-control" id="input-email" maxlength="191" value="{{ old('email') }}">
+                            <input type="email" name="email" class="form-control" id="input-email" maxlength="191" value="{{ old('email') ? old('email') : $data->email }}">
                             
                             @if ($errors->has('email'))
                             <span class="invalid-feedback" role="alert">

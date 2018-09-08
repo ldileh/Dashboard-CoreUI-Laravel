@@ -2,43 +2,8 @@
 
 @section('title', 'Users')
 
-@section('content')    
-{{-- error from requst data --}}
-@if ($errors->any())
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-
-        <ul class="custom-list">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-{{-- error message --}}
-@if (session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-
-        {{ session('error') }}
-    </div>
-@endif
-
-{{-- message --}}
-@if (session('message'))
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-
-        {{ session('message') }}
-    </div>
-@endif
+@section('content')
+@include('layouts.info-layout')
 
 {{-- table list --}}
 <div class="row">
@@ -56,9 +21,9 @@
                 <table id="data-table" class="table table-responsive-sm" style="width:100%">
                     <thead>
                         <th width="50">No</th>
-                        <th>Name</th>
+                        <th width="200">Name</th>
                         <th>Email</th>
-                        <th>Role</th>
+                        <th width="80">Role</th>
                         <th width="50" class="text-center">Action</th>
                     </thead>
                 </table>
@@ -104,7 +69,7 @@
                     render: function(data, type, row, meta){
                         return '<div class="btn-group btn-group-sm">' +
                             '<button type="button" class="btn btn-danger button-delete" data-value="'+data+'"><i class="fa fa-trash"></i></button>' +
-                            '<a class="btn btn-primary" href=""><i class="fa fa-pencil"></i></a>' +
+                            '<a class="btn btn-primary" href="{{ url('panel/users') }}/'+data+'/edit"><i class="fa fa-pencil"></i></a>' +
                         '</div>';
                     }
                 },

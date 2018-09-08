@@ -28,7 +28,9 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.admin' ] ], 
 	    Route::get('/data', 'Panel\UserController@getData')->name('user.data');
 	    Route::get('{userId}/delete', 'Panel\UserController@destroy')->name('user.data.delete');
 	    Route::get('create', 'Panel\UserController@create')->name('user.create');
-	    Route::post('create', 'Panel\UserController@store')->name('user.data.create');
+		Route::post('create', 'Panel\UserController@store')->name('user.data.create');
+		Route::get('{userId}/edit', 'Panel\UserController@edit')->name('user.edit');
+	    Route::post('{userId}/edit', 'Panel\UserController@update')->name('user.data.edit');
 	});
 });
 
