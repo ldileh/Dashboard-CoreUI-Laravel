@@ -102,7 +102,7 @@ class UserController extends Controller
 
         $validator->sometimes('email', 'required|string|email|max:255|unique:users', function($request) use ($data){
             return $request->email != $data->email; 
-        });
+        }); 
 
         if ($validator->fails()) {
             return redirect()
