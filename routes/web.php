@@ -32,5 +32,9 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.admin' ] ], 
 	    Route::post('{userId}/edit', 'Panel\UserController@update')->name('user.data.edit');
 	    Route::get('{userId}/delete', 'Panel\UserController@destroy')->name('user.data.delete');
 	});
+
+	// Others
+	Route::get('profile', 'Panel\HomeController@profile')->name('profile');
+	Route::post('profile', 'Panel\HomeController@updateProfile')->name('profile.data.edit');
 });
 
