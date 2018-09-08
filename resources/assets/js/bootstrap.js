@@ -54,3 +54,8 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+// Others
+window.vex = require('vex-js');
+window.vex.registerPlugin(require('vex-dialog'));
+window.vex.defaultOptions.className = 'vex-theme-os';

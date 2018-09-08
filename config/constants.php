@@ -7,4 +7,6 @@ return [
 			'USER' => 2,
 		],
 	],
+
+	'AUTHREDIRECT' => '/panel',
 ];

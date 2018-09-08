@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Profile;
+use App\Models\UserRole;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -59,5 +60,10 @@ class User extends Authenticatable
     public function isUser()
     {
         return $this->hasRole([ config('constants.USER.ROLE.USER') ]);
+    }
+
+    public static function userExceptAdmin()
+    {
+        return User::where('user_role_id', '!=', config('constants.USER.ROLE.ADMIN'));
     }
 }

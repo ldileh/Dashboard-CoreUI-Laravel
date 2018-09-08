@@ -67,7 +67,9 @@
       </div>
       <main class="main">
         <div class="container-fluid" style="margin-top: 16px;">
-          @yield('content')
+          <div class="animated fadeIn">
+            @yield('content')
+          </div>
         </div>
       </main>
 
