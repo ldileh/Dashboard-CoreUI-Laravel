@@ -128,7 +128,7 @@ class UserController extends Controller
     // Others //
     ////////////
     
-    public function _datatable($model)
+    private function _datatable($model)
     {
     	return DataTables::eloquent($model)
         ->addIndexColumn()
