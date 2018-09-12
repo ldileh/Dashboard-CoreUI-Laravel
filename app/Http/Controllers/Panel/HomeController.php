@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
-    // Views
+    ///////////
+    // Views //
+    ///////////
 
     public function index()
     {
@@ -24,7 +26,9 @@ class HomeController extends Controller
         ]);
     }
 
-    // Functions
+    ///////////////
+    // Functions //
+    ///////////////
 
     public function updateProfile(Request $request)
     {
@@ -37,7 +41,7 @@ class HomeController extends Controller
         $data = Auth::user();
 
         $validator->sometimes('email', 'required|string|email|max:255|unique:users', function($request) use ($data){
-            return $request->email != $data->email; 
+            return $request->email != $data->email;
         }); 
 
         if ($validator->fails()) {
