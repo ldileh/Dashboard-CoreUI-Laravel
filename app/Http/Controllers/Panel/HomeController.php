@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
-    ///////////
-    // Views //
-    ///////////
+    // Views
 
     public function index()
     {
@@ -26,9 +24,7 @@ class HomeController extends Controller
         ]);
     }
 
-    ///////////////
-    // Functions //
-    ///////////////
+    // Functions
 
     public function updateProfile(Request $request)
     {

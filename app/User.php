@@ -11,27 +11,15 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name', 'email', 'password', 'user_role_id'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    ///////////////
-    // Relations //
-    ///////////////
+    // Relations
     
     public function profile()
     {
@@ -43,9 +31,7 @@ class User extends Authenticatable
         return $this->belongsTo(UserRole::class, 'user_role_id');
     }
 
-    ////////////
-    // Others //
-    ////////////
+    // Others
     
     public function hasRole($roles)
     {

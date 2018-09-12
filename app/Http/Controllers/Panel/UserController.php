@@ -11,9 +11,7 @@ use DataTables;
 
 class UserController extends Controller
 {
-    ///////////
-    // Views //
-    ///////////
+    // Views
     
     public function index()
     {
@@ -38,9 +36,7 @@ class UserController extends Controller
         ]);
     }
 
-    ///////////////
-    // Functions //
-    ///////////////
+    // Functions
     
     public function getData(Request $request)
     {
@@ -124,9 +120,7 @@ class UserController extends Controller
         ]);
     }
 
-    ////////////
-    // Others //
-    ////////////
+    // Others
     
     private function _datatable($model)
     {

@@ -11,9 +11,7 @@ class Profile extends Model
     	'avatar', 'user_id'
     ];
 
-    ////////////////
-    // Relations  //
-    ////////////////
+    // Relations
 	
 	public function user()
     {
