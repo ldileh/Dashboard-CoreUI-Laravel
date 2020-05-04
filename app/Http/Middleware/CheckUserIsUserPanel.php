@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class CheckUserIsUser
+class CheckUserIsUserPanel
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class CheckUserIsUser
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->isUser()){
+        if(Auth::check() && Auth::user()->isUserPanel()){
             return $next($request);
         }
 

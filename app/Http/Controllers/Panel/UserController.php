@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -15,12 +16,12 @@ class UserController extends Controller
     
     public function index()
     {
-    	return view('panel.user');
+    	return view('panel.user.user');
     }
 
     public function create()
     {
-        return view('panel.user-create');
+        return view('panel.user.user-create');
     }
 
     public function edit($userId)
@@ -31,7 +32,7 @@ class UserController extends Controller
             'error' => 'Data not found.'
         ]);
 
-        return view('panel.user-edit')->with([
+        return view('panel.user.user-edit')->with([
             'data' => $data
         ]);
     }

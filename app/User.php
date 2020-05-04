@@ -43,13 +43,28 @@ class User extends Authenticatable
         return $this->hasRole([ config('constants.USER.ROLE.ADMIN') ]);
     }
 
-    public function isUser()
+    public function isMahasiswa()
     {
-        return $this->hasRole([ config('constants.USER.ROLE.USER') ]);
+        return $this->hasRole([ config('constants.USER.ROLE.MAHASISWA') ]);
+    }
+
+    public function isDosen()
+    {
+        return $this->hasRole([ config('constants.USER.ROLE.DOSEN') ]);
+    }
+
+    public function isUserPanel()
+    {
+        return $this->hasRole([config('constants.USER.ROLE.ADMIN'), config('constants.USER.ROLE.DOSEN')]);
     }
 
     public static function userExceptAdmin()
     {
         return User::where('user_role_id', '!=', config('constants.USER.ROLE.ADMIN'));
+    }
+
+    public static function userMahasiswa()
+    {
+        return User::where('user_role_id', '=', config('constants.USER.ROLE.MAHASISWA'));
     }
 }

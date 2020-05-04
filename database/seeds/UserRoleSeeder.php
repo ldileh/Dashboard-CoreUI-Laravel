@@ -14,7 +14,8 @@ class UserRoleSeeder extends Seeder
     {
         UserRole::insert([
         	[ 'id' => 1, 'name' => 'Admin' ],
-        	[ 'id' => 2, 'name' => 'User' ],
+        	[ 'id' => 2, 'name' => 'Dosen' ],
+        	[ 'id' => 3, 'name' => 'Mahasiswa' ],
         ]);
     }
 }
