@@ -36,14 +36,21 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
 		});
 
 		// mahasiswa
-		Route::group(['prefix' => 'mahasiswa', 'middleware' => 'auth.panel'], function () {
+		Route::group(['prefix' => 'mahasiswa'], function () {
 			Route::get('/', 'Panel\MahasiswaController@index')->name('user.mahasiswa');
 			Route::get('/data', 'Panel\MahasiswaController@getData')->name('user.mahasiswa.data');
 			Route::get('create', 'Panel\MahasiswaController@create')->name('user.mahasiswa.create');
 			Route::post('create', 'Panel\MahasiswaController@store')->name('user.mahasiswa.data.create');
 		});
-	});
 
+        // news
+        Route::group(['prefix' => 'news'], function () {
+            Route::get('/', 'Panel\NewsController@index')->name('news');
+			Route::get('/data', 'Panel\NewsController@getData')->name('news.data');
+			Route::get('create', 'Panel\NewsController@create')->name('news.create');
+			Route::post('create', 'Panel\NewsController@store')->name('news.data.create');
+        });
+	});
 
 	// Others
 	Route::get('profile', 'Panel\HomeController@profile')->name('profile');
