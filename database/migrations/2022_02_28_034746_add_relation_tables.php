@@ -25,6 +25,18 @@ class AddRelationTables extends Migration
                 $table->foreign('user_id', 'fk_profile_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('restrict');
             });
         }
+
+        if (Schema::hasTable('news')) {
+            Schema::table('news', function($table) {
+                $table->foreign('user_id', 'fk_news_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('restrict');
+            });
+        }
+
+        if (Schema::hasTable('news_thread')) {
+            Schema::table('news_thread', function($table) {
+                $table->foreign('news_id', 'fk_news_thread_news')->references('id')->on('news')->onDelete('cascade')->onUpdate('restrict');
+            });
+        }
     }
 
     /**

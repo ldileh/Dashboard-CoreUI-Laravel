@@ -1,11 +1,13 @@
 <?php
 
-use App\Models\Profile;
-use App\User;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
+namespace Database\Seeders;
 
-class UserDataSeeder extends Seeder
+use App\User;
+use App\Models\Profile;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Seeder;
+
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +16,7 @@ class UserDataSeeder extends Seeder
      */
     public function run()
     {
-    	// create user admin
+        // create user admin
         User::create([
         	'name' => 'Admin',
         	'email' => 'admin@mail.com',

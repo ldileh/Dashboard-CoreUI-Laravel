@@ -15,6 +15,8 @@ class CreateNewsThreadsTable extends Migration
     {
         Schema::create('news_threads', function (Blueprint $table) {
             $table->id();
+            $table->integer('news_id')->unsigned();
+            $table->string('description');
             $table->timestamps();
         });
     }
