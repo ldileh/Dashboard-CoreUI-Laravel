@@ -13,18 +13,11 @@
     <link href="{{ asset('css/style-main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    {{-- datatables --}}
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
-
     {{-- vex --}}
     <link rel="stylesheet" href="{{ asset('css/vex.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/vex-theme-os.css') }}" />
 
-    {{-- select 2 --}}
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/select2.css') }}">
-
-    {{-- datapicker --}}
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-datepicker.css') }}">
+    @yield('extra-css')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -84,10 +77,7 @@
     {{-- load script --}}
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/script-main.js') }}"></script>
-    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('js/select2.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    @yield('extra-js')
 
     <script type="text/javascript">
       $.ajaxSetup({

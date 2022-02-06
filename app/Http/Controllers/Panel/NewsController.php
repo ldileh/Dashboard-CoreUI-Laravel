@@ -2,8 +2,16 @@
 
 namespace App\Http\Controllers\Panel;
 
+use App\Models\News;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use DataTables;
+use Markdown;
+use Carbon;
 
 class NewsController extends Controller
 {
@@ -16,19 +24,30 @@ class NewsController extends Controller
 
     public function create()
     {
-        return view('panel.news.news');
+        return view('panel.news.news-create');
     }
 
     public function edit($newsId)
     {
-        return view('panel.news.news');
+        // find record data
+        $data = News::find($newsId);
+        if(!$data) return redirect()->back()->with([
+            'error' => 'Data not found.'
+        ]);
+
+        // example using markdown
+        //Markdown::convertToHtml($data->content);
+
+        return view('panel.news.news-edit')->with([
+            'data' => $data
+        ]);
     }
 
     // Functions
 
     public function getData(Request $request)
     {
-        $model = News::all();
+        $model = News::query();
 
     	return $this->_datatable($model);
     }
@@ -42,7 +61,26 @@ class NewsController extends Controller
             'message' => 'Data not found.',
         ]);
 
-        $data->delete();
+        DB::beginTransaction();
+        try {
+            // get banner file name
+            $bannerName = $data->banner;
+
+            // do delete file
+            if($data->delete()){
+                // if delete record is success, do delete file
+                $this->deleteBanner($bannerName);
+            }
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+
+            return response()->json([
+                'code' => 500,
+                'message' => 'Failed to delete data. Exception : ' . $th->getMessage(),
+            ]);
+        }
 
         return response()->json([
             'code' => 200,
@@ -53,13 +91,40 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'banner' => 'image|mimes:jpeg,png,jpg',
+            'title' => 'required|string|max:191',
+            'description' => 'required|string|max:191',
+            'content' => 'required|string',
         ]);
 
-        // create record
-        News::create([
+        // save image on storage
+        $bannerName = null;
+        if($request->banner != null){
+            $bannerName = time().'.'.$request->banner->extension();
+            $request->banner->storeAs($this->getPathBanner(), $bannerName, ['disk' => 'public']);
+        }
 
-        ]);
+        DB::beginTransaction();
+        try {
+            // create record
+            News::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'content' => $request->content,
+                'user_id' => Auth::user()->id,
+                'banner' => $bannerName
+            ]);
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+
+            $this->deleteBanner($bannerName);
+
+            return redirect()->route('news')->with([
+                'message' => 'Failed create data. Exception : ' . $th->getMessage(),
+            ]);
+        }
 
         return redirect()->route('news')->with([
             'message' => 'Success to create data.',
@@ -69,7 +134,10 @@ class NewsController extends Controller
     public function update(Request $request, $newsId)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'banner' => 'image|mimes:jpeg,png,jpg',
+            'title' => 'required|string|max:191',
+            'description' => 'required|string|max:191',
+            'content' => 'required|string',
         ]);
 
         // find record data
@@ -78,10 +146,6 @@ class NewsController extends Controller
             'error' => 'Data not found.'
         ]);
 
-        $validator->sometimes('email', 'required|string|email|max:255|unique:users', function($request) use ($data){
-            return $request->email != $data->email;
-        });
-
         if ($validator->fails()) {
             return redirect()
                         ->back()
@@ -89,9 +153,47 @@ class NewsController extends Controller
                         ->withInput();
         }
 
-        // do update data
-        $data->name = $request->name;
-        $data->save();
+        $bannerNew = null;
+        $bannerOld = null;
+
+        DB::beginTransaction();
+        try {
+            // store new file name banner
+            if($request->banner != null){
+                $bannerNew = time().'.'.$request->banner->extension();
+            }
+
+            // update file banner
+            if($bannerNew != null){
+                $bannerOld = $data->banner;
+
+                // update banner file name with the new one
+                $data->banner = $bannerNew;
+            }
+
+            // do update data
+            $data->title = $request->title;
+            $data->description = $request->description;
+            $data->content = $request->content;
+            $data->save();
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+
+            return redirect()->route('news')->with([
+                'message' => 'Failed to update data. Exception: ' . $th->getMessage()
+            ]);
+        }
+
+        // do update file banner if transaction is success
+        if($bannerNew != null || !empty($bannerNew)){
+            // do store new file banner
+            $request->banner->storeAs($this->getPathBanner(), $bannerNew, ['disk' => 'public']);
+
+            // do delete previous file banner if exist
+            $this->deleteBanner($bannerOld);
+        }
 
         return redirect()->route('news')->with([
             'message' => 'Success to update data.'
@@ -100,10 +202,27 @@ class NewsController extends Controller
 
     // Others
 
+    private function getPathBanner($fileName = null)
+    {
+        $path = 'images/news';
+
+        return $fileName != null ? $path . '/' . $fileName : $path;
+    }
+
+    private function deleteBanner($fileName)
+    {
+        if($fileName != null || !empty($fileName)){
+            Storage::disk('public')->delete($this->getPathBanner($fileName));
+        }
+    }
+
     private function _datatable($model)
     {
     	return DataTables::eloquent($model)
         ->addIndexColumn()
+        ->editColumn('created_at', function(News $news) {
+            return $news->created_at->format('d/F/Y H:m:s');
+        })
         ->make(true);
     }
 }

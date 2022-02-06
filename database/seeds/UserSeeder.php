@@ -29,20 +29,10 @@ class UserSeeder extends Seeder
 
         // create user user
         User::create([
-        	'name' => 'Dosen',
-        	'email' => 'dosen@mail.com',
+        	'name' => 'Management',
+        	'email' => 'management@mail.com',
         	'password' => Hash::make('master'),
-        	'user_role_id' => config('constants.USER.ROLE.DOSEN'),
-        ])
-        ->profile()->save(new Profile([
-        	'avatar' => null,
-        ]));
-
-        User::create([
-        	'name' => 'Mahasiswa',
-        	'email' => 'mahasiswa@mail.com',
-        	'password' => Hash::make('master'),
-        	'user_role_id' => config('constants.USER.ROLE.MAHASISWA'),
+        	'user_role_id' => config('constants.USER.ROLE.MANAGEMENT'),
         ])
         ->profile()->save(new Profile([
         	'avatar' => null,

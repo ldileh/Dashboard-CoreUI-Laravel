@@ -8,14 +8,18 @@ function hideLoading() {
 }
 
 function fixRequestGet(url) {
-	if(url.indexOf("?") !== -1) 
-		return url += "&"; 
-	else 
+	if(url.indexOf("?") !== -1)
+		return url += "&";
+	else
 		return url += "?";
 }
 
 $(function(){
-	$('.form-select2').select2();
+    if ( $.isFunction($.fn.select2) ) {
+        $('.form-select2').select2();
+    }
 
-	$('.date-picker').datepicker({});
+    if ( $.isFunction($.fn.datepicker) ) {
+        $('.date-picker').datepicker({});
+    }
 });

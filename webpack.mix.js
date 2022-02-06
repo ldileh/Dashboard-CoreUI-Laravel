@@ -43,6 +43,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
 	.copy('resources/assets/js/bootstrap-datepicker.js', 'public/js/bootstrap-datepicker.js')
 	.copy('resources/assets/js/Chart.min.js', 'public/js/Chart.min.js')
 	.copy('resources/assets/js/custom-tooltips.min.js', 'public/js/custom-tooltips.min.js')
+    .copy('node_modules/simplemde/dist/simplemde.min.css', 'public/css/simplemde.min.css')
+    .copy('node_modules/simplemde/dist/simplemde.min.js', 'public/js/simplemde.min.js')
 	.copyDirectory('resources/assets/img', 'public/img')
 	.copyDirectory('resources/assets/flags', 'public/flags')
 	.copyDirectory('resources/assets/fonts', 'public/fonts');

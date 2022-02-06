@@ -20,7 +20,7 @@ class User extends Authenticatable
     ];
 
     // Relations
-    
+
     public function profile()
     {
         return $this->hasOne(Profile::class, 'user_id', 'id');
@@ -32,7 +32,7 @@ class User extends Authenticatable
     }
 
     // Others
-    
+
     public function hasRole($roles)
     {
         return in_array($this->user_role_id, $roles);
@@ -43,28 +43,18 @@ class User extends Authenticatable
         return $this->hasRole([ config('constants.USER.ROLE.ADMIN') ]);
     }
 
-    public function isMahasiswa()
+    public function isManagement()
     {
-        return $this->hasRole([ config('constants.USER.ROLE.MAHASISWA') ]);
-    }
-
-    public function isDosen()
-    {
-        return $this->hasRole([ config('constants.USER.ROLE.DOSEN') ]);
+        return $this->hasRole([ config('constants.USER.ROLE.MANAGEMENT') ]);
     }
 
     public function isUserPanel()
     {
-        return $this->hasRole([config('constants.USER.ROLE.ADMIN'), config('constants.USER.ROLE.DOSEN')]);
+        return $this->hasRole([config('constants.USER.ROLE.ADMIN'), config('constants.USER.ROLE.MANAGEMENT')]);
     }
 
     public static function userExceptAdmin()
     {
         return User::where('user_role_id', '!=', config('constants.USER.ROLE.ADMIN'));
-    }
-
-    public static function userMahasiswa()
-    {
-        return User::where('user_role_id', '=', config('constants.USER.ROLE.MAHASISWA'));
     }
 }

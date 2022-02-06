@@ -1,5 +1,18 @@
 @extends('layouts.app')
 
+@section('extra-css')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/select2.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-datepicker.css') }}">
+@endsection
+
+@section('extra-js')
+<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('js/select2.js') }}"></script>
+<script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+@endsection
+
 @section('title', 'Users')
 
 @section('content')
@@ -13,7 +26,7 @@
                 <div class="float-left">
                     <i class="icon icon-menu"></i> Data User
                 </div>
-                
+
                 <a class="btn btn-primary btn-sm float-right" href="{{ route('user.create') }}"><i class="fa fa-plus"></i> Create User</a>
             </div>
 
@@ -38,7 +51,7 @@
     /////////////////////
     // Others function //
     /////////////////////
-    
+
     ///////////////////
     // Main Function //
     ///////////////////
@@ -53,16 +66,16 @@
                 { data: 'DT_Row_Index', name: 'DT_Row_Index', orderable: false, searchable: false ,width: '50px'},
                 { data: 'name', name: 'name' },
                 { data: 'email', name: 'email' },
-                { 
-                    data: 'user_role', 
-                    name: 'user_roles.name', 
-                    orderable: false, 
+                {
+                    data: 'user_role',
+                    name: 'user_roles.name',
+                    orderable: false,
                     searchable: false,
                     render: function(data, type, row, meta){
                         return '<span class="badge badge-success">'+data+'</span>';
                     }
                 },
-                { 
+                {
                     data: 'id',
                     orderable: false,
                     searchable: false,

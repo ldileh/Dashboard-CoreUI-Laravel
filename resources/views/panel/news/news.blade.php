@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('extra-css')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
+@endsection
+
+@section('extra-js')
+<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+@endsection
+
 @section('title', 'News')
 
 @section('content')
@@ -47,20 +56,11 @@
         var table = $('#data-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('user.data') !!}',
+            ajax: '{!! route('news.data') !!}',
             columns: [
                 { data: 'DT_Row_Index', name: 'DT_Row_Index', orderable: false, searchable: false ,width: '50px'},
-                { data: 'name', name: 'name' },
-                { data: 'email', name: 'email' },
-                {
-                    data: 'user_role',
-                    name: 'user_roles.name',
-                    orderable: false,
-                    searchable: false,
-                    render: function(data, type, row, meta){
-                        return '<span class="badge badge-success">'+data+'</span>';
-                    }
-                },
+                { data: 'title', name: 'title' },
+                { data: 'created_at', name: 'created_at' },
                 {
                     data: 'id',
                     orderable: false,
@@ -68,7 +68,7 @@
                     render: function(data, type, row, meta){
                         return '<div class="btn-group btn-group-sm">' +
                             '<button type="button" class="btn btn-danger button-delete" data-value="'+data+'"><i class="fa fa-trash"></i></button>' +
-                            '<a class="btn btn-primary" href="{{ url('panel/users') }}/'+data+'/edit"><i class="fa fa-pencil"></i></a>' +
+                            '<a class="btn btn-primary" href="{{ url('panel/news') }}/'+data+'/edit"><i class="fa fa-pencil"></i></a>' +
                         '</div>';
                     }
                 },
@@ -94,7 +94,7 @@
                     if (responseDialog) {
                         // do request endpoint...
                         showLoading();
-                        axios.delete("{{ url('panel/users') }}/" + value + "/delete")
+                        axios.delete("{{ url('panel/news') }}/" + value + "/delete")
                           .then(function (response) {
                             // handle success
                             hideLoading();
