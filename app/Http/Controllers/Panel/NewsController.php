@@ -204,7 +204,7 @@ class NewsController extends Controller
 
     private function getPathBanner($fileName = null)
     {
-        $path = 'images/news';
+        $path = config('constants.STORAGE.PATH.NEWS');
 
         return $fileName != null ? $path . '/' . $fileName : $path;
     }
@@ -212,7 +212,7 @@ class NewsController extends Controller
     private function deleteBanner($fileName)
     {
         if($fileName != null || !empty($fileName)){
-            Storage::disk('public')->delete($this->getPathBanner($fileName));
+            Storage::disk(config('constants.STORAGE.DISK'))->delete($this->getPathBanner($fileName));
         }
     }
 
@@ -221,7 +221,7 @@ class NewsController extends Controller
     	return DataTables::eloquent($model)
         ->addIndexColumn()
         ->editColumn('created_at', function(News $news) {
-            return $news->created_at->format('d/F/Y H:m:s');
+            return $news->created_at->format(config('constants.DATE.DEFAULT'));
         })
         ->make(true);
     }

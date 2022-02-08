@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('extra-css')
+<link rel="stylesheet" href="{{ asset('css/vex.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/vex-theme-os.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/select2.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-datepicker.css') }}">

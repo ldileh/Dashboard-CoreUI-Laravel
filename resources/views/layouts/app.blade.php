@@ -13,10 +13,6 @@
     <link href="{{ asset('css/style-main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    {{-- vex --}}
-    <link rel="stylesheet" href="{{ asset('css/vex.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/vex-theme-os.css') }}" />
-
     @yield('extra-css')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

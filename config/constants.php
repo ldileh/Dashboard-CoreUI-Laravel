@@ -9,4 +9,15 @@ return [
 	],
 
 	'AUTHREDIRECT' => '/panel',
+
+    'DATE' => [
+        'DEFAULT' => 'd/F/Y H:m:s'
+    ],
+
+    'STORAGE' => [
+        'DISK' => 'public',
+        'PATH' => [
+            'NEWS' => 'images/news'
+        ]
+    ]
 ];
