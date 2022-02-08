@@ -8,6 +8,13 @@ return [
 		],
 	],
 
+    'MEMBER' => [
+        'STATUS' => [
+            'REGISTER' => 1,
+            'APPROVE' => 2,
+        ]
+    ],
+
 	'AUTHREDIRECT' => '/panel',
 
     'DATE' => [

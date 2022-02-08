@@ -19,7 +19,6 @@ class AddRelationTables extends Migration
             });
         }
 
-
         if (Schema::hasTable('profiles')) {
             Schema::table('profiles', function($table) {
                 $table->foreign('user_id', 'fk_profile_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('restrict');
@@ -35,6 +34,12 @@ class AddRelationTables extends Migration
         if (Schema::hasTable('news_thread')) {
             Schema::table('news_thread', function($table) {
                 $table->foreign('news_id', 'fk_news_thread_news')->references('id')->on('news')->onDelete('cascade')->onUpdate('restrict');
+            });
+        }
+
+        if (Schema::hasTable('members')) {
+            Schema::table('members', function($table) {
+                $table->foreign('member_status_id', 'fk_member_member_status')->references('id')->on('member_statuses')->onDelete('cascade')->onUpdate('restrict');
             });
         }
     }
