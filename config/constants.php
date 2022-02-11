@@ -18,13 +18,29 @@ return [
 	'AUTHREDIRECT' => '/panel',
 
     'DATE' => [
-        'DEFAULT' => 'd/F/Y H:m:s'
+        'DEFAULT' => 'd/F/Y H:m:s',
+        'INPUT_DATE' => 'Y-m-d'
     ],
 
     'STORAGE' => [
-        'DISK' => 'public',
+        'DISK' => [
+            'DEFAULT' => 'public',
+            'PRIVATE' => 'local'
+        ],
         'PATH' => [
-            'NEWS' => 'images/news'
+            'NEWS' => 'images/news',
+            'MEMBER' => [
+                'DEFAULT' => 'files/member',
+                'KTP' => 'files/member/ktp',
+                'PASS_PHOTO' => 'files/member/pass_photo'
+            ],
+        ]
+    ],
+
+    'FILE' => [
+        'MEMBER' => [
+            'KTP' => 'KTP',
+            'PASS_PHOTO' => 'PASS_PHOTO'
         ]
     ]
 ];

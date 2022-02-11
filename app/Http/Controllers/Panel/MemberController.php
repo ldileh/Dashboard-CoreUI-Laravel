@@ -19,27 +19,27 @@ class MemberController extends Controller
 
     public function index()
     {
-        return view('panel.news.news');
+        return view('panel.member.member');
     }
 
     public function create()
     {
-        return view('panel.news.news-create');
+        return view('panel.member.member-create')->with([
+            'gender' => $this->getListGender()
+        ]);
     }
 
-    public function edit($newsId)
+    public function edit($memberId)
     {
         // find record data
-        $data = News::find($newsId);
+        $data = Member::find($memberId);
         if(!$data) return redirect()->back()->with([
             'error' => 'Data not found.'
         ]);
 
-        // example using markdown
-        //Markdown::convertToHtml($data->content);
-
-        return view('panel.news.news-edit')->with([
-            'data' => $data
+        return view('panel.member.member-edit')->with([
+            'data' => $data,
+            'gender' => $this->getListGender()
         ]);
     }
 
@@ -47,15 +47,15 @@ class MemberController extends Controller
 
     public function getData(Request $request)
     {
-        $model = News::query();
+        $model = Member::query();
 
     	return $this->_datatable($model);
     }
 
-    public function destroy($newsId)
+    public function destroy($memberId)
     {
         // find record data
-        $data = News::find($newsId);
+        $data = Member::find($memberId);
         if(!$data) return response()->json([
             'code' => 400,
             'message' => 'Data not found.',
@@ -63,13 +63,15 @@ class MemberController extends Controller
 
         DB::beginTransaction();
         try {
-            // get banner file name
-            $bannerName = $data->banner;
+            // get files
+            $fileKtp = $data->file_ktp;
+            $filePassportPhoto = $data->file_passport_photo;
 
             // do delete file
             if($data->delete()){
                 // if delete record is success, do delete file
-                $this->deleteBanner($bannerName);
+                $this->deleteFileKtp($fileKtp);
+                $this->deleteFilePassPhoto($filePassportPhoto);
             }
 
             DB::commit();
@@ -91,57 +93,85 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'banner' => 'image|mimes:jpeg,png,jpg',
-            'title' => 'required|string|max:191',
-            'description' => 'required|string|max:191',
-            'content' => 'required|string',
+            'name' => 'required|string|max:225',
+            'birth_place' => 'required|string|max:191',
+            'birth_date' => 'required|date',
+            'gender' => 'required',
+            'nik' => 'required|string|max:30',
+            'profession' => 'required|string|max:100',
+            'address' => 'required|string|max:225',
+            'phone_number' => 'required|string|max:25',
+            'email' => 'required|string|max:125',
+            'file_ktp' => 'required|image|mimes:jpeg,png,jpg',
+            'file_pass_photo' => 'required|image|mimes:jpeg,png,jpg',
         ]);
 
         // save image on storage
-        $bannerName = null;
-        if($request->banner != null){
-            $bannerName = time().'.'.$request->banner->extension();
-            $request->banner->storeAs($this->getPathBanner(), $bannerName, ['disk' => 'public']);
+        $fileKtp = null;
+        if($request->file_ktp != null){
+            $fileKtp = $this->generateFileName('ktp', $request->file_ktp->extension());
+            $request->file_ktp->storeAs($this->getPathFileKtp(), $fileKtp, $this->getDiskConfig());
+        }
+
+        $filePassPhoto = null;
+        if($request->file_pass_photo != null){
+            $filePassPhoto = $this->generateFileName('photo', $request->file_pass_photo->extension());
+            $request->file_pass_photo->storeAs($this->getPathFilePassPhoto(), $filePassPhoto, $this->getDiskConfig());
         }
 
         DB::beginTransaction();
         try {
             // create record
-            News::create([
-                'title' => $request->title,
-                'description' => $request->description,
-                'content' => $request->content,
-                'user_id' => Auth::user()->id,
-                'banner' => $bannerName
+            Member::create([
+                'name' => $request->name,
+                'birth_place' => $request->birth_place,
+                'birth_date' => Carbon::parse($request->birth_date)->format(config('constants.DATE.INPUT_DATE')),
+                'gender' => $request->gender,
+                'nik' => $request->nik,
+                'profession' => $request->profession,
+                'address' => $request->address,
+                'phone_number' => $request->phone_number,
+                'email' => $request->email,
+                'file_ktp' => $fileKtp,
+                'file_passport_photo' => $filePassPhoto,
+                'member_status_id' => config('constants.MEMBER.STATUS.APPROVE'),
             ]);
 
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollback();
 
-            $this->deleteBanner($bannerName);
+            $this->deleteFileKtp($fileKtp);
+            $this->deleteFilePassPhoto($filePassPhoto);
 
-            return redirect()->route('news')->with([
+            return redirect()->route('member')->with([
                 'message' => 'Failed create data. Exception : ' . $th->getMessage(),
             ]);
         }
 
-        return redirect()->route('news')->with([
+        return redirect()->route('member')->with([
             'message' => 'Success to create data.',
         ]);
     }
 
-    public function update(Request $request, $newsId)
+    public function update(Request $request, $memberId)
     {
         $validator = Validator::make($request->all(), [
-            'banner' => 'image|mimes:jpeg,png,jpg',
-            'title' => 'required|string|max:191',
-            'description' => 'required|string|max:191',
-            'content' => 'required|string',
+            'name' => 'required|string|max:225',
+            'birth_place' => 'required|string|max:191',
+            'birth_date' => 'required|date',
+            'gender' => 'required',
+            'nik' => 'required|string|max:30',
+            'profession' => 'required|string|max:100',
+            'address' => 'required|string|max:225',
+            'phone_number' => 'required|string|max:25',
+            'email' => 'required|string|max:125',
+            'file_ktp' => 'image|mimes:jpeg,png,jpg',
+            'file_pass_photo' => 'image|mimes:jpeg,png,jpg',
         ]);
 
         // find record data
-        $data = News::find($newsId);
+        $data = Member::find($memberId);
         if(!$data) return redirect()->back()->withInput()->with([
             'error' => 'Data not found.'
         ]);
@@ -153,75 +183,158 @@ class MemberController extends Controller
                         ->withInput();
         }
 
-        $bannerNew = null;
-        $bannerOld = null;
+        $fileKtpNew = null;
+        $fileKtpOld = null;
+        $filePassPhotoNew = null;
+        $filePassPhotoOld = null;
 
         DB::beginTransaction();
         try {
-            // store new file name banner
-            if($request->banner != null){
-                $bannerNew = time().'.'.$request->banner->extension();
+            // store new file name ktp
+            if($request->file_ktp != null){
+                $fileKtpNew = $this->generateFileName('ktp', $request->file_ktp->extension());;
             }
 
-            // update file banner
-            if($bannerNew != null){
-                $bannerOld = $data->banner;
+            // update file ktp
+            if($fileKtpNew != null){
+                $fileKtpOld = $data->file_ktp;
 
                 // update banner file name with the new one
-                $data->banner = $bannerNew;
+                $data->file_ktp = $fileKtpNew;
+            }
+
+            // store new file name pass photo
+            if($request->file_pass_photo != null){
+                $filePassPhotoNew = $this->generateFileName('photo', $request->file_pass_photo->extension());;
+            }
+
+            // update file pass photo
+            if($filePassPhotoNew != null){
+                $filePassPhotoOld = $data->file_pass_photo;
+
+                // update banner file name with the new one
+                $data->file_pass_photo = $filePassPhotoNew;
             }
 
             // do update data
-            $data->title = $request->title;
-            $data->description = $request->description;
-            $data->content = $request->content;
+            $data->name = $request->name;
+            $data->birth_place = $request->birth_place;
+            $data->birth_date = Carbon::parse($request->birth_date)->format(config('constants.DATE.INPUT_DATE'));
+            $data->gender = $request->gender;
+            $data->nik = $request->nik;
+            $data->profession = $request->profession;
+            $data->address = $request->address;
+            $data->phone_number = $request->phone_number;
+            $data->email = $request->email;
             $data->save();
 
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollback();
 
-            return redirect()->route('news')->with([
+            return redirect()->route('member')->with([
                 'message' => 'Failed to update data. Exception: ' . $th->getMessage()
             ]);
         }
 
-        // do update file banner if transaction is success
-        if($bannerNew != null || !empty($bannerNew)){
-            // do store new file banner
-            $request->banner->storeAs($this->getPathBanner(), $bannerNew, ['disk' => 'public']);
+        // do update file ktp if transaction is success
+        if($fileKtpNew != null || !empty($fileKtpNew)){
+            // do store new file ktp
+            $request->file_ktp->storeAs($this->getPathFileKtp(), $fileKtpNew, $this->getDiskConfig());
 
-            // do delete previous file banner if exist
-            $this->deleteBanner($bannerOld);
+            // do delete previous file ktp if exist
+            $this->deleteFileKtp($fileKtpOld);
         }
 
-        return redirect()->route('news')->with([
+        // do update file pass photo if transaction is success
+        if($filePassPhotoNew != null || !empty($filePassPhotoNew)){
+            // do store new file pass photo
+            $request->file_pass_photo->storeAs($this->getPathFilePassPhoto(), $filePassPhotoNew, $this->getDiskConfig());
+
+            // do delete previous file pass photo if exist
+            $this->deleteFilePassPhoto($filePassPhotoOld);
+        }
+
+        return redirect()->route('member')->with([
             'message' => 'Success to update data.'
         ]);
     }
 
     // Others
 
-    private function getPathBanner($fileName = null)
+    private function getStorage()
     {
-        $path = config('constants.STORAGE.PATH.NEWS');
+        return config('constants.STORAGE.DISK.PRIVATE');
+    }
+
+    private function getDiskConfig()
+    {
+        return ['disk' => $this->getStorage()];
+    }
+
+    private function getPathFileKtp($fileName = null)
+    {
+        return $this->getPathFiles(null, config('constants.FILE.MEMBER.KTP'));
+    }
+
+    private function getPathFilePassPhoto($fileName = null)
+    {
+        return $this->getPathFiles(null, config('constants.FILE.MEMBER.PASS_PHOTO'));
+    }
+
+    private function getPathFiles($fileName = null, $type)
+    {
+        $path = '';
+        if($type == config('constants.FILE.MEMBER.KTP')){
+            $path = config('constants.STORAGE.PATH.MEMBER.KTP');
+        }else if($type == config('constants.FILE.MEMBER.PASS_PHOTO')){
+            $path = config('constants.STORAGE.PATH.MEMBER.PASS_PHOTO');
+        }else{
+            $path = config('constants.STORAGE.PATH.MEMBER.DEFAULT');
+        }
 
         return $fileName != null ? $path . '/' . $fileName : $path;
     }
 
-    private function deleteBanner($fileName)
+    private function deleteFile($fileName, $type)
     {
         if($fileName != null || !empty($fileName)){
-            Storage::disk(config('constants.STORAGE.DISK'))->delete($this->getPathBanner($fileName));
+            Storage::disk($this->getStorage())->delete($this->getPathFiles($fileName, $type));
         }
+    }
+
+    private function deleteFileKtp($fileName)
+    {
+        $this->deleteFile($fileName, config('constants.FILE.MEMBER.KTP'));
+    }
+
+    private function deleteFilePassPhoto($fileName)
+    {
+        $this->deleteFile($fileName, config('constants.FILE.MEMBER.PASS_PHOTO'));
+    }
+
+    private function getListGender()
+    {
+        return [
+            'm' => 'Male',
+            'f' => 'Female'
+        ];
+    }
+
+    private function generateFileName($prefix, $fileExtension)
+    {
+        return time().'-'.$prefix.'.'.$fileExtension;
     }
 
     private function _datatable($model)
     {
     	return DataTables::eloquent($model)
         ->addIndexColumn()
-        ->editColumn('created_at', function(News $news) {
-            return $news->created_at->format(config('constants.DATE.DEFAULT'));
+        ->editColumn('created_at', function(Member $member) {
+            return $member->created_at->format(config('constants.DATE.DEFAULT'));
+        })
+        ->addColumn('status', function(Member $query){
+            return $query->memberStatus->name;
         })
         ->make(true);
     }

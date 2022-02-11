@@ -52,7 +52,7 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
         Route::get('create', 'Panel\MemberController@create')->name('member.create');
         Route::post('create', 'Panel\MemberController@store')->name('member.data.create');
         Route::get('{memberId}/edit', 'Panel\MemberController@edit')->name('member.edit');
-        Route::post('{memberId}/edit', 'Panel\MemberController@update')->name('member.data.edit');
+        Route::put('{memberId}/edit', 'Panel\MemberController@update')->name('member.data.edit');
         Route::delete('{memberId}/delete', 'Panel\MemberController@destroy')->name('member.data.delete');
     });
 

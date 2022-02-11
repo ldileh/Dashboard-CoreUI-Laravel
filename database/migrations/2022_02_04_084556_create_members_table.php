@@ -15,7 +15,7 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->integer('member_status_id')->unsigned();
+            $table->integer('member_status_id')->unsigned()->default(config('constants.MEMBER.STATUS.REGISTER'));
             $table->string('name', 225);
             $table->string('birth_place');
             $table->date('birth_date');

@@ -101,7 +101,7 @@ class NewsController extends Controller
         $bannerName = null;
         if($request->banner != null){
             $bannerName = time().'.'.$request->banner->extension();
-            $request->banner->storeAs($this->getPathBanner(), $bannerName, ['disk' => 'public']);
+            $request->banner->storeAs($this->getPathBanner(), $bannerName, $this->getDiskConfig());
         }
 
         DB::beginTransaction();
@@ -189,7 +189,7 @@ class NewsController extends Controller
         // do update file banner if transaction is success
         if($bannerNew != null || !empty($bannerNew)){
             // do store new file banner
-            $request->banner->storeAs($this->getPathBanner(), $bannerNew, ['disk' => 'public']);
+            $request->banner->storeAs($this->getPathBanner(), $bannerNew, $this->getDiskConfig());
 
             // do delete previous file banner if exist
             $this->deleteBanner($bannerOld);
@@ -202,6 +202,16 @@ class NewsController extends Controller
 
     // Others
 
+    private function getStorage()
+    {
+        return config('constants.STORAGE.DISK.DEFAULT');
+    }
+
+    private function getDiskConfig()
+    {
+        return ['disk' => $this->getStorage()];
+    }
+
     private function getPathBanner($fileName = null)
     {
         $path = config('constants.STORAGE.PATH.NEWS');
@@ -212,7 +222,7 @@ class NewsController extends Controller
     private function deleteBanner($fileName)
     {
         if($fileName != null || !empty($fileName)){
-            Storage::disk(config('constants.STORAGE.DISK'))->delete($this->getPathBanner($fileName));
+            Storage::disk($this->getStorage())->delete($this->getPathBanner($fileName));
         }
     }
 
