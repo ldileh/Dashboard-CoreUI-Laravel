@@ -16,6 +16,8 @@
     "/js/custom-tooltips.min.js": "/js/custom-tooltips.min.js",
     "/css/simplemde.min.css": "/css/simplemde.min.css",
     "/js/simplemde.min.js": "/js/simplemde.min.js",
+    "/css/dropzone.min.css": "/css/dropzone.min.css",
+    "/js/dropzone.min.js": "/js/dropzone.min.js",
     "/img/default-user.jpg": "/img/default-user.jpg",
     "/img/ic-profile.png": "/img/ic-profile.png",
     "/img/logo-mini.svg": "/img/logo-mini.svg",

@@ -42,6 +42,12 @@ class AddRelationTables extends Migration
                 $table->foreign('member_status_id', 'fk_member_member_status')->references('id')->on('member_statuses')->onDelete('cascade')->onUpdate('restrict');
             });
         }
+
+        if (Schema::hasTable('product_threads')) {
+            Schema::table('product_threads', function($table) {
+                $table->foreign('product_id', 'fk_product_threads_product')->references('id')->on('products')->onDelete('cascade')->onUpdate('restrict');
+            });
+        }
     }
 
     /**

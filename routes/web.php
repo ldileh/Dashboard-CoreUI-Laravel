@@ -56,6 +56,14 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
         Route::delete('{memberId}/delete', 'Panel\MemberController@destroy')->name('member.data.delete');
     });
 
+    Route::prefix('gallery')->group(function () {
+        Route::get('/', 'Panel\GalleryController@index')->name('member');
+        Route::get('/data', 'Panel\GalleryController@getData')->name('member.data');
+        Route::post('create', 'Panel\GalleryController@store')->name('member.data.create');
+        Route::put('{galleryId}/edit', 'Panel\GalleryController@update')->name('member.data.edit');
+        Route::delete('{galleryId}/delete', 'Panel\GalleryController@destroy')->name('member.data.delete');
+    });
+
 	// Others
 	Route::get('profile', 'Panel\HomeController@profile')->name('profile');
 	Route::post('profile', 'Panel\HomeController@updateProfile')->name('profile.data.edit');
