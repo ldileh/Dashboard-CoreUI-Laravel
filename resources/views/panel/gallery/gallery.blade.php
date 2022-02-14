@@ -1,14 +1,11 @@
 @extends('layouts.app')
 
 @section('extra-css')
-<link rel="stylesheet" type="text/css" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('css/vex.css') }}" />
-<link rel="stylesheet" href="{{ asset('css/vex-theme-os.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('css/dropzone.min.css') }}">
 @endsection
 
 @section('extra-js')
-<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('js/dropzone.min.js') }}"></script>
 @endsection
 
 @section('title', 'News')
@@ -22,21 +19,14 @@
         <div class="card">
             <div class="card-header clearfix">
                 <div class="float-left">
-                    <i class="icon icon-menu"></i> Data News
+                    <i class="icon icon-menu"></i> Data Galleries
                 </div>
-
-                <a class="btn btn-primary btn-sm float-right" href="{{ route('news.create') }}"><i class="fa fa-plus"></i> Create News</a>
             </div>
 
             <div class="card-body">
-                <table id="data-table" class="table table-responsive-sm" style="width:100%">
-                    <thead>
-                        <th width="50">No</th>
-                        <th>Title</th>
-                        <th width="200">Created At</th>
-                        <th width="50" class="text-center">Action</th>
-                    </thead>
-                </table>
+                <form class="dropzone" id="galleries-image" enctype="multipart/form-data">
+                    @csrf
+                </form>
             </div>
         </div>
     </div>
@@ -53,6 +43,70 @@
     // Main Function //
     ///////////////////
     $(function(){
+        // Configuration options go here
+        var dropzone = new Dropzone("#galleries-image", {
+            url: "{{ route('gallery.data.create') }}",
+            method: "post",
+            uploadMultiple : true,
+            paramName : "file",
+            maxFilesize: 10, // MB
+            maxFiles: 5,
+            parallelUploads: 5,
+            addRemoveLinks: true,
+            dictMaxFilesExceeded: "You can only upload upto 5 images",
+            dictRemoveFile: "Delete",
+            dictCancelUploadConfirmation: "Are you sure to cancel upload?",
+            accept: function (file, done) {
+                if ((file.type).toLowerCase() != "image/jpg" &&
+                        (file.type).toLowerCase() != "image/gif" &&
+                        (file.type).toLowerCase() != "image/jpeg" &&
+                        (file.type).toLowerCase() != "image/png"
+                        ) {
+                    done("Invalid file");
+                }
+                else {
+                    done();
+                }
+            },
+            removedfile: function(file){
+                //showLoading();
+
+                axios.delete("{{ url('panel/gallery') }}/" + file.id + "/delete")
+                    .then(function (response) {
+
+                    })
+                    .catch(function (error) {
+
+                    });
+
+                var _ref;
+                return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+            }
+        });
+
+        axios.get("{{ url('panel/gallery/data') }}/")
+            .then(function (response) {
+                if(response.status == 200){
+                    let data = response.data.data;
+
+                    if(data != null){
+                        for (let i = 0; i < data.length; i++) {
+                            const item = data[i];
+                            const fileId = item.id;
+                            const fileName = item.image;
+                            const fileSize = item.size;
+                            const filePath = item.pathFile + "/" + fileName;
+                            const emitFile = { id: fileId, name: fileName, size: fileSize };
+
+                            dropzone.displayExistingFile(emitFile, filePath);
+                            dropzone.files.push(emitFile)
+                        }
+                    }
+                }
+            })
+            .catch(function (error) {
+
+            });
 
         ////////////
         // Events //

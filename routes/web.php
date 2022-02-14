@@ -57,11 +57,10 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
     });
 
     Route::prefix('gallery')->group(function () {
-        Route::get('/', 'Panel\GalleryController@index')->name('member');
-        Route::get('/data', 'Panel\GalleryController@getData')->name('member.data');
-        Route::post('create', 'Panel\GalleryController@store')->name('member.data.create');
-        Route::put('{galleryId}/edit', 'Panel\GalleryController@update')->name('member.data.edit');
-        Route::delete('{galleryId}/delete', 'Panel\GalleryController@destroy')->name('member.data.delete');
+        Route::get('/', 'Panel\GalleryController@index')->name('gallery');
+        Route::get('/data', 'Panel\GalleryController@getData')->name('gallery.data');
+        Route::post('create', 'Panel\GalleryController@store')->name('gallery.data.create');
+        Route::delete('{galleryId}/delete', 'Panel\GalleryController@destroy')->name('gallery.data.delete');
     });
 
 	// Others

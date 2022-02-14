@@ -14,5 +14,8 @@
       <a class="nav-link" href="{{ route('member') }}">
 	    <i class="nav-icon icon-people"></i> Members
 	  </a>
+      <a class="nav-link" href="{{ route('gallery') }}">
+	    <i class="nav-icon icon-book-open"></i> Gallery
+	  </a>
 	</li>
 </ul>
