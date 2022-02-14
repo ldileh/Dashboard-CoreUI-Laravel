@@ -65,7 +65,7 @@
     </div>
     <footer class="app-footer">
       <div>
-        <a href="https://ldileh.blogspot.com">KPAM Company Profile</a>
+        <a href="{{url('')}}">KPAM Company Profile</a>
         <span>&copy; 2022 KPAM.</span>
       </div>
     </footer>

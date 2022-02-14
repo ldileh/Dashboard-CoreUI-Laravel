@@ -11,10 +11,10 @@
 |
 */
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('outside.index');
 });
 
 // Panel route
