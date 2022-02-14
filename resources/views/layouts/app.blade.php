@@ -65,8 +65,8 @@
     </div>
     <footer class="app-footer">
       <div>
-        <a href="https://ldileh.blogspot.com">Project</a>
-        <span>&copy; 2018 ldileh.</span>
+        <a href="https://ldileh.blogspot.com">KPAM Company Profile</a>
+        <span>&copy; 2022 KPAM.</span>
       </div>
     </footer>
 

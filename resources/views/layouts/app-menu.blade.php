@@ -9,10 +9,10 @@
 	  </a>
 	  @endif
 	  <a class="nav-link" href="{{ route('news') }}">
-	    <i class="nav-icon icon-menu"></i> News
+	    <i class="nav-icon icon-notebook"></i> News
 	  </a>
       <a class="nav-link" href="{{ route('member') }}">
-	    <i class="nav-icon icon-people"></i> Members
+	    <i class="nav-icon icon-organization"></i> Members
 	  </a>
       <a class="nav-link" href="{{ route('gallery') }}">
 	    <i class="nav-icon icon-book-open"></i> Gallery
