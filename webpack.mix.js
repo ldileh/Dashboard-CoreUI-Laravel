@@ -51,4 +51,5 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .copy('node_modules/dropzone/dist/dropzone-min.js.map', 'public/js/dropzone.min.js.map')
 	.copyDirectory('resources/assets/img', 'public/img')
 	.copyDirectory('resources/assets/flags', 'public/flags')
-	.copyDirectory('resources/assets/fonts', 'public/fonts');
+	.copyDirectory('resources/assets/fonts', 'public/fonts')
+    .copyDirectory('resources/assets/site', 'public/site');

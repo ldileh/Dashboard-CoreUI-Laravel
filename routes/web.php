@@ -13,10 +13,6 @@
 
 Auth::routes(['register' => false]);
 
-Route::get('/', function () {
-    return view('outside.index');
-});
-
 // Panel route
 Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], function() {
     // home
@@ -68,3 +64,25 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
 	Route::post('profile', 'Panel\HomeController@updateProfile')->name('profile.data.edit');
 });
 
+Route::group([], function () {
+    Route::get('/', 'Site\SiteController@index')->name('site');
+    Route::get('contact', 'Site\SiteController@contact')->name('site.contact');
+
+    // News
+    Route::prefix('news')->group(function () {
+        Route::get('/', 'Site\SiteController@news')->name('site.news');
+        Route::get('detail/{newsId}', 'Site\SiteController@newsDetail')->name('site.news.detail');
+    });
+
+    Route::prefix('organization')->group(function () {
+        Route::get('profile', 'Site\SiteController@organizationProfile')->name('site.organization.profile');
+        Route::get('rule', 'Site\SiteController@organizationRule')->name('site.organization.rule');
+        Route::get('report', 'Site\SiteController@organizationReport')->name('site.organization.report');
+    });
+
+    Route::prefix('members')->group(function () {
+        Route::get('list', 'Site\SiteController@memberList')->name('site.member.list');
+        Route::get('register', 'Site\SiteController@memberRegister')->name('site.member.register');
+        Route::get('constribution', 'Site\SiteController@memberConstribution')->name('site.member.constribution');
+    });
+});
