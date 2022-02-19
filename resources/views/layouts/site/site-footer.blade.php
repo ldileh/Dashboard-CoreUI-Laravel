@@ -1,3 +1,6 @@
+@php
+    $socialMedia = \App\Helpers\ConfigSiteHelper::instance()->headerSocialMedia();
+@endphp
 
 <!-- Start Footer Area -->
 <section class="footer-area" style="background-color: #006633; padding-top:60px;">
@@ -37,15 +40,14 @@
                             </div>
                             <div class="single-footer-widget">
                                 <ul class="social">
-                                    {{-- @foreach($socialMedias as $socialMedia)
+                                    @foreach($socialMedia as $item)
                                         <li class="facebook">
-                                            <a href="{{ $socialMedia->url?? '#' }}" name="{{$socialMedia->name}}">
-                                                <i class="{{ $socialMedia->icon }}" aria-hidden="true"></i>
+                                            <a href="{{ $item['url'] }}" name="{{$item['name']}}">
+                                                <i class="{{ $item['icon'] }}" aria-hidden="true"></i>
                                             </a>
                                         </li>
-                                    @endforeach --}}
+                                    @endforeach
                                 </ul>
-
                             </div>
                         </div>
                     </div>
