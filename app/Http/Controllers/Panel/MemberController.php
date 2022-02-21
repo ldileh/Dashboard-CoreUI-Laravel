@@ -99,6 +99,7 @@ class MemberController extends Controller
             'gender' => 'required',
             'nik' => 'required|string|max:30',
             'profession' => 'required|string|max:100',
+            'komunitas_adat' => 'required|string|max:225',
             'address' => 'required|string|max:225',
             'phone_number' => 'required|string|max:25',
             'email' => 'required|string|max:125',
@@ -129,6 +130,7 @@ class MemberController extends Controller
                 'gender' => $request->gender,
                 'nik' => $request->nik,
                 'profession' => $request->profession,
+                'komunitas_adat' => $request->komunitas_adat,
                 'address' => $request->address,
                 'phone_number' => $request->phone_number,
                 'email' => $request->email,
@@ -163,6 +165,7 @@ class MemberController extends Controller
             'gender' => 'required',
             'nik' => 'required|string|max:30',
             'profession' => 'required|string|max:100',
+            'komunitas_adat' => 'required|string|max:225',
             'address' => 'required|string|max:225',
             'phone_number' => 'required|string|max:25',
             'email' => 'required|string|max:125',
@@ -223,6 +226,7 @@ class MemberController extends Controller
             $data->gender = $request->gender;
             $data->nik = $request->nik;
             $data->profession = $request->profession;
+            $data->komunitas_adat = $request->komunitas_adat;
             $data->address = $request->address;
             $data->phone_number = $request->phone_number;
             $data->email = $request->email;

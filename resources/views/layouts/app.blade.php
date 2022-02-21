@@ -21,6 +21,15 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link rel="icon" href="{{ asset('img/icon.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144"
+        href="{{asset('site/images/ico/apple-touch-icon-precomposed.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114"
+        href="{{asset('site/images/ico/apple-touch-icon-114-precomposed.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72"
+        href="{{asset('site/images/ico/apple-touch-icon-72-precomposed.png') }}">
+    <link rel="apple-touch-icon" sizes="57x57"
+        href="{{asset('site/images/ico/apple-touch-icon-57-precomposed.png') }}">
   </head>
   <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
     <div id="loading">

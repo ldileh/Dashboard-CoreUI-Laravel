@@ -6,7 +6,7 @@
             <div class="page-title-area">
                 <div class="container">
                     <div class="page-title-content">
-                        <h2>{{__('contact_us')}}</h2>
+                        <h2>{{__('Hubungi Kami')}}</h2>
                     </div>
                 </div>
             </div>
@@ -18,32 +18,32 @@
                             <div class="sg-section">
                                 <div class="section-content">
                                     <div class="section-title">
-                                        <h1>{{ __('send_a_message') }}</h1>
+                                        <h1>{{ __('Kirim Pesan') }}</h1>
                                     </div><!-- /.section-title -->
-                                    <form class="contact-form" name="contact-form" method="post" action="{{ route('site.contact')}}">
+                                    <form class="contact-form" name="contact-form" method="post" action="{{ route('site.contact.send')}}">
                                         @csrf
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="form-group">
-                                                    <label for="one">{{ __('name') }} *</label>
-                                                    <input type="text" class="form-control" name="name" id="one" placeholder="{{__('input_user')}}">
+                                                    <label for="one">{{ __('Nama') }} *</label>
+                                                    <input type="text" class="form-control" name="name" id="one" placeholder="{{__('Input Nama')}}" maxlength="225">
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-group">
-                                                    <label for="two">{{ __('email') }} *</label>
-                                                    <input type="email" class="form-control" name="email" id="two" placeholder="{{__('input_email')}}">
+                                                    <label for="two">{{ __('Email') }} *</label>
+                                                    <input type="email" class="form-control" name="email" id="two" placeholder="{{__('Input Email')}}" maxlength="191">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="four">{{ __('message') }} *</label>
-                                                    <textarea name="message" class="form-control" rows="7" id="four" placeholder="{{__('input_message')}}"></textarea>
+                                                    <label for="four">{{ __('Pesan') }} *</label>
+                                                    <textarea name="message" class="form-control" rows="7" id="four" placeholder="{{__('Input Pesan')}}" maxlength="225"></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">{{ __('submit_now') }}</button>
+                                            <button type="submit" class="btn btn-primary">{{ __('Kirimkan Sekarang') }}</button>
                                         </div>
                                     </form>
                                 </div><!-- /.section-content -->

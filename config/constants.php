@@ -8,6 +8,8 @@ return [
 		],
 	],
 
+    'EMAIL' => 'ldileh@gmail.com',
+
     'MEMBER' => [
         'STATUS' => [
             'REGISTER' => 1,

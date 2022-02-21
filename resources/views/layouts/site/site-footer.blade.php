@@ -1,5 +1,5 @@
 @php
-    $socialMedia = \App\Helpers\ConfigSiteHelper::instance()->headerSocialMedia();
+    $socialMedia = \App\Helpers\ConfigSiteHelper::instance()->footerSocialMedia();
 @endphp
 
 <!-- Start Footer Area -->
@@ -13,7 +13,7 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <a href="{{ route('site') }}">
-                                        <img src="{{ asset('img/kpam-logo.png') }}" width="100%" alt="Logo">
+                                        <img src="{{ asset('img/kpam-logo-medium.png') }}" width="100%" alt="Logo">
                                     </a>
                                 </div>
                             </div>

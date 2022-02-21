@@ -22,6 +22,7 @@ class CreateMembersTable extends Migration
             $table->enum('gender', ['m', 'f']);
             $table->string('nik', 30);
             $table->string('profession', 100);
+            $table->string('komunitas_adat', 225);
             $table->string('address', 225);
             $table->string('phone_number', 25);
             $table->string('email', 125);

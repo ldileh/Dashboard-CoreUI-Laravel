@@ -66,7 +66,11 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
 
 Route::group([], function () {
     Route::get('/', 'Site\SiteController@index')->name('site');
-    Route::get('contact', 'Site\SiteController@contact')->name('site.contact');
+
+    Route::prefix('contact')->group(function () {
+        Route::get('/', 'Site\SiteController@contact')->name('site.contact');
+        Route::post('/', 'Site\SiteController@sendMail')->name('site.contact.send');
+    });
 
     // News
     Route::prefix('news')->group(function () {
@@ -83,6 +87,7 @@ Route::group([], function () {
     Route::prefix('members')->group(function () {
         Route::get('list', 'Site\SiteController@memberList')->name('site.member.list');
         Route::get('register', 'Site\SiteController@memberRegister')->name('site.member.register');
+        Route::post('register', 'Site\SiteController@saveDataMember')->name('site.member.register.data');
         Route::get('constribution', 'Site\SiteController@memberConstribution')->name('site.member.constribution');
     });
 });

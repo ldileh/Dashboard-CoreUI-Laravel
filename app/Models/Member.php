@@ -10,7 +10,7 @@ class Member extends Model
     use HasFactory;
 
     protected $fillable = [
-        'member_status_id', 'name', 'birth_place', 'birth_date', 'gender', 'nik', 'profession', 'address', 'phone_number', 'email', 'file_ktp', 'file_passport_photo'
+        'member_status_id', 'name', 'birth_place', 'birth_date', 'gender', 'nik', 'profession', 'komunitas_adat', 'address', 'phone_number', 'email', 'file_ktp', 'file_passport_photo'
     ];
 
     // Relations

@@ -113,6 +113,19 @@
                     </div>
 
                     <div class="form-group row">
+                        <label class="col-md-3 col-form-label is-required" for="input-komunitas_adat">{{ __('Komunitas Adat') }}</label>
+                        <div class="col-md-9">
+                            <input type="text" name="komunitas_adat" class="form-control" id="input-komunitas_adat" value="{{ old('komunitas_adat') ? old('komunitas_adat') : $data->komunitas_adat }}">
+
+                            @if ($errors->has('komunitas_adat'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('komunitas_adat') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label class="col-md-3 col-form-label is-required" for="input-address">{{ __('Address') }}</label>
                         <div class="col-md-9">
                             <textarea name="address" id="input-address" class="form-control">{{ old('address') ? old('address') : $data->address }}</textarea>

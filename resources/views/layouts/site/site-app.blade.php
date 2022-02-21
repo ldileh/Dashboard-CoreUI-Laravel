@@ -106,7 +106,7 @@
                 rel="stylesheet">
         </noscript>
 
-        {{-- <link rel="icon" href="{{asset(settingHelper('favicon')) }}"> --}}
+        <link rel="icon" href="{{ asset('img/icon.png') }}">
         <link rel="apple-touch-icon" sizes="144x144"
             href="{{asset('site/images/ico/apple-touch-icon-precomposed.png') }}">
         <link rel="apple-touch-icon" sizes="114x114"
