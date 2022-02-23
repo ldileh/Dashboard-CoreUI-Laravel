@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Mail\Contact as ContactMail;
+use App\Models\Gallery;
+use App\Models\News;
 use App\Models\Member;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Carbon;
-
-use App\Mail\Contact as ContactMail;
 use Illuminate\Support\Facades\Mail;
+use Carbon;
 
 class SiteController extends Controller
 {
@@ -19,7 +20,16 @@ class SiteController extends Controller
 
     public function index()
     {
-        return view('site.index');
+        $newsBanner = News::take(5)->get();
+        $newsBannerTop5 = News::take(5)->get();
+        $galleryTop5 = Gallery::take(5)->get();
+
+        return view('site.index')->with([
+            'newsBanner' => $newsBanner,
+            'newsSideRight' => $newsBannerTop5->take(2),
+            'newsSideLeft' => $newsBannerTop5->take(3),
+            'galleryTop5' => $galleryTop5,
+        ]);
     }
 
     public function news()

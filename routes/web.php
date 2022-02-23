@@ -52,11 +52,17 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
         Route::delete('{memberId}/delete', 'Panel\MemberController@destroy')->name('member.data.delete');
     });
 
+    // Gallery
     Route::prefix('gallery')->group(function () {
         Route::get('/', 'Panel\GalleryController@index')->name('gallery');
-        Route::get('/data', 'Panel\GalleryController@getData')->name('gallery.data');
-        Route::post('create', 'Panel\GalleryController@store')->name('gallery.data.create');
+        Route::get('create', 'Panel\GalleryController@create')->name('gallery.create');
+        Route::get('detail/{galleryId}', 'Panel\GalleryController@gallery')->name('gallery.detail');
+        Route::get('data', 'Panel\GalleryController@getData')->name('gallery.data');
+        Route::get('{galleryId}/data', 'Panel\GalleryController@getDataDetail')->name('gallery.data.detail');
+        Route::post('{galleryId}/create', 'Panel\GalleryController@store')->name('gallery.data.create');
+        Route::post('create', 'Panel\GalleryController@storeNewGallery')->name('gallery.data.create.new');
         Route::delete('{galleryId}/delete', 'Panel\GalleryController@destroy')->name('gallery.data.delete');
+        Route::delete('{galleryId}/{galleryDetailId}/delete', 'Panel\GalleryController@destroyImage')->name('gallery.data.delete.detail');
     });
 
 	// Others

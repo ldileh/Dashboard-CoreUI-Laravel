@@ -1,3 +1,7 @@
+@php
+    $socialMedia = \App\Helpers\ConfigSiteHelper::instance()->socialMedia();
+@endphp
+
 @extends('layouts.site.site-app')
 
 @section('style')
@@ -41,36 +45,47 @@
         <div class="row">
             <div class="col-lg-8">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    @if (!empty($newsBanner))
+                    @php
+                        $newsFirst = $newsBanner->first();
+                        $newsEnd = $newsBanner->last();
+                    @endphp
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide-to="0"  class="active"
+                        @if ($newsFirst != null)
+                        <button
+                            type="button"
+                            data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide-to="0"
+                            class="active"
                             aria-current="true"
-                            aria-label="Desa pertanian dan koperasi di Israel"></button>
+                            aria-label="{{ $newsFirst->title }}"></button>
+                        @endif
 
-                        <button type="button" data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide-to="1"  aria-current="true"
-                            aria-label="Membangun koperasi dengan sederhana"></button>
+                        @if ($newsEnd != null)
+                        <button
+                            type="button"
+                            data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide-to="{{ $newsBanner->count() - 1 }}"
+                            aria-current="true"
+                            aria-label="{{ $newsEnd->title }}"></button>
+                        @endif
                     </div>
+                    @endif
 
                     {{-- List news header banner --}}
                     <div class="carousel-inner">
-                        <div class="carousel-item active ">
+                        @foreach ($newsBanner as $item)
+                        <div class="carousel-item {{ $item->index == 0 ? 'active' : '' }}">
                             <div class="single-main-news">
-                                <a href="http://dev.kpam.online/story/Berita">
-                                    <img src="http://dev.kpam.online/default-image/default-1080x1000.png" data-original="http://dev.kpam.online/images/20210625073618_big_1080x1000_49.webp " alt="Desa pertanian dan koperasi di Israel">
+                                <a href="{{ route('site.news.detail', $item->id) }}">
+                                    <img src="{{ asset('storage/images/news/' . $item->banner) }}" data-original="{{ asset('storage/images/news/' . $item->banner) }}" alt="{{ $item->title }}">
                                 </a>
                             </div>
                         </div>
-
-                        <div class="carousel-item">
-                            <div class="single-main-news">
-                                <a href="http://dev.kpam.online/story/membangun-koperasi-dengan-sederhana">
-                                    <img src="http://dev.kpam.online/default-image/default-1080x1000.png " data-original="http://dev.kpam.online/images/20211208123216_big_1080x1000_21.webp " alt="Membangun koperasi dengan sederhana">
-                                </a>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
 
+                    @if (!empty($newsBanner))
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
@@ -79,6 +94,7 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
+                    @endif
                 </div>
             </div>
 
@@ -194,182 +210,62 @@
                         <div class="row">
                             {{-- Section news 2 top --}}
                             <div class="col-lg-4">
+                                @foreach ($newsSideRight as $item)
                                 <div class="single-most-popular-news">
                                     <div class="popular-news-image">
-                                        <a href="http://dev.kpam.online/story/duduk-manis-di-pangkuan-kapitalisme">
+                                        <a href="{{ route('site.news.detail', $item->id) }}">
                                             <img
-                                                src="http://dev.kpam.online/default-image/default-358x215.png "
-                                                data-original=" http://dev.kpam.online/images/20211220105634_medium_358x215_24.webp "
-                                                class="img-fluid" alt="Duduk manis di pangkuan kapitalisme">
+                                                src="{{ asset('storage/images/news/' . $item->banner) }}"
+                                                data-original="{{ asset('storage/images/news/' . $item->banner) }}"
+                                                class="img-fluid" alt="{{ $item->title }}">
                                         </a>
                                     </div>
 
                                     <div class="popular-news-content">
-                                        <span><a href="http://dev.kpam.online/category/berita">Berita</a></span>
+                                        <span><a href="{{ route('site.news') }}">Berita</a></span>
 
                                         <h3 style="margin: 0px !important;">
-                                            <a href="http://dev.kpam.online/story/duduk-manis-di-pangkuan-kapitalisme">
-                                                Duduk manis di pangkuan k...
+                                            <a href="{{ route('site.news.detail', $item->id) }}">
+                                                {{ $item->title }}
                                             </a>
                                         </h3>
 
-                                        <p><a href="http://dev.kpam.online/author-profile/2">admin</a> / <a href="http://dev.kpam.online/date/2021-12-20"> 20 December 2021</a></p>
+                                        <p><a href="{{ url('#') }}">{{ $item->creator->name }}</a> / <a href="{{ url('#') }}"> {{ $item->created_at->format(config('constants.DATE.DEFAULT')) }}</a></p>
                                     </div>
                                 </div>
-
-                                <div class="single-most-popular-news">
-                                    <div class="popular-news-image">
-                                        <a href="http://dev.kpam.online/story/Berita">
-                                            <img
-                                                src="http://dev.kpam.online/default-image/default-358x215.png "
-                                                data-original=" http://dev.kpam.online/images/20210625073618_medium_358x215_16.webp "
-                                                class="img-fluid" alt="Desa pertanian dan koperasi di Israel">
-                                        </a>
-                                    </div>
-
-                                    <div class="popular-news-content">
-                                        <span><a href="http://dev.kpam.online/category/berita">Berita</a></span>
-                                        <h3 style="margin: 0px !important;">
-                                            <a href="http://dev.kpam.online/story/Berita">
-                                                Desa pertanian dan kopera...
-                                            </a>
-                                        </h3>
-                                        <p>
-                                            <a href="http://dev.kpam.online/author-profile/2">admin</a> / <a href="http://dev.kpam.online/date/2021-12-08"> 8 December 2021</a>
-                                        </p>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
 
                             {{-- Section news others --}}
                             <div class="col-lg-8">
+                                @foreach ($newsSideLeft as $item)
                                 <div class="most-popular-post">
                                     <div class="row align-items-center">
                                         <div class="col-lg-4 col-sm-4">
                                             <div class="post-image">
-                                                <a href="http://dev.kpam.online/story/membangun-koperasi-dengan-sederhana">
+                                                <a href="{{ route('site.news.detail', $item->id) }}">
                                                     <img
-                                                        src="http://dev.kpam.online/default-image/default-358x215.png "
-                                                        data-original=" http://dev.kpam.online/images/20211208123216_medium_358x215_22.webp "
-                                                        class="img-fluid" alt="Membangun koperasi dengan sederhana">
+                                                        src="{{ asset('storage/images/news/' . $item->banner) }}"
+                                                        data-original="{{ asset('storage/images/news/' . $item->banner) }}"
+                                                        class="img-fluid" alt="{{ $item->title }}">
                                                 </a>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-8 col-sm-8">
                                             <div class="post-content">
-                                                <span><a
-                                                        href="http://dev.kpam.online/category/berita">Berita</a></span>
+                                                <span><a href="{{ route('site.news') }}">Berita</a></span>
                                                 <h3 style="margin: 0px !important;">
-                                                    <a href="http://dev.kpam.online/story/membangun-koperasi-dengan-sederhana">
-                                                        Membangun koperasi dengan sederhana
+                                                    <a href="{{ route('site.news.detail', $item->id) }}">
+                                                        {{ $item->title }}
                                                     </a>
                                                 </h3>
-                                                <p>
-                                                    <a href="http://dev.kpam.online/author-profile/1">ABDULAH</a>
-                                                    / <a
-                                                        href="http://dev.kpam.online/date/2021-12-08"> December 8, 2021</a>
-                                                </p>
+                                                <p><a href="{{ url('#') }}">{{ $item->creator->name }}</a> / <a href="{{ url('#') }}"> {{ $item->created_at->format(config('constants.DATE.DEFAULT')) }}</a></p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="most-popular-post">
-                                    <div class="row align-items-center">
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="post-image">
-                                                <a href="http://dev.kpam.online/story/metamorfosa-sempurna-oligarkhi">
-                                                    <img
-                                                        src="http://dev.kpam.online/default-image/default-358x215.png "
-                                                        data-original=" http://dev.kpam.online/images/20211220104100_medium_358x215_10.webp "
-                                                        class="img-fluid" alt="Metamorfosa sempurna OLIGARKHI">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-8 col-sm-8">
-                                            <div class="post-content">
-                                                <span><a
-                                                        href="http://dev.kpam.online/category/berita">Berita</a></span>
-                                                <h3 style="margin: 0px !important;">
-                                                    <a href="http://dev.kpam.online/story/metamorfosa-sempurna-oligarkhi">
-                                                        Metamorfosa sempurna OLIGARKHI
-                                                    </a>
-                                                </h3>
-                                                <p>
-                                                    <a href="http://dev.kpam.online/author-profile/1">ABDULAH</a>
-                                                    / <a
-                                                        href="http://dev.kpam.online/date/2021-12-20"> December 20, 2021</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="most-popular-post">
-                                    <div class="row align-items-center">
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="post-image">
-                                                <a href="http://dev.kpam.online/story/utang">
-                                                    <img
-                                                    src="http://dev.kpam.online/default-image/default-358x215.png "
-                                                    data-original=" http://dev.kpam.online/images/20211220103350_medium_358x215_27.webp "
-                                                    class="img-fluid" alt="Utang">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-8 col-sm-8">
-                                            <div class="post-content">
-                                                <span><a
-                                                        href="http://dev.kpam.online/category/berita">Berita</a></span>
-                                                <h3 style="margin: 0px !important;">
-                                                    <a href="http://dev.kpam.online/story/utang">
-                                                        Utang
-                                                    </a>
-                                                </h3>
-                                                <p>
-                                                    <a href="http://dev.kpam.online/author-profile/1">ABDULAH</a>
-                                                    / <a
-                                                        href="http://dev.kpam.online/date/2021-12-20"> December 20, 2021</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="most-popular-post">
-                                    <div class="row align-items-center">
-                                        <div class="col-lg-4 col-sm-4">
-                                            <div class="post-image">
-                                                <a href="http://dev.kpam.online/story/tanah-di-wilayah-adat-kalang-maghit-bukan-aset-pemda-manggarai-timur">
-                                                    <img
-                                                        src="http://dev.kpam.online/default-image/default-358x215.png "
-                                                        data-original=" http://dev.kpam.online/images/20210616131138_medium_358x215_12.webp "
-                                                        class="img-fluid" alt="Tanah di Wilayah Adat Kalang Maghit Bukan Aset Pemda Manggarai Timur">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-8 col-sm-8">
-                                            <div class="post-content">
-                                                <span><a
-                                                        href="http://dev.kpam.online/category/berita">Berita</a></span>
-                                                <h3 style="margin: 0px !important;">
-                                                    <a href="http://dev.kpam.online/story/tanah-di-wilayah-adat-kalang-maghit-bukan-aset-pemda-manggarai-timur">
-                                                        Tanah di Wilayah Adat Kalang Maghit Buka...
-                                                    </a>
-                                                </h3>
-                                                <p>
-                                                    <a href="http://dev.kpam.online/author-profile/1">ABDULAH</a>
-                                                    / <a
-                                                        href="http://dev.kpam.online/date/2021-06-16"> June 16, 2021</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -501,126 +397,32 @@
                             <div class="owl-stage-outer">
                                 {{-- Section Galery items --}}
                                 <div class="owl-stage">
+                                    @foreach ($galleryTop5 as $item)
+                                    @if (!$item->images()->get()->isEmpty())
+                                    @php
+                                        $firstImage = $item->images()->first();
+                                    @endphp
                                     <div class="owl-item">
                                         <div class="video-item">
                                             <div class="video-news-image">
-                                                <a href="http://dev.kpam.online/album-gallery/kerajinan-rotan">
-                                                                                            <img src="http://dev.kpam.online/images/20211208120148_galleryImage_big19.jpg"/>
-                                                                                    </a>
-                                            </div>
-                                            <div class="video-news-content">
-                                                <h3>
-                                                    <a href="http://dev.kpam.online/album-gallery/kerajinan-rotan">Kerajinan Rotan</a>
-                                                </h3>
-                                                <span>20 December 2021</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="owl-item">
-                                        <div class="video-item">
-                                            <div class="video-news-image">
-                                                <a href="http://dev.kpam.online/album-gallery/kunjungan">
-                                                                                            <img src="http://dev.kpam.online/images/20210920134332_galleryImage_big42.jpg"/>
-                                                                                    </a>
-                                            </div>
-                                            <div class="video-news-content">
-                                                <h3>
-                                                    <a href="http://dev.kpam.online/album-gallery/kunjungan">Kunjungan</a>
-                                                </h3>
-                                                <span>20 September 2021</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="owl-item">
-                                        <div class="video-item">
-                                            <div class="video-news-image">
-                                                <a href="http://dev.kpam.online/album-gallery/panen-kopi">
-                                                                                            <img src="http://dev.kpam.online/images/20211219211826_galleryImage_big5.jpg"/>
-                                                                                    </a>
-                                            </div>
-                                            <div class="video-news-content">
-                                                <h3>
-                                                    <a href="http://dev.kpam.online/album-gallery/panen-kopi">Panen Kopi</a>
-                                                </h3>
-                                                <span>19 December 2021</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="owl-item">
-                                        <div class="video-item">
-                                            <div class="video-news-image">
-                                                <a href="http://dev.kpam.online/album-gallery/petani-kopi">
-                                                                                            <img src="http://dev.kpam.online/images/20211219212054_galleryImage_big31.jpg"/>
-                                                                                    </a>
-                                            </div>
-                                            <div class="video-news-content">
-                                                <h3>
-                                                    <a href="http://dev.kpam.online/album-gallery/petani-kopi">Petani Kopi</a>
-                                                </h3>
-                                                <span>19 December 2021</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="owl-item">
-                                        <div class="video-item">
-                                            <div class="video-news-image">
-                                                <a href="http://dev.kpam.online/album-gallery/pameran-gerai-nusantara">
-                                                                                            <img src="http://dev.kpam.online/images/20211219212529_galleryImage_big19.jpg"/>
-                                                                                    </a>
-                                            </div>
-                                            <div class="video-news-content">
-                                                <h3>
-                                                    <a href="http://dev.kpam.online/album-gallery/pameran-gerai-nusantara">Pameran Gerai Nusantara</a>
-                                                </h3>
-                                                <span>19 December 2021</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="owl-item">
-                                        <div class="video-item">
-                                            <div class="video-news-image">
-                                                <a href="http://dev.kpam.online/album-gallery/kunjungan-damannas">
-                                                                                            <img src="http://dev.kpam.online/images/20211219212804_galleryImage_big1.jpg"/>
-                                                                                    </a>
-                                            </div>
-                                            <div class="video-news-content">
-                                                <h3>
-                                                    <a href="http://dev.kpam.online/album-gallery/kunjungan-damannas">Kunjungan DAMANNAS</a>
-                                                </h3>
-                                                <span>19 December 2021</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="owl-item">
-                                        <div class="video-item">
-                                            <div class="video-news-image">
-                                                <a href="http://dev.kpam.online/album-gallery/nusantara-Indigenous-Coffee">
-                                                                                            <img src="http://dev.kpam.online/images/20211219212936_galleryImage_big49.jpg"/>
-                                                                                    </a>
-                                            </div>
-                                            <div class="video-news-content">
-                                                <h3>
-                                                    <a href="http://dev.kpam.online/album-gallery/nusantara-Indigenous-Coffee">Nusantara Indigenous Coffee</a>
-                                                </h3>
-                                                <span>20 December 2021</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="owl-item">
-                                        <div class="video-item">
-                                            <div class="video-news-image">
-                                                <a href="http://dev.kpam.online/album-gallery/tenun">
-                                                    <img src="http://dev.kpam.online/images/20211219213836_galleryImage_big3.jpg"/>
+                                                <a href="{{ route('site') }}">
+                                                    @if ($firstImage != null)
+                                                    <img src="{{ asset('storage/images/gallery' . $firstImage->image) }}"/>
+                                                    @else
+                                                    <img src=""/>
+                                                    @endif
                                                 </a>
                                             </div>
                                             <div class="video-news-content">
                                                 <h3>
-                                                    <a href="http://dev.kpam.online/album-gallery/tenun">Tenun</a>
+                                                    <a href="{{ route('site') }}">{{ $item->name }}</a>
                                                 </h3>
-                                                <span>19 December 2021</span>
+                                                <span>{{ $item->created_at->format(config('constants.DATE.DEFAULT')) }}</span>
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
+                                    @endforeach
                                 </div>
                             </div>
 
@@ -630,7 +432,7 @@
                             </div>
                             <div class="owl-dots disabled"></div>
                             <div class="text-right" style="padding:15px 0px; text-align: right">
-                                <a href="http://dev.kpam.online/albums" class="btn btn-primary">Lihat Semua Galeri</a>
+                                <a href="{{ route('site') }}" class="btn btn-primary">Lihat Semua Galeri</a>
                             </div>
                         </div>
                     </div>
@@ -654,54 +456,16 @@
                             <h3 class="section-title">Tetap Terhubung</h3>
                             {{-- Section social medias --}}
                             <ul class="stay-connected-list">
+                                @foreach ($socialMedia as $item)
                                 <li class="facebook">
-                                    <a href="#" style="background:#056ED8" name="Facebook">
-                                        <span style="background:#0061C2">
-                                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                                    <a href="#" style="background:{{ $item['color'] }}" name="{{ $item['name'] }}">
+                                        <span style="background:{{ $item['color'] }}">
+                                            <i class="{{ $item['icon'] }}" aria-hidden="true"></i>
                                         </span>
-                                        Facebook
+                                        {{ $item['name'] }}
                                     </a>
                                 </li>
-                                <li class="facebook">
-                                    <a href="#" style="background:#E50017" name="Youtube">
-                                        <span style="background:#FE031C">
-                                            <i class="fa fa-youtube-play" aria-hidden="true"></i>
-                                        </span>
-                                        Youtube
-                                    </a>
-                                </li>
-                                <li class="facebook">
-                                    <a href="#" style="background:#349AFF" name="Twitter">
-                                        <span style="background:#2391FF">
-                                            <i class="fa fa-twitter" aria-hidden="true"></i>
-                                        </span>
-                                        Twitter
-                                    </a>
-                                </li>
-                                <li class="facebook">
-                                    <a href="#" style="background:#349affd9" name="Linkedin">
-                                        <span style="background:#349AFF">
-                                            <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                        </span>
-                                        Linkedin
-                                    </a>
-                                </li>
-                                <li class="facebook">
-                                    <a href="#" style="background:#4BA3FC" name="Skype">
-                                        <span style="background:#4ba3fcd9">
-                                            <i class="fa fa-skype" aria-hidden="true"></i>
-                                        </span>
-                                        Skype
-                                    </a>
-                                </li>
-                                <li class="facebook">
-                                    <a href="#" style="background:#c2000dd9" name="Pinterest">
-                                        <span style="background:#C2000D">
-                                            <i class="fa fa-pinterest-square" aria-hidden="true"></i>
-                                        </span>
-                                        Pinterest
-                                    </a>
-                                </li>
+                                @endforeach
                             </ul>
                         </section>
                     </aside>

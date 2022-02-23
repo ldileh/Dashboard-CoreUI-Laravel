@@ -48,6 +48,12 @@ class AddRelationTables extends Migration
                 $table->foreign('product_id', 'fk_product_threads_product')->references('id')->on('products')->onDelete('cascade')->onUpdate('restrict');
             });
         }
+
+        if (Schema::hasTable('gallery_details')) {
+            Schema::table('gallery_details', function($table) {
+                $table->foreign('gallery_id', 'fk_gallery_detail_gallery')->references('id')->on('galleries')->onDelete('cascade')->onUpdate('restrict');
+            });
+        }
     }
 
     /**

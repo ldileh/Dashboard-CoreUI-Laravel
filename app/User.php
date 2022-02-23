@@ -31,6 +31,11 @@ class User extends Authenticatable
         return $this->belongsTo(UserRole::class, 'user_role_id');
     }
 
+    public function postNews()
+    {
+        return $this->hasMany(News::class, 'user_id', 'id');
+    }
+
     // Others
 
     public function hasRole($roles)

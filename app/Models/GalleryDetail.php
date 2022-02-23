@@ -2,22 +2,22 @@
 
 namespace App\Models;
 
-use App\User;
+use App\Models\Gallery;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class News extends Model
+class GalleryDetail extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'content', 'banner', 'user_id'
+        'gallery_id', 'image', 'size'
     ];
 
     // Relations
 
-    public function creator()
+    public function gallery()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->hasOne(Gallery::class, 'gallery_id', 'id');
     }
 }

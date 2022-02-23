@@ -130,37 +130,43 @@ class ConfigSiteHelper{
                 'name' => 'Facebook',
                 'url' => url('#'),
                 'icon' => 'fa fa-facebook',
-                'iconUrl' => ''
+                'iconUrl' => '',
+                'color' => '#056ED8'
             ],
             [
                 'name' => 'Youtube',
                 'url' => url('#'),
                 'icon' => 'fa fa-youtube-play',
-                'iconUrl' => ''
+                'iconUrl' => '',
+                'color' => '#E50017'
             ],
             [
                 'name' => 'Twitter',
                 'url' => url('#'),
                 'icon' => 'fa fa-twitter',
-                'iconUrl' => ''
+                'iconUrl' => '',
+                'color' => '#2391FF'
             ],
             [
                 'name' => 'Linkedin',
                 'url' => url('#'),
                 'icon' => 'fa fa-linkedin',
-                'iconUrl' => ''
+                'iconUrl' => '',
+                'color' => '#349affd9'
             ],
             [
                 'name' => 'Skype',
                 'url' => url('#'),
                 'icon' => 'fa fa-skype',
-                'iconUrl' => ''
+                'iconUrl' => '',
+                'color' => '#4ba3fcd9'
             ],
             [
                 'name' => 'Pinterest',
                 'url' => url('#'),
                 'icon' => 'fa fa-pinterest-square',
-                'iconUrl' => ''
+                'iconUrl' => '',
+                'color' => '#c2000dd9'
             ],
         ];
     }
