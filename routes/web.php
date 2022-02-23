@@ -11,26 +11,31 @@
 |
 */
 
+/**
+ * Auth Route
+ */
 Auth::routes(['register' => false]);
 
-// Panel route
+/**
+ * Panel Route
+ */
 Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], function() {
-    // home
+
+    // Dashboard
 	Route::get('/', 'Panel\HomeController@index')->name('home');
 
-	// user
+	// User
 	Route::group([ 'middleware' => 'auth.admin', 'prefix' => 'users'], function() {
-
 		Route::get('/', 'Panel\UserController@index')->name('user');
-			Route::get('/data', 'Panel\UserController@getData')->name('user.data');
-			Route::get('create', 'Panel\UserController@create')->name('user.create');
-			Route::post('create', 'Panel\UserController@store')->name('user.data.create');
-			Route::get('{userId}/edit', 'Panel\UserController@edit')->name('user.edit');
-			Route::post('{userId}/edit', 'Panel\UserController@update')->name('user.data.edit');
-			Route::delete('{userId}/delete', 'Panel\UserController@destroy')->name('user.data.delete');
+        Route::get('/data', 'Panel\UserController@getData')->name('user.data');
+        Route::get('create', 'Panel\UserController@create')->name('user.create');
+        Route::post('create', 'Panel\UserController@store')->name('user.data.create');
+        Route::get('{userId}/edit', 'Panel\UserController@edit')->name('user.edit');
+        Route::post('{userId}/edit', 'Panel\UserController@update')->name('user.data.edit');
+        Route::delete('{userId}/delete', 'Panel\UserController@destroy')->name('user.data.delete');
 	});
 
-    // news
+    // News
     Route::group(['prefix' => 'news'], function () {
         Route::get('/', 'Panel\NewsController@index')->name('news');
         Route::get('/data', 'Panel\NewsController@getData')->name('news.data');
@@ -41,7 +46,7 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
         Route::delete('{newsId}/delete', 'Panel\NewsController@destroy')->name('news.data.delete');
     });
 
-    // member
+    // Member
     Route::group(['prefix' => 'member'], function () {
         Route::get('/', 'Panel\MemberController@index')->name('member');
         Route::get('/data', 'Panel\MemberController@getData')->name('member.data');
@@ -65,11 +70,26 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
         Route::delete('{galleryId}/{galleryDetailId}/delete', 'Panel\GalleryController@destroyImage')->name('gallery.data.delete.detail');
     });
 
+    // Product
+    Route::group(['prefix' => 'product'], function () {
+        Route::get('/', 'Panel\ProductController@index')->name('product');
+        Route::get('/data', 'Panel\ProductController@getData')->name('product.data');
+        Route::get('create', 'Panel\ProductController@create')->name('product.create');
+        Route::post('create', 'Panel\ProductController@store')->name('product.data.create');
+        Route::get('{productId}/edit', 'Panel\ProductController@edit')->name('product.edit');
+        Route::put('{productId}/edit', 'Panel\ProductController@update')->name('product.data.edit');
+        Route::delete('{productId}/delete', 'Panel\ProductController@destroy')->name('product.data.delete');
+    });
+
 	// Others
 	Route::get('profile', 'Panel\HomeController@profile')->name('profile');
 	Route::post('profile', 'Panel\HomeController@updateProfile')->name('profile.data.edit');
 });
 
+
+/**
+ * Site Route
+ */
 Route::group([], function () {
     Route::get('/', 'Site\SiteController@index')->name('site');
 

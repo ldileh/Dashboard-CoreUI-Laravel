@@ -16,13 +16,15 @@ use Carbon;
 
 class SiteController extends Controller
 {
+    private $maxNumberPost = 5;
+
     // Views
 
     public function index()
     {
-        $newsBanner = News::take(5)->get();
-        $newsBannerTop5 = News::take(5)->get();
-        $galleryTop5 = Gallery::take(5)->get();
+        $newsBanner = News::select('id', 'title', 'banner', 'created_at', 'user_id')->take($this->maxNumberPost)->get();
+        $newsBannerTop5 = News::select('id', 'title', 'banner', 'created_at', 'user_id')->take($this->maxNumberPost)->get();
+        $galleryTop5 = Gallery::take($this->maxNumberPost)->get();
 
         return view('site.index')->with([
             'newsBanner' => $newsBanner,
@@ -37,9 +39,17 @@ class SiteController extends Controller
         return view('site.index');
     }
 
-    public function newsDetail($news)
+    public function newsDetail($newsId)
     {
-        return view('site.index');
+        $data = News::find($newsId);
+        if($data == null){
+            // return page not found
+            abort(404);
+        }
+
+        return view('site.index')->with([
+            'data' => $data
+        ]);
     }
 
     public function organizationProfile()
@@ -137,8 +147,6 @@ class SiteController extends Controller
             $this->deleteFileKtp($fileKtp);
             $this->deleteFilePassPhoto($filePassPhoto);
 
-            dd($th->getMessage());
-
             return redirect()->route('site.member.register')->with([
                 'error' => 'Failed create data. Exception : ' . $th->getMessage(),
             ]);
@@ -156,8 +164,6 @@ class SiteController extends Controller
             'email' => 'required|string|max:191',
             'message' => 'required|string|max:225',
         ]);
-
-        // dd($request->message);
 
         Mail::to(config('constants.EMAIL'))
         ->send(new ContactMail([

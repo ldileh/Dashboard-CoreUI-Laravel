@@ -32,6 +32,7 @@ return [
         'PATH' => [
             'NEWS' => 'images/news',
             'GALLERY' => 'images/gallery',
+            'PRODUCT' => 'images/product',
             'MEMBER' => [
                 'DEFAULT' => 'files/member',
                 'KTP' => 'files/member/ktp',
