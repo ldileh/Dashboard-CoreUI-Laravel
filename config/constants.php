@@ -8,7 +8,7 @@ return [
 		],
 	],
 
-    'EMAIL' => 'ldileh@gmail.com',
+    'EMAIL' => 'kpam@aman.or.id',
 
     'MEMBER' => [
         'STATUS' => [
@@ -21,7 +21,8 @@ return [
 
     'DATE' => [
         'DEFAULT' => 'd/F/Y H:m:s',
-        'INPUT_DATE' => 'Y-m-d'
+        'INPUT_DATE' => 'Y-m-d',
+        'DATE_SIMPLE' => 'F d, Y',
     ],
 
     'STORAGE' => [

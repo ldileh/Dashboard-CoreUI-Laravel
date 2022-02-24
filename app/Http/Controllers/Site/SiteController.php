@@ -6,6 +6,7 @@ use App\Mail\Contact as ContactMail;
 use App\Models\Gallery;
 use App\Models\News;
 use App\Models\Member;
+use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -17,6 +18,7 @@ use Carbon;
 class SiteController extends Controller
 {
     private $maxNumberPost = 5;
+    private $minNumberPost = 3;
 
     // Views
 
@@ -25,12 +27,16 @@ class SiteController extends Controller
         $newsBanner = News::select('id', 'title', 'banner', 'created_at', 'user_id')->take($this->maxNumberPost)->get();
         $newsBannerTop5 = News::select('id', 'title', 'banner', 'created_at', 'user_id')->take($this->maxNumberPost)->get();
         $galleryTop5 = Gallery::take($this->maxNumberPost)->get();
+        $productBanner = Product::take($this->maxNumberPost)->get();
+        $productTop3 = Product::take($this->minNumberPost)->get();
 
         return view('site.index')->with([
             'newsBanner' => $newsBanner,
             'newsSideRight' => $newsBannerTop5->take(2),
             'newsSideLeft' => $newsBannerTop5->take(3),
             'galleryTop5' => $galleryTop5,
+            'productBanner' => $productBanner,
+            'productTop3' => $productTop3,
         ]);
     }
 
@@ -87,6 +93,16 @@ class SiteController extends Controller
     public function contact()
     {
         return view('site.contact');
+    }
+
+    public function product()
+    {
+        return view('site.index');
+    }
+
+    public function productDetail($productId)
+    {
+        return view('site.index');
     }
 
     // Functions

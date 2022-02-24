@@ -4,6 +4,9 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>{{ config('app.name', 'Laravel') }}</title>
+
         <!-- Bootstrap CSS -->
         <link href="{{asset('site/css/bootstrap.min.css') }}" rel="preload" as="style"
             onload="this.onload=null;this.rel='stylesheet'">
@@ -93,10 +96,6 @@
             <link rel="stylesheet" href="{{asset('site/css/icon.min.css') }}">
         </noscript>
 
-        @yield('style')
-
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
         <link rel="preload"
             href="https://fonts.googleapis.com/css2?family='options.fonts':wght@400;500;600;700&display=swap"
             as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -105,6 +104,10 @@
                 href="https://fonts.googleapis.com/css2?family=options.fonts:wght@400;500;600;700&display=swap"
                 rel="stylesheet">
         </noscript>
+
+        <link rel="preload" href="{{asset('site/css/custom.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+        @yield('style')
 
         <link rel="icon" href="{{ asset('img/icon.png') }}">
         <link rel="apple-touch-icon" sizes="144x144"

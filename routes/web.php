@@ -93,6 +93,7 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
 Route::group([], function () {
     Route::get('/', 'Site\SiteController@index')->name('site');
 
+    // Contact
     Route::prefix('contact')->group(function () {
         Route::get('/', 'Site\SiteController@contact')->name('site.contact');
         Route::post('/', 'Site\SiteController@sendMail')->name('site.contact.send');
@@ -104,12 +105,20 @@ Route::group([], function () {
         Route::get('detail/{newsId}', 'Site\SiteController@newsDetail')->name('site.news.detail');
     });
 
+    // Product
+    Route::prefix('product')->group(function () {
+        Route::get('/', 'Site\SiteController@product')->name('site.product');
+        Route::get('{product}', 'Site\SiteController@productDetail')->name('site.product.detail');
+    });
+
+    // Organization
     Route::prefix('organization')->group(function () {
         Route::get('profile', 'Site\SiteController@organizationProfile')->name('site.organization.profile');
         Route::get('rule', 'Site\SiteController@organizationRule')->name('site.organization.rule');
         Route::get('report', 'Site\SiteController@organizationReport')->name('site.organization.report');
     });
 
+    // Members
     Route::prefix('members')->group(function () {
         Route::get('list', 'Site\SiteController@memberList')->name('site.member.list');
         Route::get('register', 'Site\SiteController@memberRegister')->name('site.member.register');

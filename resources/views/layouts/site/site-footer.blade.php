@@ -3,7 +3,7 @@
 @endphp
 
 <!-- Start Footer Area -->
-<section class="footer-area" style="background-color: #006633; padding-top:60px;">
+<section class="footer-area" style="background-color: #00542a; padding-top:60px;">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-3">
@@ -28,11 +28,11 @@
                         <div class="row">
                             <div class="widget-subscribe-content pt-2">
                                 <p style="color: white !important;">Kantor Pusat :</p>
-                                <p style="color: white !important; line-height: 1.4">Jl.Tebet Timur Dalam Raya No. 11 A RT 008 RW 004
+                                <p style="color: white !important;" class="paragraph-style">Jl.Tebet Timur Dalam Raya No. 11 A RT 008 RW 004
                                     Kelurahan Tebet Timur Kecamatan Tebet,
                                     Jakarta Selatan, DKI Jakarta.</p>
                                 <p style="color: white !important;">Cabang :</p>
-                                <p style="color: white !important; line-height: 1.4">Jalan Jendral Sudirman No. 15F Bogor<br/>
+                                <p style="color: white !important;" class="paragraph-style">Jalan Jendral Sudirman No. 15F Bogor<br/>
                                     Telepon / Fax : +62 21 8297954 / +62 21 837 06282<br/>
                                     Email : kpam@aman.or.id<br/>
                                     Website : www.kpam.or.id

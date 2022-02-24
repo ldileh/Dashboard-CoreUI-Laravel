@@ -45,7 +45,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                    @if (!empty($newsBanner))
+                    @if (!$newsBanner->isEmpty())
                     @php
                         $newsFirst = $newsBanner->first();
                         $newsEnd = $newsBanner->last();
@@ -70,7 +70,6 @@
                             aria-label="{{ $newsEnd->title }}"></button>
                         @endif
                     </div>
-                    @endif
 
                     {{-- List news header banner --}}
                     <div class="carousel-inner">
@@ -85,7 +84,6 @@
                         @endforeach
                     </div>
 
-                    @if (!empty($newsBanner))
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
@@ -98,6 +96,7 @@
                 </div>
             </div>
 
+            @if (!$productBanner->isEmpty())
             <div class="col-lg-4">
                 <div class="single-main-news-inner">
                     <div id="carouselAds" class="carousel slide" data-ride="carousel">
@@ -108,90 +107,42 @@
 
                         {{-- List banner products --}}
                         <div class="carousel-inner">
-                            <div class="carousel-item  active ">
-                                <a href="http://dev.kpam.online/amanregister">
+                            @foreach ($productBanner as $item)
+                            <div class="carousel-item {{ $item->index == 0 ? 'active' : '' }}">
+                                <a href="{{ route('site.product.detail', $item->id) }}">
                                     <img class="img-fluid lazy"
-                                        src="http://dev.kpam.online/default-image/default-ads-550x368.jpg "
-                                        data-original="http://dev.kpam.online/images/20211209112945_original_7.webp"
-                                        alt="Headline">
+                                        src="{{ asset('storage/images/product/' . $item->image) }}"
+                                        data-original="{{ asset('storage/images/product/' . $item->image) }}"
+                                        alt="{{ $item->title }}">
                                 </a>
                             </div>
-
-                            <div class="carousel-item ">
-                                <a href="#">
-                                    <img class="img-fluid lazy"
-                                        src="http://dev.kpam.online/default-image/default-ads-550x368.jpg "
-                                        data-original="http://dev.kpam.online/images/20211209114147_original_45.webp"
-                                        alt="Headline">
-                                </a>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
 
                 {{-- Start list product top 3 --}}
+                @foreach ($productTop3 as $item)
                 <div class="single-main-news-box">
-                    <a href="http://dev.kpam.online/story/nusantara-kita">
-                        <img src="http://dev.kpam.online/default-image/default-123x83.png" data-original=" http://dev.kpam.online/images/20211209111558_small_123x83_4.webp " class="img-fluid lazy" width="100%" height="100%" alt="Nusantara Kita">
+                    <a href="{{ route('site.product.detail', $item->id) }}">
+                        <img
+                            src="{{ asset('storage/images/product/' . $item->image) }}"
+                            data-original=" {{ asset('storage/images/product/' . $item->image) }}"
+                            class="img-fluid lazy"
+                            width="100%"
+                            height="100%"
+                            alt="{{ $item->title }}">
                     </a>
                     <div class="news-content">
-                        <div class="tag">
-                            <a href="http://dev.kpam.online/category/produk">PRODUK</a>
-                        </div>
-
-                        <h3  style="margin: 0px !important;">
-                            <a href="http://dev.kpam.online/story/nusantara-kita">Nusantara Kita</a>
-                        </h3>
-
-                        <span>
-                            <a href="http://dev.kpam.online/date/2021-12-09">December 9, 2021</a>
-                        </span>
+                        <div class="tag"><a href="{{ url('#') }}">PRODUK</a></div>
+                        <h3  style="margin: 0px !important;"><a href="{{ route('site.product.detail', $item->id) }}">{{ $item->title }}</a></h3>
+                        <span><a href="{{ url('#') }}">{{ $item->created_at->format(config('constants.DATE.DATE_SIMPLE')) }}</a></span>
                     </div>
                 </div>
-
-                <div class="single-main-news-box">
-                    <a href="http://dev.kpam.online/story/http://www.gerainusantara.com">
-                        <img src="http://dev.kpam.online/default-image/default-123x83.png "
-                            data-original=" http://dev.kpam.online/images/20211209103333_small_123x83_47.webp "
-                            class="img-fluid lazy" width="100%" height="100%" alt="Gerai Nusantara">
-                    </a>
-
-                    <div class="news-content">
-                        <div class="tag">
-                            <a href="http://dev.kpam.online/category/produk">PRODUK</a>
-                        </div>
-
-                        <h3  style="margin: 0px !important;">
-                            <a href="http://dev.kpam.online/story/http://www.gerainusantara.com">Gerai Nusantara</a>
-                        </h3>
-                        <span>
-                            <a href="http://dev.kpam.online/date/2021-12-09">December 9, 2021</a>
-                        </span>
-                    </div>
-                </div>
-
-                <div class="single-main-news-box">
-                    <a href="http://dev.kpam.online/story/nusantara-indigenous-coffee">
-                        <img src="http://dev.kpam.online/default-image/default-123x83.png "
-                            data-original=" http://dev.kpam.online/images/20211209110109_small_123x83_50.webp "
-                            class="img-fluid lazy" width="100%" height="100%" alt="Nusantara Indigenous Coffee">
-                    </a>
-
-                    <div class="news-content">
-                        <div class="tag">
-                            <a href="http://dev.kpam.online/category/produk">PRODUK</a>
-                        </div>
-
-                        <h3  style="margin: 0px !important;">
-                            <a href="http://dev.kpam.online/story/nusantara-indigenous-coffee">Nusantara Indigenous Coffee</a>
-                        </h3>
-                        <span>
-                            <a href="http://dev.kpam.online/date/2021-12-09">December 9, 2021</a>
-                        </span>
-                    </div>
-                </div>
+                @endforeach
                 {{-- End list product top 3 --}}
             </div>
+            @endif
         </div>
     </div>
 </section>
@@ -202,6 +153,8 @@
         <div class="row">
             <div class="col-md-7 col-lg-8 sg-sticky">
                 <div class="theiaStickySidebar">
+
+                    @if (!$newsSideRight->isEmpty() || !$newsSideLeft->isEmpty())
                     <div class="most-popular-news">
                         <div class="section-title">
                             <h2>BERITA</h2>
@@ -217,7 +170,8 @@
                                             <img
                                                 src="{{ asset('storage/images/news/' . $item->banner) }}"
                                                 data-original="{{ asset('storage/images/news/' . $item->banner) }}"
-                                                class="img-fluid" alt="{{ $item->title }}">
+                                                class="img-fluid"
+                                                alt="{{ $item->title }}">
                                         </a>
                                     </div>
 
@@ -269,6 +223,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
 
                     <div class="video-news">
                         <div class="section-title">
@@ -388,6 +343,7 @@
                         </div>
                     </div>
 
+                    @if ($galleryTop5->isEmpty())
                     <div class="video-news">
                         <div class="section-title">
                             <h2>Galeri</h2>
@@ -436,6 +392,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
 
@@ -445,13 +402,14 @@
                         <section class="widget widget_featured_reports">
                             <div class="single-featured-reports">
                                 <div class="featured-reports-image">
-                                    <a href="http://dev.kpam.online/aman/panduan_singkat_kpam.pdf" target="_blank">
-                                        <img src="http://dev.kpam.online/aman/foto_buku_panduan.png" alt="image">
+                                    <a href="{{ asset('site/document/panduan_singkat_kpam.pdf') }}" target="_blank">
+                                        <img src="{{ asset('site/images/foto_buku_panduan.png') }}" alt="image">
                                     </a>
                                 </div>
                             </div>
                         </section>
 
+                        @if (!empty($socialMedia))
                         <section class="widget widget_stay_connected">
                             <h3 class="section-title">Tetap Terhubung</h3>
                             {{-- Section social medias --}}
@@ -468,6 +426,7 @@
                                 @endforeach
                             </ul>
                         </section>
+                        @endif
                     </aside>
                 </div>
             </div>
