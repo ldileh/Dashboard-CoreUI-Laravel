@@ -7,6 +7,7 @@ use App\Models\Gallery;
 use App\Models\News;
 use App\Models\Member;
 use App\Models\Product;
+use App\Models\Video;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -27,17 +28,17 @@ class SiteController extends Controller
 
     public function index()
     {
-        $newsBanner = News::select('id', 'title', 'banner', 'created_at', 'user_id')->take($this->maxNumberPost)->get();
-        $newsBannerTop5 = News::select('id', 'title', 'banner', 'created_at', 'user_id')->take($this->maxNumberPost)->get();
+        $newsBanner = News::select('id', 'title', 'banner', 'created_at', 'user_id', 'slug')->take($this->maxNumberPost)->get();
+        $newsBannerTop5 = News::select('id', 'title', 'banner', 'created_at', 'user_id', 'slug')->take($this->maxNumberPost)->get();
         $galleryTop5 = Gallery::take($this->maxNumberPost)->get();
         $productBanner = Product::take($this->maxNumberPost)->get();
         $productTop3 = Product::take($this->minNumberPost)->get();
-        $videos = collect();
+        $videos = Video::take($this->maxNumberPost)->get();
 
         return view('site.index')->with([
             'newsBanner' => $newsBanner,
-            'newsSideRight' => $newsBannerTop5->take(2),
-            'newsSideLeft' => $newsBannerTop5->take(3),
+            'newsSideRight' => $newsBannerTop5,
+            'newsSideLeft' => $newsBannerTop5,
             'galleryTop5' => $galleryTop5,
             'productBanner' => $productBanner,
             'productTop3' => $productTop3,

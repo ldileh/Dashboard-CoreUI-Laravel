@@ -108,13 +108,13 @@ Route::group([], function () {
     // Product
     Route::prefix('product')->group(function () {
         Route::get('/', 'Site\SiteController@product')->name('site.product');
-        Route::get('{productTitle}', 'Site\SiteController@productDetail')->name('site.product.detail');
+        Route::get('{product}', 'Site\SiteController@productDetail')->name('site.product.detail');
     });
 
     // Video
     Route::prefix('video')->group(function () {
         Route::get('/', 'Site\SiteController@video')->name('site.video');
-        Route::get('{videoTitle}', 'Site\SiteController@videoDetail')->name('site.video.detail');
+        Route::get('{video}', 'Site\SiteController@videoDetail')->name('site.video.detail');
     });
 
     // Organization

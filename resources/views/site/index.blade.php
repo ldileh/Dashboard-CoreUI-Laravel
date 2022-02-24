@@ -74,10 +74,13 @@
                     {{-- List news header banner --}}
                     <div class="carousel-inner">
                         @foreach ($newsBanner as $item)
+                        @php
+                            $bannerImageUrl = empty($item->banner) ? 'site/img/main-news/main-news-1.jpg' : 'storage/images/news/' . $item->banner;
+                        @endphp
                         <div class="carousel-item {{ $item->index == 0 ? 'active' : '' }}">
                             <div class="single-main-news">
-                                <a href="{{ route('site.news.detail', $item->id) }}">
-                                    <img src="{{ asset('storage/images/news/' . $item->banner) }}" data-original="{{ asset('storage/images/news/' . $item->banner) }}" alt="{{ $item->title }}">
+                                <a href="{{ route('site.news.detail', $item) }}">
+                                    <img src="{{ asset($bannerImageUrl) }}" data-original="{{ asset($bannerImageUrl) }}" alt="{{ $item->title }}">
                                 </a>
                             </div>
                         </div>
@@ -164,12 +167,15 @@
                             {{-- Section news 2 top --}}
                             <div class="col-lg-4">
                                 @foreach ($newsSideRight as $item)
+                                @php
+                                    $bannerImageUrl = empty($item->banner) ? 'site/img/main-news/main-news-1.jpg' : 'storage/images/news/' . $item->banner;
+                                @endphp
                                 <div class="single-most-popular-news">
                                     <div class="popular-news-image">
-                                        <a href="{{ route('site.news.detail', $item->id) }}">
+                                        <a href="{{ route('site.news.detail', $item) }}">
                                             <img
-                                                src="{{ asset('storage/images/news/' . $item->banner) }}"
-                                                data-original="{{ asset('storage/images/news/' . $item->banner) }}"
+                                                src="{{ asset($bannerImageUrl) }}"
+                                                data-original="{{ asset($bannerImageUrl) }}"
                                                 class="img-fluid"
                                                 alt="{{ $item->title }}">
                                         </a>
@@ -179,12 +185,12 @@
                                         <span><a href="{{ route('site.news') }}">Berita</a></span>
 
                                         <h3 style="margin: 0px !important;">
-                                            <a href="{{ route('site.news.detail', $item->id) }}">
+                                            <a href="{{ route('site.news.detail', $item) }}">
                                                 {{ $item->title }}
                                             </a>
                                         </h3>
 
-                                        <p><a href="{{ url('#') }}">{{ $item->creator->name }}</a> / <a href="{{ url('#') }}"> {{ $item->created_at->format(config('constants.DATE.DEFAULT')) }}</a></p>
+                                        <p><a href="{{ url('#') }}">{{ $item->creator->name }}</a> / <a href="{{ url('#') }}"> {{ $item->created_at->format(config('constants.DATE.DATE_SIMPLE')) }}</a></p>
                                     </div>
                                 </div>
                                 @endforeach
@@ -193,14 +199,17 @@
                             {{-- Section news others --}}
                             <div class="col-lg-8">
                                 @foreach ($newsSideLeft as $item)
+                                @php
+                                    $bannerImageUrl = empty($item->banner) ? 'site/img/main-news/main-news-1.jpg' : 'storage/images/news/' . $item->banner;
+                                @endphp
                                 <div class="most-popular-post">
                                     <div class="row align-items-center">
                                         <div class="col-lg-4 col-sm-4">
                                             <div class="post-image">
-                                                <a href="{{ route('site.news.detail', $item->id) }}">
+                                                <a href="{{ route('site.news.detail', $item) }}">
                                                     <img
-                                                        src="{{ asset('storage/images/news/' . $item->banner) }}"
-                                                        data-original="{{ asset('storage/images/news/' . $item->banner) }}"
+                                                        src="{{ asset($bannerImageUrl) }}"
+                                                        data-original="{{ asset($bannerImageUrl) }}"
                                                         class="img-fluid" alt="{{ $item->title }}">
                                                 </a>
                                             </div>
@@ -210,11 +219,11 @@
                                             <div class="post-content">
                                                 <span><a href="{{ route('site.news') }}">Berita</a></span>
                                                 <h3 style="margin: 0px !important;">
-                                                    <a href="{{ route('site.news.detail', $item->id) }}">
+                                                    <a href="{{ route('site.news.detail', $item) }}">
                                                         {{ $item->title }}
                                                     </a>
                                                 </h3>
-                                                <p><a href="{{ url('#') }}">{{ $item->creator->name }}</a> / <a href="{{ url('#') }}"> {{ $item->created_at->format(config('constants.DATE.DEFAULT')) }}</a></p>
+                                                <p><a href="{{ url('#') }}">{{ $item->creator->name }}</a> / <a href="{{ url('#') }}"> {{ $item->created_at->format(config('constants.DATE.DATE_SIMPLE')) }}</a></p>
                                             </div>
                                         </div>
                                     </div>
@@ -243,7 +252,7 @@
                                                     <img
                                                         src="http://dev.kpam.online/default-image/default-358x215.png "
                                                         data-original=" http://dev.kpam.online/images/20210920134016_medium_358x215_2.webp "
-                                                        class="img-fluid" alt="Konferensi Pers "Penyambutan TIM Aksi Jalan Kaki #TutupTPL dari Toba ke Jakarta"">
+                                                        class="img-fluid" alt="Konferensi Pers 'Penyambutan TIM Aksi Jalan Kaki #TutupTPL dari Toba ke Jakarta'">
                                                 </a>
                                             </div>
 
@@ -301,7 +310,7 @@
                                                 <h3>
                                                     <a href="{{ route('site') }}">{{ $item->name }}</a>
                                                 </h3>
-                                                <span>{{ $item->created_at->format(config('constants.DATE.DEFAULT')) }}</span>
+                                                <span>{{ $item->created_at->format(config('constants.DATE.DATE_SIMPLE')) }}</span>
                                             </div>
                                         </div>
                                     </div>
