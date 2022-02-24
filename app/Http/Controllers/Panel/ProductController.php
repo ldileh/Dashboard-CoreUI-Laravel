@@ -100,7 +100,7 @@ class ProductController extends Controller
         $imageName = null;
         if($request->image != null){
             $imageName = time().'.'.$request->image->extension();
-            $request->image->storeAs($this->getPathBanner(), $imageName, $this->getDiskConfig());
+            $request->image->storeAs($this->getPathImage(), $imageName, $this->getDiskConfig());
         }
 
         DB::beginTransaction();
