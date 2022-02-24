@@ -277,7 +277,8 @@ jQuery(function ($) {
     $("img").lazyload({
         effect: "fadeIn"
     });
-    $(window).load(function () {
+
+    $(window).on('load', function(){
         $('img.lazy').lazyload();
         $(window).resize();
     });

@@ -10,11 +10,11 @@
             <div class="col-lg-12">
                 <ul class="top-header-social">
                     @foreach($socialMedia as $item)
-                        <li>
-                            <a href="{{ $item['url'] }}" target="_blank" name="{{ $item['name'] }}">
-                                <i class="{{ $item['icon'] }}" aria-hidden="true"></i>
-                            </a>
-                        </li>
+                    <li>
+                        <a href="{{ $item['url'] }}" target="_blank" name="{{ $item['name'] }}">
+                            <i class="{{ $item['icon'] }}" aria-hidden="true"></i>
+                        </a>
+                    </li>
                     @endforeach
                 </ul>
             </div>
@@ -54,28 +54,30 @@
                             </a>
 
                             @if(array_key_exists('child', $menu))
-                                <ul class="dropdown-menu">
-                                    @foreach($menu['child'] as $menuChild)
-                                        <li class="nav-item">
-                                            <a href="{{ $menuChild['url'] }}" class="nav-link" @if (!empty($menuChild['target'])) target="{{ $menuChild['target'] }}" @endif>
-                                                {{ $menuChild['title'] }}
-                                                @if(array_key_exists('child', $menuChild)) <span><i class="bx bx-chevron-down" aria-hidden="true"></i></span>@endif
-                                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach($menu['child'] as $menuChild)
+                                <li class="nav-item">
+                                    <a href="{{ $menuChild['url'] }}" class="nav-link" @if (!empty($menuChild['target'])) target="{{ $menuChild['target'] }}" @endif>
+                                        {{ $menuChild['title'] }}
+                                        @if(array_key_exists('child', $menuChild))
+                                        <span class="pull-right"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                        @endif
+                                    </a>
 
-                                            @if(array_key_exists('child', $menuChild))
-                                            <ul class="dropdown-menu">
-                                                @foreach($menuChild['child'] as $subMenuChild)
-                                                    <li class="nav-item">
-                                                        <a href="{{ $subMenuChild['url'] }}" class="nav-link" @if (!empty($subMenuChild['target'])) target="{{ $subMenuChild['target'] }}" @endif>
-                                                            {{ $subMenuChild['title'] }}
-                                                        </a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                            @endif
+                                    @if(array_key_exists('child', $menuChild))
+                                    <ul class="dropdown-menu">
+                                        @foreach($menuChild['child'] as $subMenuChild)
+                                        <li class="nav-item">
+                                            <a href="{{ $subMenuChild['url'] }}" class="nav-link" @if (!empty($subMenuChild['target'])) target="{{ $subMenuChild['target'] }}" @endif>
+                                                {{ $subMenuChild['title'] }}
+                                            </a>
                                         </li>
-                                    @endforeach
-                                </ul>
+                                        @endforeach
+                                    </ul>
+                                    @endif
+                                </li>
+                                @endforeach
+                            </ul>
                             @endif
                         </li>
                         @endforeach
@@ -96,7 +98,7 @@
 
     <div class="others-option-for-responsive">
         <div class="container">
-            <div class="dot-menu">
+            <div class="dot-menu" style="z-index: 0;">
                 <div class="inner">
                     <div class="circle circle-one"></div>
                     <div class="circle circle-two"></div>

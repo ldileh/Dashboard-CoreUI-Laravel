@@ -96,12 +96,15 @@
             <link rel="stylesheet" href="{{asset('site/css/icon.min.css') }}">
         </noscript>
 
-        <link rel="preload"
-            href="https://fonts.googleapis.com/css2?family='options.fonts':wght@400;500;600;700&display=swap"
-            as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link
+            rel="preload"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap"
+            as="style"
+            onload="this.onload=null;this.rel='stylesheet'">
+
         <noscript>
             <link
-                href="https://fonts.googleapis.com/css2?family=options.fonts:wght@400;500;600;700&display=swap"
+                href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap"
                 rel="stylesheet">
         </noscript>
 
@@ -184,17 +187,15 @@
         <script src="{{asset('site/js/wow.min.js') }}"></script>
         <!-- Custom JS -->
         <script src="{{asset('site/js/main.js') }}"></script>
-        <script src="{{asset('site/js/jquery.min.js') }}"></script>
-        <script src="{{asset('site/js/popper.min.js') }}"></script>
+        {{-- <script src="{{asset('site/js/popper.min.js') }}"></script> --}}
         <script src="{{asset('site/js/slick.min.js') }}"></script>
         <script src="{{asset('site/js/theia-sticky-sidebar.min.js') }}"></script>
-        <script src="{{asset('site/js/magnific-popup.min.js') }}"></script>
+        {{-- <script src="{{asset('site/js/magnific-popup.min.js') }}"></script> --}}
         <script src="{{asset('site/js/carouFredSel.min.js') }}"></script>
-        <script src="{{asset('site/js/main.js') }}"></script>
-        <script src="{{asset('js/custom.js') }}"></script>
+        <script src="{{asset('site/js/custom.js') }}"></script>
         <script defer src="{{asset('site/js/lazyload.min.js')}}"></script>
         <script type="text/javascript" src="{{ asset('site/js/webp-support.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('site/js/custom.min.js')}}" type="text/javascript"></script>
+        {{-- <script type="text/javascript" src="{{ asset('site/js/custom.min.js')}}" type="text/javascript"></script> --}}
 
         @stack('script')
     </body>

@@ -171,6 +171,15 @@ class ConfigSiteHelper{
         ];
     }
 
+    public function generateAsset($type, $fileName)
+    {
+        if($type == 'news'){
+            return asset(empty($fileName) ? 'site/img/main-news/main-news-1.jpg' : 'storage/images/news/' . $fileName);
+        }else{
+            return asset('site/img/main-news/main-news-1.jpg');
+        }
+    }
+
     public function headerSocialMedia()
     {
         return $this->socialMedia();

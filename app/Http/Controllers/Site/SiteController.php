@@ -67,8 +67,11 @@ class SiteController extends Controller
             abort(404);
         }
 
+        $anotherNews = News::select('id', 'title', 'banner', 'created_at', 'user_id', 'slug')->where('id', '!=', $news->id)->get();
+
         return view('site.news.news-detail')->with([
-            'data' => $news
+            'data' => $news,
+            'anotherNews' => $anotherNews,
         ]);
     }
 
