@@ -225,6 +225,7 @@
                     </div>
                     @endif
 
+                    @if (!$videos->isEmpty())
                     <div class="video-news">
                         <div class="section-title">
                             <h2>Video</h2>
@@ -234,6 +235,7 @@
                             <div class="owl-stage-outer">
                                 {{-- Section list video --}}
                                 <div class="owl-stage">
+                                    @foreach ($videos as $item)
                                     <div class="owl-item">
                                         <div class="video-item">
                                             <div class="video-news-image">
@@ -253,82 +255,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="owl-item">
-                                        <div class="video-item">
-                                            <div class="video-news-image">
-                                                <a href="http://dev.kpam.online/story/vaksin-untuk-melindungi-diri-dan-masyarakat-adat">
-                                                    <img
-                                                        src="http://dev.kpam.online/default-image/default-358x215.png "
-                                                        data-original=" http://dev.kpam.online/images/20210920133817_medium_358x215_29.webp "
-                                                        class="img-fluid" alt="Vaksin untuk Melindungi Diri dan Masyarakat Adat">
-                                                </a>
-                                            </div>
-
-                                            <div class="video-news-content">
-                                                <h3>
-                                                    <a href="http://dev.kpam.online/story/vaksin-untuk-melindungi-diri-dan-masyarakat-adat">Vaksin untuk Melindungi Diri dan Masyarakat Adat</a>
-                                                </h3>
-                                                <span>20 September 2021</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="owl-item">
-                                        <div class="video-item">
-                                            <div class="video-news-image">
-                                                <a href="http://dev.kpam.online/story/hari-internasional-masyarakat-adat-sedunia-himas-2021">
-                                                                                            <img
-                                                            src="http://dev.kpam.online/default-image/default-358x215.png "
-                                                            data-original=" http://dev.kpam.online/images/20210920133647_medium_358x215_27.webp "
-                                                            class="img-fluid" alt="Hari Internasional Masyarakat Adat Sedunia (HIMAS) 2021">
-                                                                                    </a>
-                                            </div>
-
-                                            <div class="video-news-content">
-                                                <h3>
-                                                    <a href="http://dev.kpam.online/story/hari-internasional-masyarakat-adat-sedunia-himas-2021">Hari Internasional Masyarakat Adat Sedunia (HIMAS) 2021</a>
-                                                </h3>
-                                                <span>20 September 2021</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="owl-item">
-                                        <div class="video-item">
-                                            <div class="video-news-image">
-                                                <a href="http://dev.kpam.online/story/14-tahun-undrip-deklarasi-pbb-tentang-hak-hak-masyarakat-adat">
-                                                    <img
-                                                        src="http://dev.kpam.online/default-image/default-358x215.png "
-                                                        data-original=" http://dev.kpam.online/images/20210920133455_medium_358x215_15.webp "
-                                                        class="img-fluid" alt="14 Tahun UNDRIP - Deklarasi PBB tentang Hak-hak Masyarakat Adat.">
-                                                </a>
-                                            </div>
-
-                                            <div class="video-news-content">
-                                                <h3>
-                                                    <a href="http://dev.kpam.online/story/14-tahun-undrip-deklarasi-pbb-tentang-hak-hak-masyarakat-adat">14 Tahun UNDRIP - Deklarasi PBB tentang Hak-hak Masyarakat Adat.</a>
-                                                </h3>
-                                                <span>20 September 2021</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="owl-item">
-                                        <div class="video-item">
-                                            <div class="video-news-image">
-                                                <a href="http://dev.kpam.online/story/hutan-titipan-dirusak-begini-pesan-baduy-dalam">
-                                                    <img
-                                                    src="http://dev.kpam.online/default-image/default-358x215.png "
-                                                    data-original=" http://dev.kpam.online/images/20210920132958_medium_358x215_33.webp "
-                                                    class="img-fluid" alt="Hutan Titipan Dirusak, Begini Pesan Baduy Dalam">
-                                                </a>
-                                            </div>
-
-                                            <div class="video-news-content">
-                                                <h3>
-                                                    <a href="http://dev.kpam.online/story/hutan-titipan-dirusak-begini-pesan-baduy-dalam">Hutan Titipan Dirusak, Begini Pesan Baduy Dalam</a>
-                                                </h3>
-                                                <span>20 September 2021</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
 
@@ -342,8 +269,9 @@
                             </div>
                         </div>
                     </div>
+                    @endif
 
-                    @if ($galleryTop5->isEmpty())
+                    @if (!$galleryTop5->isEmpty())
                     <div class="video-news">
                         <div class="section-title">
                             <h2>Galeri</h2>
@@ -396,40 +324,9 @@
                 </div>
             </div>
 
-            <div class="col-md-5 col-lg-4 sg-sticky">
-                <div class="sg-sidebar theiaStickySidebar">
-                    <aside class="widget-area">
-                        <section class="widget widget_featured_reports">
-                            <div class="single-featured-reports">
-                                <div class="featured-reports-image">
-                                    <a href="{{ asset('site/document/panduan_singkat_kpam.pdf') }}" target="_blank">
-                                        <img src="{{ asset('site/images/foto_buku_panduan.png') }}" alt="image">
-                                    </a>
-                                </div>
-                            </div>
-                        </section>
-
-                        @if (!empty($socialMedia))
-                        <section class="widget widget_stay_connected">
-                            <h3 class="section-title">Tetap Terhubung</h3>
-                            {{-- Section social medias --}}
-                            <ul class="stay-connected-list">
-                                @foreach ($socialMedia as $item)
-                                <li class="facebook">
-                                    <a href="#" style="background:{{ $item['color'] }}" name="{{ $item['name'] }}">
-                                        <span style="background:{{ $item['color'] }}">
-                                            <i class="{{ $item['icon'] }}" aria-hidden="true"></i>
-                                        </span>
-                                        {{ $item['name'] }}
-                                    </a>
-                                </li>
-                                @endforeach
-                            </ul>
-                        </section>
-                        @endif
-                    </aside>
-                </div>
-            </div>
+            @include('layouts.site.widget.site-widget-col5-panduan-social_media', [
+                'socialMedia' => $socialMedia
+            ])
         </div>
     </div>
 </div>

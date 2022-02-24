@@ -102,13 +102,19 @@ Route::group([], function () {
     // News
     Route::prefix('news')->group(function () {
         Route::get('/', 'Site\SiteController@news')->name('site.news');
-        Route::get('detail/{newsId}', 'Site\SiteController@newsDetail')->name('site.news.detail');
+        Route::get('detail/{news}', 'Site\SiteController@newsDetail')->name('site.news.detail');
     });
 
     // Product
     Route::prefix('product')->group(function () {
         Route::get('/', 'Site\SiteController@product')->name('site.product');
-        Route::get('{product}', 'Site\SiteController@productDetail')->name('site.product.detail');
+        Route::get('{productTitle}', 'Site\SiteController@productDetail')->name('site.product.detail');
+    });
+
+    // Video
+    Route::prefix('video')->group(function () {
+        Route::get('/', 'Site\SiteController@video')->name('site.video');
+        Route::get('{videoTitle}', 'Site\SiteController@videoDetail')->name('site.video.detail');
     });
 
     // Organization

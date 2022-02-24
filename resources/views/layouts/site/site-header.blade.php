@@ -83,8 +83,8 @@
 
                     <div class="others-options d-flex align-items-center">
                         <div class="option-item">
-                            <form class="search-box">
-                                <input type="text" class="form-control" style="margin-bottom: 0px !important;" placeholder="Search for..">
+                            <form class="search-box" method="GET" action="{{ route('site.news') }}">
+                                <input type="text" class="form-control" style="margin-bottom: 0px !important;" placeholder="Search for news.." name="search">
                                 <button type="submit"><i class='bx bx-search'></i></button>
                             </form>
                         </div>

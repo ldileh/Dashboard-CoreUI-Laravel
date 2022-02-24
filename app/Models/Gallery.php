@@ -11,7 +11,7 @@ class Gallery extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name', 'slug'
     ];
 
     // Relations
@@ -19,5 +19,15 @@ class Gallery extends Model
     public function images()
     {
         return $this->hasMany(GalleryDetail::class, 'gallery_id', 'id');
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

@@ -19,6 +19,7 @@ class CreateVideoTable extends Migration
             $table->string('banner', 225);
             $table->string('video_url', 225);
             $table->longText('description');
+            $table->string('slug');
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@ class News extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'content', 'banner', 'user_id'
+        'title', 'description', 'content', 'banner', 'user_id', 'slug'
     ];
 
     // Relations
@@ -19,5 +19,15 @@ class News extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

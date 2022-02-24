@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use DataTables;
 use Markdown;
 use Carbon;
@@ -109,7 +110,8 @@ class ProductController extends Controller
             Product::create([
                 'title' => $request->title,
                 'description' => $request->description,
-                'image' => $imageName
+                'image' => $imageName,
+                'slug' => Str::slug($request->title),
             ]);
 
             DB::commit();
@@ -170,6 +172,7 @@ class ProductController extends Controller
             // do update data
             $data->title = $request->title;
             $data->description = $request->description;
+            $data->slug = Str::slug($request->title);
             $data->save();
 
             DB::commit();

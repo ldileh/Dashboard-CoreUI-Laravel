@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Carbon;
 use DataTables;
 
@@ -148,6 +149,7 @@ class GalleryController extends Controller
             // create record
             $gallery = Gallery::create([
                 'name' => $request->name,
+                'slug' => Str::slug($request->name),
             ]);
 
             DB::commit();

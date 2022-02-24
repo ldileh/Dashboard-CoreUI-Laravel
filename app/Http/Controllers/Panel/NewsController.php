@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use DataTables;
 use Markdown;
 use Carbon;
@@ -112,7 +113,8 @@ class NewsController extends Controller
                 'description' => $request->description,
                 'content' => $request->content,
                 'user_id' => Auth::user()->id,
-                'banner' => $bannerName
+                'banner' => $bannerName,
+                'slug' => Str::slug($request->title),
             ]);
 
             DB::commit();
@@ -175,6 +177,7 @@ class NewsController extends Controller
             $data->title = $request->title;
             $data->description = $request->description;
             $data->content = $request->content;
+            $data->slug = Str::slug($request->title);
             $data->save();
 
             DB::commit();

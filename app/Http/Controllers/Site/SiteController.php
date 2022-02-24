@@ -13,12 +13,15 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Carbon;
+use Markdown;
 
 class SiteController extends Controller
 {
     private $maxNumberPost = 5;
     private $minNumberPost = 3;
+    private $paginationNumber = 10;
 
     // Views
 
@@ -29,6 +32,7 @@ class SiteController extends Controller
         $galleryTop5 = Gallery::take($this->maxNumberPost)->get();
         $productBanner = Product::take($this->maxNumberPost)->get();
         $productTop3 = Product::take($this->minNumberPost)->get();
+        $videos = collect();
 
         return view('site.index')->with([
             'newsBanner' => $newsBanner,
@@ -37,24 +41,33 @@ class SiteController extends Controller
             'galleryTop5' => $galleryTop5,
             'productBanner' => $productBanner,
             'productTop3' => $productTop3,
+            'videos' => $videos,
         ]);
     }
 
-    public function news()
+    public function news(Request $request)
     {
-        return view('site.index');
+        $news = null;
+        if($request->has('search')){
+            $news = News::where('title', 'like', '%'.$request->get('search').'%')->simplePaginate($this->paginationNumber);
+        }else{
+            $news = News::simplePaginate($this->paginationNumber);
+        }
+
+        return view('site.news.news')->with([
+            'news' => $news
+        ]);
     }
 
-    public function newsDetail($newsId)
+    public function newsDetail(News $news)
     {
-        $data = News::find($newsId);
-        if($data == null){
+        if($news == null){
             // return page not found
             abort(404);
         }
 
-        return view('site.index')->with([
-            'data' => $data
+        return view('site.news.news-detail')->with([
+            'data' => $news
         ]);
     }
 
@@ -75,7 +88,7 @@ class SiteController extends Controller
 
     public function memberList()
     {
-        return view('site.index');
+        return view('site.member.list');
     }
 
     public function memberRegister()
@@ -87,7 +100,7 @@ class SiteController extends Controller
 
     public function memberConstribution()
     {
-        return view('site.index');
+        return view('site.member.constribution');
     }
 
     public function contact()
@@ -100,7 +113,17 @@ class SiteController extends Controller
         return view('site.index');
     }
 
-    public function productDetail($productId)
+    public function productDetail($productTitle)
+    {
+        return view('site.index');
+    }
+
+    public function video()
+    {
+        return view('site.index');
+    }
+
+    public function videDetail($videoTitle)
     {
         return view('site.index');
     }

@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'image', 'description'
+        'title', 'image', 'description', 'slug'
     ];
 
     // Relations
@@ -18,5 +18,15 @@ class Product extends Model
     public function threads()
     {
         return $this->hasMany(ProductThread::class, 'product_id', 'id');
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }
