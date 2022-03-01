@@ -120,7 +120,7 @@ Route::group([], function () {
 
     // Gallery
     Route::prefix('gallery')->group(function () {
-        Route::get('/', 'Site\SiteController@gallery')->name('site.gallery');
+        Route::get('/', 'Site\SiteController@galleries')->name('site.gallery');
         Route::get('{gallery}', 'Site\SiteController@galleryDetail')->name('site.gallery.detail');
     });
 
