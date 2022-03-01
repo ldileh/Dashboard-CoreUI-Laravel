@@ -106,8 +106,8 @@
                                                     <div class="entry-thumbnail">
                                                         <a href="{{ route('site.video.detail', $item) }}">
                                                             <img
-                                                                src="{{ $configSite->generateAsset('video', $item->image) }}"
-                                                                data-original="{{ $configSite->generateAsset('video', $item->image) }}"
+                                                                src="{{ $configSite->generateAssetVideoYoutube($item) }}"
+                                                                data-original="{{ $configSite->generateAssetVideoYoutube($item) }}"
                                                                 class="img-fluid"
                                                                 alt="{{ $item->title }}">
                                                         </a>
