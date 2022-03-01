@@ -12,8 +12,8 @@
                 <div class="theiaStickySidebar">
                     <div class="sg-section">
                         <div class="section-content">
+                            @if (!$news->isEmpty())
                             <div class="latest-post-area">
-
                                 @foreach ($news as $item)
                                 <div class="sg-post medium-post-style-1">
                                     <div class="entry-header">
@@ -50,6 +50,15 @@
                             <div class="col-sm-12 col-xs-12">
                                 {{ $news->links() }}
                             </div>
+                            @else
+                            <div class="sg-post">
+                                <div class="entry-content p-4">
+                                    <div class="paragraph p-t-20">
+                                        <p>Berita tidak ditemukan.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
