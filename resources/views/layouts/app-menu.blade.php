@@ -20,5 +20,8 @@
       <a class="nav-link" href="{{ route('product') }}">
 	    <i class="nav-icon icon-social-dropbox"></i> Products
 	  </a>
+      <a class="nav-link" href="{{ route('video') }}">
+	    <i class="nav-icon icon-disc"></i> Video
+	  </a>
 	</li>
 </ul>

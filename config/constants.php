@@ -34,6 +34,7 @@ return [
             'NEWS' => 'images/news',
             'GALLERY' => 'images/gallery',
             'PRODUCT' => 'images/product',
+            'VIDEO' => 'images/video',
             'MEMBER' => [
                 'DEFAULT' => 'files/member',
                 'KTP' => 'files/member/ktp',
