@@ -195,11 +195,10 @@ class SiteController extends Controller
             abort(404, "Data gallery tidak ditemukan");
         }
 
-        $anotherGallery = Gallery::where('id', '!=', $gallery->id)->take($this->maxNumberPost)->get();
+        // dd($gallery->images()->get());
 
         return view('site.gallery.gallery-detail')->with([
-            'data' => $gallery,
-            'anotherGallery' => $anotherGallery,
+            'data' => $gallery
         ]);
     }
 
