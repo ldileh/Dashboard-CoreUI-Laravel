@@ -22,7 +22,7 @@
 
         <div class="row" style="padding-bottom: 24px;">
             @foreach ($data->images()->get() as $item)
-            <div class="col-6">
+            <div class="col-6" style="margin-bottom: 8px;">
                 <img src="{{ $configSiteHelper->generateAsset('gallery', $item->image) }}"/>
             </div>
             @endforeach
