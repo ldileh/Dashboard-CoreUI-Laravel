@@ -251,8 +251,8 @@
                                             <div class="video-news-image">
                                                 <a href="{{ route('site.video.detail', $item) }}">
                                                     <img
-                                                        src="{{ $configSiteHelper->generateAsset('video', $item->banner) }}"
-                                                        data-original="{{ $configSiteHelper->generateAsset('video', $item->banner) }}"
+                                                        src="{{ $configSiteHelper->generateAssetVideoYoutube($item) }}"
+                                                        data-original="{{ $configSiteHelper->generateAssetVideoYoutube($item) }}"
                                                         class="img-fluid"
                                                         alt="{{ $item->title }}">
                                                 </a>

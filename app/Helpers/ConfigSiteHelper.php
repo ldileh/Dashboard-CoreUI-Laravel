@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use App\Models\Video;
+
 class ConfigSiteHelper{
 
     public static function instance()
@@ -181,6 +183,24 @@ class ConfigSiteHelper{
             return asset(empty($fileName) ? 'site/img/main-news/main-news-1.jpg' : 'storage/images/video/' . $fileName);
         }else if($type == 'gallery'){
             return asset(empty($fileName) ? 'site/img/main-news/main-news-1.jpg' : 'storage/images/gallery/' . $fileName);
+        }else{
+            return asset('site/img/main-news/main-news-1.jpg');
+        }
+    }
+
+    public function generateAssetVideoYoutube(Video $video)
+    {
+        if(!empty($video->video_url) && strpos($video->video_url, 'youtube.com')){
+            $container = [];
+            parse_str( parse_url( $video->video_url, PHP_URL_QUERY ), $container );
+
+            if($container != null && !empty($container) && array_key_exists('v', $container)){
+                $videoId = $container['v'];
+
+                return "http://img.youtube.com/vi/" . $videoId . "/hqdefault.jpg";
+            }else{
+                return asset('site/img/main-news/main-news-1.jpg');
+            }
         }else{
             return asset('site/img/main-news/main-news-1.jpg');
         }
