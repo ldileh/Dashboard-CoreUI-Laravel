@@ -190,7 +190,7 @@ class ConfigSiteHelper{
 
     public function generateAssetVideoYoutube(Video $video)
     {
-        if(!empty($video->video_url) && strpos($video->video_url, 'youtube.com')){
+        if($this->isVideoYoutube($video->video_url)){
             $container = [];
             parse_str( parse_url( $video->video_url, PHP_URL_QUERY ), $container );
 
@@ -204,6 +204,27 @@ class ConfigSiteHelper{
         }else{
             return asset('site/img/main-news/main-news-1.jpg');
         }
+    }
+
+    public function getVideoIdYoutube($url)
+    {
+        if($this->isVideoYoutube($url)){
+            $container = [];
+            parse_str( parse_url( $url, PHP_URL_QUERY ), $container );
+
+            if($container != null && !empty($container) && array_key_exists('v', $container)){
+                return $container['v'];
+            }else{
+                return null;
+            }
+        }else{
+            return null;
+        }
+    }
+
+    public function isVideoYoutube($url)
+    {
+        return !empty($url) && strpos($url, 'youtube.com');
     }
 
     public function headerSocialMedia()

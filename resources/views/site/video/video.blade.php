@@ -6,57 +6,50 @@
 @extends('layouts.site.site-app')
 
 @section('content')
-<div class="sg-main-content mb-4">
+<div class="sg-page-content">
     <div class="container">
-        <div class="row">
-            <div class="col-md-7 col-lg-8 sg-sticky">
-                <div class="theiaStickySidebar">
-                    <div class="sg-section">
-                        <div class="section-content">
-                            <div class="latest-post-area">
-
-                                @foreach ($data as $item)
-                                <div class="sg-post medium-post-style-1">
-                                    <div class="entry-header">
-                                        <div class="entry-thumbnail">
-                                            <a href="{{ route('site.vide.detail', $item) }}">
-                                                <img
-                                                    class="img-fluid"
-                                                    src="{{ $configSiteHelper->generateAsset('video', $item->banner) }}"
-                                                    data-original="{{ $configSiteHelper->generateAsset('video', $item->banner) }}"
-                                                    alt="{{ $item->title }}">
-                                            </a>
-                                        </div>
+        <div class="page-title-area">
+            <div class="container">
+                <div class="page-title-content">
+                    <h2>Video</h2>
+                    <ul>
+                        <li><a href="{{ url('') }}">Beranda</a></li>
+                        <li>Video</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <section class="default-news-area ptb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="row">
+                            @foreach ($data as $item)
+                            <div class="col-md-4">
+                                <div class="video-item">
+                                    <div class="video-news-image">
+                                        <a href="{{ route('site.video.detail', $item) }}">
+                                            <img
+                                                src="{{ $configSiteHelper->generateAssetVideoYoutube($item) }}"
+                                                data-original="{{ $configSiteHelper->generateAssetVideoYoutube($item) }}"
+                                                class="img-fluid"
+                                                alt="{{ $item->title }}">
+                                        </a>
                                     </div>
-
-                                    <div class="entry-content align-self-center">
-                                        <h3 class="entry-title">
+                                    <div class="video-news-content">
+                                        <h3>
                                             <a href="{{ route('site.video.detail', $item) }}">{{ $item->title }}</a>
                                         </h3>
-                                        {{-- <div class="entry-meta mb-2">
-                                            <ul class="global-list">
-                                                <li>post oleh <a href="{{ url('#') }}">{{ $item->creator->name }}</a></li>
-                                                <li><a href="{{ url('#') }}"> {{ $item->created_at->format(config('constants.DATE.DEFAULT')) }}</a></li>
-                                            </ul>
-                                        </div>
-                                        <p>{{ \Illuminate\Support\Str::limit($item->description, 150, $end = '...') }}</p> --}}
+                                        <span>{{ $item->created_at->format(config('constants.DATE.DATE_SIMPLE')) }}</span>
                                     </div>
                                 </div>
-                                @endforeach
                             </div>
-
-                            <div class="col-sm-12 col-xs-12">
-                                {{ $data->links() }}
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
-
-            @include('layouts.site.widget.site-widget-col5-panduan-social_media', [
-                'socialMedia' => $socialMedia
-            ])
-        </div>
+        </section>
     </div>
 </div>
 @endsection

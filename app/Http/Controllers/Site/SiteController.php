@@ -167,7 +167,7 @@ class SiteController extends Controller
         ]);
     }
 
-    public function videDetail(Video $video)
+    public function videoDetail(Video $video)
     {
         if($video == null)
             abort(404, "Data video is not found");

@@ -27,7 +27,17 @@
                                             data-original="{{ $configSite->generateAsset('video', $data->banner) }}"
                                             alt="{{ $data->title }}">
                                         @else
-                                        <iframe class="img-fluid" src="{{ $data->video_url }}"></iframe>
+                                        @php
+                                            $videoId = $configSite->getVideoIdYoutube($data->video_url);
+                                        @endphp
+                                        @if ($configSite->isVideoYoutube($data->video_url))
+                                        <iframe height="480" src="https://www.youtube.com/embed/{{ $videoId }}"></iframe>
+                                        @else
+                                        <img class="img-fluid"
+                                            src="{{ $configSite->generateAsset('video', $data->banner) }}"
+                                            data-original="{{ $configSite->generateAsset('video', $data->banner) }}"
+                                            alt="{{ $data->title }}">
+                                        @endif
                                         @endif
                                     </div>
                                 </div>
