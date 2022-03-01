@@ -21,21 +21,44 @@ class SiteController extends Controller
     private $minNumberPost = 3;
     private $paginationNumber = 10;
 
-    // Views
+    /**
+     * Views
+     */
 
     public function index()
     {
-        $newsBanner = News::select('id', 'title', 'banner', 'created_at', 'user_id', 'slug')->take($this->maxNumberPost)->get();
-        $newsBannerTop5 = News::select('id', 'title', 'banner', 'created_at', 'user_id', 'slug')->take($this->maxNumberPost)->get();
-        $galleryTop5 = Gallery::take($this->maxNumberPost)->get();
+        // Get Query News
+        $newsBanner = News::select('id', 'title', 'banner', 'created_at', 'user_id', 'slug')
+        ->take($this->maxNumberPost)
+        ->get();
+
+        $newsBannerSideRight = News::select('id', 'title', 'banner', 'created_at', 'user_id', 'slug')
+        ->take(2)
+        ->get();
+
+        $newsIdsSideRight = $newsBannerSideRight->map(function($item){
+            return $item->id;
+        })->toArray();
+
+        $newsBannerSideLeft = News::select('id', 'title', 'banner', 'created_at', 'user_id', 'slug')
+        ->whereNotIn('id', $newsIdsSideRight)
+        ->take(3)
+        ->get();
+
+        // get query product
         $productBanner = Product::take($this->maxNumberPost)->get();
         $productTop3 = Product::take($this->minNumberPost)->get();
+
+        // get query videos
         $videos = Video::take($this->maxNumberPost)->get();
+
+        // get query gallery
+        $galleryTop5 = Gallery::take($this->maxNumberPost)->get();
 
         return view('site.index')->with([
             'newsBanner' => $newsBanner,
-            'newsSideRight' => $newsBannerTop5,
-            'newsSideLeft' => $newsBannerTop5,
+            'newsSideRight' => $newsBannerSideRight,
+            'newsSideLeft' => $newsBannerSideLeft,
             'galleryTop5' => $galleryTop5,
             'productBanner' => $productBanner,
             'productTop3' => $productTop3,
@@ -61,7 +84,7 @@ class SiteController extends Controller
     {
         if($news == null){
             // return page not found
-            abort(404);
+            abort(404, "Data berita tidak ditemukan");
         }
 
         $anotherNews = News::select('id', 'title', 'banner', 'created_at', 'user_id', 'slug')->where('id', '!=', $news->id)->get();
@@ -89,7 +112,11 @@ class SiteController extends Controller
 
     public function memberList()
     {
-        return view('site.member.list');
+        $data = Member::membersApproved();
+
+        return view('site.member.list')->with([
+            'data' => $data
+        ]);
     }
 
     public function memberRegister()
@@ -111,25 +138,74 @@ class SiteController extends Controller
 
     public function product()
     {
-        return view('site.index');
+        $data = Product::simplePaginate($this->paginationNumber);
+
+        return view('site.product.product')->with([
+            'data' => $data
+        ]);
     }
 
-    public function productDetail($productTitle)
+    public function productDetail(Product $product)
     {
-        return view('site.index');
+        if($product == null)
+            abort(404, "Data Product is not found");
+
+        $anotherProduct = Product::where('id', '!=', $product->id)->take($this->maxNumberPost)->get();
+
+        return view('site.product.product-detail')->with([
+            'data' => $product,
+            'anotherProduct' => $anotherProduct,
+        ]);
     }
 
     public function video()
     {
-        return view('site.index');
+        $data = Video::simplePaginate($this->paginationNumber);
+
+        return view('site.video.video')->with([
+            'data' => $data,
+        ]);
     }
 
-    public function videDetail($videoTitle)
+    public function videDetail(Video $video)
     {
-        return view('site.index');
+        if($video == null)
+            abort(404, "Data video is not found");
+
+        $anotherVideo = Video::where('id', '!=', $video->id)->take($this->maxNumberPost)->get();
+
+        return view('site.video.video-detail')->with([
+            'data' => $video,
+            'anotherVideo' => $anotherVideo
+        ]);
     }
 
-    // Functions
+    public function galleries()
+    {
+        $data = Gallery::simplePaginate($this->paginationNumber);
+
+        return view('site.gallery.gallery')->with([
+            'data' => $data
+        ]);
+    }
+
+    public function galleryDetail(Gallery $gallery)
+    {
+        if($gallery == null){
+            abort(404, "Data gallery tidak ditemukan");
+        }
+
+        $anotherGallery = Gallery::where('id', '!=', $gallery->id)->take($this->maxNumberPost)->get();
+
+        return view('site.gallery.gallery-detail')->with([
+            'data' => $gallery,
+            'anotherGallery' => $anotherGallery,
+        ]);
+    }
+
+    /**
+     * Functions
+     */
 
     public function saveDataMember(Request $request)
     {
@@ -176,8 +252,7 @@ class SiteController extends Controller
                 'phone_number' => $request->phone_number,
                 'email' => $request->email,
                 'file_ktp' => $fileKtp,
-                'file_passport_photo' => $filePassPhoto,
-                'member_status_id' => config('constants.MEMBER.STATUS.APPROVE'),
+                'file_passport_photo' => $filePassPhoto
             ]);
 
             DB::commit();
@@ -215,7 +290,9 @@ class SiteController extends Controller
         return redirect()->route('site.contact');
     }
 
-    // Others
+    /**
+     * Others
+     */
 
     private function getStorage()
     {

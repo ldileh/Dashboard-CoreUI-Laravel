@@ -55,6 +55,7 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
         Route::get('{memberId}/edit', 'Panel\MemberController@edit')->name('member.edit');
         Route::put('{memberId}/edit', 'Panel\MemberController@update')->name('member.data.edit');
         Route::delete('{memberId}/delete', 'Panel\MemberController@destroy')->name('member.data.delete');
+        Route::put('{memberId}/status/change', 'Panel\MemberController@updateStatuMember')->name('member.data.change.status');
     });
 
     // Gallery
@@ -115,6 +116,12 @@ Route::group([], function () {
     Route::prefix('video')->group(function () {
         Route::get('/', 'Site\SiteController@video')->name('site.video');
         Route::get('{video}', 'Site\SiteController@videoDetail')->name('site.video.detail');
+    });
+
+    // Gallery
+    Route::prefix('gallery')->group(function () {
+        Route::get('/', 'Site\SiteController@gallery')->name('site.gallery');
+        Route::get('{gallery}', 'Site\SiteController@galleryDetail')->name('site.gallery.detail');
     });
 
     // Organization

@@ -161,7 +161,7 @@ class GalleryController extends Controller
             ]);
         }
 
-        return redirect()->route('gallery.data.detail', $gallery->id)->with([
+        return redirect()->route('gallery.detail', $gallery->id)->with([
             'message' => 'Success to create data.',
         ]);
     }

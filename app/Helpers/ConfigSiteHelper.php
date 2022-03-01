@@ -175,6 +175,12 @@ class ConfigSiteHelper{
     {
         if($type == 'news'){
             return asset(empty($fileName) ? 'site/img/main-news/main-news-1.jpg' : 'storage/images/news/' . $fileName);
+        }else if($type == 'product'){
+            return asset(empty($fileName) ? 'site/img/main-news/main-news-1.jpg' : 'storage/images/product/' . $fileName);
+        }else if($type == 'video'){
+            return asset(empty($fileName) ? 'site/img/main-news/main-news-1.jpg' : 'storage/images/video/' . $fileName);
+        }else if($type == 'gallery'){
+            return asset(empty($fileName) ? 'site/img/main-news/main-news-1.jpg' : 'storage/images/gallery/' . $fileName);
         }else{
             return asset('site/img/main-news/main-news-1.jpg');
         }

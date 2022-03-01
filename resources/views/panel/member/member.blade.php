@@ -69,7 +69,7 @@
                     orderable: false,
                     searchable: false,
                     render: function(data, type, row, meta){
-                        return '<span class="badge badge-success">'+data+'</span>';
+                        return '<span class="badge '+row.badge_color+'">'+data+'</span>';
                     }
                 },
                 { data: 'created_at', name: 'created_at' },
@@ -78,10 +78,18 @@
                     orderable: false,
                     searchable: false,
                     render: function(data, type, row, meta){
-                        return '<div class="btn-group btn-group-sm">' +
+                        if(row.member_status_id == "{{ config('constants.MEMBER.STATUS.REGISTER') }}"){
+                            return '<div class="btn-group btn-group-sm">' +
+                            '<button type="button" class="btn btn-danger button-delete" data-value="'+data+'"><i class="fa fa-trash"></i></button>' +
+                            '<button type="button" class="btn btn-warning button-update-status" data-value="'+data+'" data-name="'+row.name+'"><i class="fa fa-exchange" style="color: white;"></i></button>' +
+                            '<a class="btn btn-primary" href="{{ url('panel/member') }}/'+data+'/edit"><i class="fa fa-pencil"></i></a>' +
+                        '</div>';
+                        }else{
+                            return '<div class="btn-group btn-group-sm">' +
                             '<button type="button" class="btn btn-danger button-delete" data-value="'+data+'"><i class="fa fa-trash"></i></button>' +
                             '<a class="btn btn-primary" href="{{ url('panel/member') }}/'+data+'/edit"><i class="fa fa-pencil"></i></a>' +
                         '</div>';
+                        }
                     }
                 },
             ],
@@ -107,6 +115,33 @@
                         // do request endpoint...
                         showLoading();
                         axios.delete("{{ url('panel/member') }}/" + value + "/delete")
+                          .then(function (response) {
+                            // handle success
+                            hideLoading();
+
+                            // do refresh table
+                            table.draw();
+                          })
+                          .catch(function (error) {
+                            // handle error
+                            hideLoading();
+                          });
+                    }
+                }
+            });
+        });
+
+        $('#data-table tbody').on('click', '.button-update-status', function(){
+            var value = $(this).data('value');
+            var name = $(this).data('name');
+
+            vex.dialog.confirm({
+                message: 'Anda yaking untuk menyetujui data member ('+ name +') ini?',
+                callback: function (responseDialog) {
+                    if (responseDialog) {
+                        // do request endpoint...
+                        showLoading();
+                        axios.put("{{ url('panel/member') }}/" + value + "/status/change")
                           .then(function (response) {
                             // handle success
                             hideLoading();

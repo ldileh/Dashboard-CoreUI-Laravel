@@ -56,10 +56,7 @@ class MemberController extends Controller
     {
         // find record data
         $data = Member::find($memberId);
-        if(!$data) return response()->json([
-            'code' => 400,
-            'message' => 'Data not found.',
-        ]);
+        if(!$data) return response()->json($this->generateResponse(400, "Data not found."));
 
         DB::beginTransaction();
         try {
@@ -78,16 +75,10 @@ class MemberController extends Controller
         } catch (\Throwable $th) {
             DB::rollback();
 
-            return response()->json([
-                'code' => 500,
-                'message' => 'Failed to delete data. Exception : ' . $th->getMessage(),
-            ]);
+            return response()->json($this->generateResponse(500, 'Failed to delete data. Exception : ' . $th->getMessage()));
         }
 
-        return response()->json([
-            'code' => 200,
-            'message' => 'Success to delete data.',
-        ]);
+        return response()->json($this->generateResponse(200, "Success to delete data."));
     }
 
     public function store(Request $request)
@@ -264,7 +255,30 @@ class MemberController extends Controller
         ]);
     }
 
+    public function updateStatuMember($memberId)
+    {
+        $member = Member::find($memberId);
+
+        if($member == null){
+            return response()->json($this->generateResponse(400, "Data member not found!"));
+        }
+
+        $member->member_status_id = $member->member_status_id == config('constants.MEMBER.STATUS.REGISTER') ? config('constants.MEMBER.STATUS.APPROVE') : config('constants.MEMBER.STATUS.REGISTER');
+        $member->save();
+
+        return response()->json($this->generateResponse(200, "Success update status member"));
+    }
+
     // Others
+
+    private function generateResponse($code, $message, $data = null)
+    {
+        return [
+            'code' => $code,
+            'message' => $message,
+            'data' => $data,
+        ];
+    }
 
     private function getStorage()
     {
@@ -339,6 +353,9 @@ class MemberController extends Controller
         })
         ->addColumn('status', function(Member $query){
             return $query->memberStatus->name;
+        })
+        ->addColumn('badge_color', function(Member $query){
+            return $query->member_status_id == config('constants.MEMBER.STATUS.REGISTER') ? 'badge-danger' : 'badge-success';
         })
         ->make(true);
     }

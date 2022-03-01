@@ -1,5 +1,6 @@
 @php
-    $socialMedia = \App\Helpers\ConfigSiteHelper::instance()->socialMedia();
+    $configSiteHelper = \App\Helpers\ConfigSiteHelper::instance();
+    $socialMedia = $configSiteHelper->socialMedia();
 @endphp
 
 @extends('layouts.site.site-app')
@@ -112,7 +113,7 @@
                         <div class="carousel-inner">
                             @foreach ($productBanner as $item)
                             <div class="carousel-item {{ $item->index == 0 ? 'active' : '' }}">
-                                <a href="{{ route('site.product.detail', $item->id) }}">
+                                <a href="{{ route('site.product.detail', $item) }}">
                                     <img class="img-fluid lazy"
                                         src="{{ asset('storage/images/product/' . $item->image) }}"
                                         data-original="{{ asset('storage/images/product/' . $item->image) }}"
@@ -127,7 +128,7 @@
                 {{-- Start list product top 3 --}}
                 @foreach ($productTop3 as $item)
                 <div class="single-main-news-box">
-                    <a href="{{ route('site.product.detail', $item->id) }}">
+                    <a href="{{ route('site.product.detail', $item) }}">
                         <img
                             src="{{ asset('storage/images/product/' . $item->image) }}"
                             data-original=" {{ asset('storage/images/product/' . $item->image) }}"
@@ -138,7 +139,7 @@
                     </a>
                     <div class="news-content">
                         <div class="tag"><a href="{{ url('#') }}">PRODUK</a></div>
-                        <h3  style="margin: 0px !important;"><a href="{{ route('site.product.detail', $item->id) }}">{{ $item->title }}</a></h3>
+                        <h3  style="margin: 0px !important;"><a href="{{ route('site.product.detail', $item) }}">{{ $item->title }}</a></h3>
                         <span><a href="{{ url('#') }}">{{ $item->created_at->format(config('constants.DATE.DATE_SIMPLE')) }}</a></span>
                     </div>
                 </div>
@@ -248,19 +249,20 @@
                                     <div class="owl-item">
                                         <div class="video-item">
                                             <div class="video-news-image">
-                                                <a href="http://dev.kpam.online/story/konferensi-pers-penyambutan-tim-aksi-jalan-kaki-tutuptpl-dari-toba-ke-jakarta">
+                                                <a href="{{ route('site.video.detail', $item) }}">
                                                     <img
-                                                        src="http://dev.kpam.online/default-image/default-358x215.png "
-                                                        data-original=" http://dev.kpam.online/images/20210920134016_medium_358x215_2.webp "
-                                                        class="img-fluid" alt="Konferensi Pers 'Penyambutan TIM Aksi Jalan Kaki #TutupTPL dari Toba ke Jakarta'">
+                                                        src="{{ $configSiteHelper->generateAsset('video', $item->banner) }}"
+                                                        data-original="{{ $configSiteHelper->generateAsset('video', $item->banner) }}"
+                                                        class="img-fluid"
+                                                        alt="{{ $item->title }}">
                                                 </a>
                                             </div>
 
                                             <div class="video-news-content">
                                                 <h3>
-                                                    <a href="http://dev.kpam.online/story/konferensi-pers-penyambutan-tim-aksi-jalan-kaki-tutuptpl-dari-toba-ke-jakarta">Konferensi Pers &quot;Penyambutan TIM Aksi Jalan Kaki #TutupTPL dari Toba ke Jakarta&quot;</a>
+                                                    <a href="{{ route('site.video.detail', $item) }}">{{ $item->title }}</a>
                                                 </h3>
-                                                <span>20 September 2021</span>
+                                                <span>{{ $item->created_at->format(config('constants.DATE.DATE_SIMPLE')) }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -274,7 +276,7 @@
                             </div>
                             <div class="owl-dots disabled"></div>
                             <div class="text-right" style="padding:15px 0px; text-align: right">
-                                <a href="http://dev.kpam.online/list-videos" class="btn btn-primary">Lihat Semua Video</a>
+                                <a href="{{ route('site.video') }}" class="btn btn-primary">Lihat Semua Video</a>
                             </div>
                         </div>
                     </div>
@@ -298,17 +300,13 @@
                                     <div class="owl-item">
                                         <div class="video-item">
                                             <div class="video-news-image">
-                                                <a href="{{ route('site') }}">
-                                                    @if ($firstImage != null)
-                                                    <img src="{{ asset('storage/images/gallery' . $firstImage->image) }}"/>
-                                                    @else
-                                                    <img src=""/>
-                                                    @endif
+                                                <a href="{{ route('site.gallery.detail', $item) }}">
+                                                    <img src="{{ $configSiteHelper->generateAsset('gallery', $firstImage != null ? $firstImage->image : '') }}"/>
                                                 </a>
                                             </div>
                                             <div class="video-news-content">
                                                 <h3>
-                                                    <a href="{{ route('site') }}">{{ $item->name }}</a>
+                                                    <a href="{{ route('site.gallery.detail', $item) }}">{{ $item->name }}</a>
                                                 </h3>
                                                 <span>{{ $item->created_at->format(config('constants.DATE.DATE_SIMPLE')) }}</span>
                                             </div>
@@ -325,7 +323,7 @@
                             </div>
                             <div class="owl-dots disabled"></div>
                             <div class="text-right" style="padding:15px 0px; text-align: right">
-                                <a href="{{ route('site') }}" class="btn btn-primary">Lihat Semua Galeri</a>
+                                <a href="{{ route('site.gallery') }}" class="btn btn-primary">Lihat Semua Galeri</a>
                             </div>
                         </div>
                     </div>

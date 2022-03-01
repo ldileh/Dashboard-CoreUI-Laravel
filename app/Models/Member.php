@@ -31,4 +31,19 @@ class Member extends Model
     {
         return $this->hasRole([ config('constants.MEMBER.STATUS.APPROVE') ]);
     }
+
+    public static function membersApproved()
+    {
+        return Member::where('member_status_id', config('constants.MEMBER.STATUS.APPROVE'))->get();
+    }
+
+    public static function membersRegister()
+    {
+        return Member::where('member_status_id', config('constants.MEMBER.STATUS.REGISTER'))->get();
+    }
+
+    public static function membersAll()
+    {
+        return Member::get();
+    }
 }
