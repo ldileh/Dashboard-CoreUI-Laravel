@@ -25,7 +25,7 @@
                     <div class="col-md-12 col-lg-12">
                         <div class="row">
                             @foreach ($data as $item)
-                            <div class="col-md-4">
+                            <div class="col-md-4" style="margin-bottom: 24px;">
                                 <div class="video-item">
                                     <div class="video-news-image">
                                         <a href="{{ route('site.video.detail', $item) }}">
