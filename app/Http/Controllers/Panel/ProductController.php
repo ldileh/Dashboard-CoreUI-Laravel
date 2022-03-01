@@ -187,7 +187,7 @@ class ProductController extends Controller
         // do update file banner if transaction is success
         if($imageNew != null || !empty($imageNew)){
             // do store new file banner
-            $request->image->storeAs($this->getPathImage(), $imageName, $this->getDiskConfig());
+            $request->image->storeAs($this->getPathImage(), $imageNew, $this->getDiskConfig());
 
             // do delete previous file banner if exist
             $this->deleteImage($imageOld);
