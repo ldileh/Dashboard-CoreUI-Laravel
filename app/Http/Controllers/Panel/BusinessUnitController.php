@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Panel;
 
-use App\Models\Video;
+use App\Models\BusinessUnit;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,24 +11,24 @@ use DataTables;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class VideoController extends Controller
+class BusinessUnitController extends Controller
 {
     // Views
 
     public function index()
     {
-        return view('panel.video.video');
+        return view('panel.business_unit.business_unit');
     }
 
     public function create()
     {
-        return view('panel.video.video-create');
+        return view('panel.business_unit.business_unit-create');
     }
 
-    public function edit($videoId)
+    public function edit($businessUnitId)
     {
         // find record data
-        $data = Video::find($videoId);
+        $data = BusinessUnit::find($businessUnitId);
         if(!$data) return redirect()->back()->with([
             'error' => 'Data not found.'
         ]);
@@ -36,7 +36,7 @@ class VideoController extends Controller
         // example using markdown
         //Markdown::convertToHtml($data->content);
 
-        return view('panel.video.video-edit')->with([
+        return view('panel.business_unit.business_unit-edit')->with([
             'data' => $data
         ]);
     }
@@ -45,15 +45,15 @@ class VideoController extends Controller
 
     public function getData(Request $request)
     {
-        $model = Video::query();
+        $model = BusinessUnit::query();
 
     	return $this->_datatable($model);
     }
 
-    public function destroy($videoId)
+    public function destroy($businessUnitId)
     {
         // find record data
-        $data = Video::find($videoId);
+        $data = BusinessUnit::find($businessUnitId);
         if(!$data) return response()->json([
             'code' => 400,
             'message' => 'Data not found.',
@@ -65,10 +65,7 @@ class VideoController extends Controller
             $bannerName = $data->banner;
 
             // do delete file
-            if($data->delete()){
-                // if delete record is success, do delete file
-                $this->deleteImage($bannerName);
-            }
+            $data->delete();
 
             DB::commit();
         } catch (\Throwable $th) {
@@ -89,27 +86,16 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'banner' => 'image|mimes:jpeg,png,jpg',
             'title' => 'required|string|max:191',
-            'video_url' => 'required|string|max:225',
-            'description' => 'required|string|max:191',
+            'content' => 'required|string',
         ]);
-
-        // save image on storage
-        $bannerName = null;
-        if($request->banner != null){
-            $bannerName = time().'.'.$request->banner->extension();
-            $request->banner->storeAs($this->getPathImage(), $bannerName, $this->getDiskConfig());
-        }
 
         DB::beginTransaction();
         try {
             // create record
-            Video::create([
+            BusinessUnit::create([
                 'title' => $request->title,
-                'description' => $request->description,
-                'banner' => $bannerName,
-                'video_url' => $request->video_url,
+                'content' => $request->content,
                 'slug' => Str::slug($request->title),
             ]);
 
@@ -117,29 +103,25 @@ class VideoController extends Controller
         } catch (\Throwable $th) {
             DB::rollback();
 
-            $this->deleteImage($bannerName);
-
-            return redirect()->route('video')->with([
+            return redirect()->route('business_unit')->with([
                 'message' => 'Failed create data. Exception : ' . $th->getMessage(),
             ]);
         }
 
-        return redirect()->route('video')->with([
+        return redirect()->route('business_unit')->with([
             'message' => 'Success to create data.',
         ]);
     }
 
-    public function update(Request $request, $videoId)
+    public function update(Request $request, $businessUnitId)
     {
         $validator = Validator::make($request->all(), [
-            'image' => 'image|mimes:jpeg,png,jpg',
             'title' => 'required|string|max:191',
-            'video_url' => 'required|string|max:225',
-            'description' => 'required|string|max:191'
+            'content' => 'required|string'
         ]);
 
         // find record data
-        $data = Video::find($videoId);
+        $data = BusinessUnit::find($businessUnitId);
         if(!$data) return redirect()->back()->withInput()->with([
             'error' => 'Data not found.'
         ]);
@@ -151,28 +133,11 @@ class VideoController extends Controller
                         ->withInput();
         }
 
-        $bannerNew = null;
-        $bannerOld = null;
-
         DB::beginTransaction();
         try {
-            // store new file name banner
-            if($request->banner != null){
-                $bannerNew = time().'.'.$request->banner->extension();
-            }
-
-            // update file banner
-            if($bannerNew != null){
-                $bannerOld = $data->banner;
-
-                // update banner file name with the new one
-                $data->banner = $bannerNew;
-            }
-
             // do update data
             $data->title = $request->title;
-            $data->description = $request->description;
-            $data->video_url = $request->video_url;
+            $data->content = $request->content;
             $data->slug = Str::slug($request->title);
             $data->save();
 
@@ -180,56 +145,23 @@ class VideoController extends Controller
         } catch (\Throwable $th) {
             DB::rollback();
 
-            return redirect()->route('video')->with([
+            return redirect()->route('business_unit')->with([
                 'message' => 'Failed to update data. Exception: ' . $th->getMessage()
             ]);
         }
 
-        // do update file banner if transaction is success
-        if($bannerNew != null || !empty($bannerNew)){
-            // do store new file banner
-            $request->banner->storeAs($this->getPathImage(), $bannerNew, $this->getDiskConfig());
-
-            // do delete previous file banner if exist
-            $this->deleteImage($bannerOld);
-        }
-
-        return redirect()->route('video')->with([
+        return redirect()->route('business_unit')->with([
             'message' => 'Success to update data.'
         ]);
     }
 
     // Others
 
-    private function getStorage()
-    {
-        return config('constants.STORAGE.DISK.DEFAULT');
-    }
-
-    private function getDiskConfig()
-    {
-        return ['disk' => $this->getStorage()];
-    }
-
-    private function getPathImage($fileName = null)
-    {
-        $path = config('constants.STORAGE.PATH.VIDEO');
-
-        return $fileName != null ? $path . '/' . $fileName : $path;
-    }
-
-    private function deleteImage($fileName)
-    {
-        if($fileName != null || !empty($fileName)){
-            Storage::disk($this->getStorage())->delete($this->getPathImage($fileName));
-        }
-    }
-
     private function _datatable($model)
     {
     	return DataTables::eloquent($model)
         ->addIndexColumn()
-        ->editColumn('created_at', function(Video $data) {
+        ->editColumn('created_at', function(BusinessUnit $data) {
             return $data->created_at->format(config('constants.DATE.DEFAULT'));
         })
         ->make(true);

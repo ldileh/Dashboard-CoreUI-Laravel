@@ -93,6 +93,17 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
         Route::delete('{videoId}/delete', 'Panel\VideoController@destroy')->name('video.data.delete');
     });
 
+    // Business Unit
+    Route::group(['prefix' => 'business_unit'], function () {
+        Route::get('/', 'Panel\BusinessUnitController@index')->name('business_unit');
+        Route::get('/data', 'Panel\BusinessUnitController@getData')->name('business_unit.data');
+        Route::get('create', 'Panel\BusinessUnitController@create')->name('business_unit.create');
+        Route::post('create', 'Panel\BusinessUnitController@store')->name('business_unit.data.create');
+        Route::get('{businessUnitId}/edit', 'Panel\BusinessUnitController@edit')->name('business_unit.edit');
+        Route::put('{businessUnitId}/edit', 'Panel\BusinessUnitController@update')->name('business_unit.data.edit');
+        Route::delete('{businessUnitId}/delete', 'Panel\BusinessUnitController@destroy')->name('business_unit.data.delete');
+    });
+
 	// Others
 	Route::get('profile', 'Panel\HomeController@profile')->name('profile');
 	Route::post('profile', 'Panel\HomeController@updateProfile')->name('profile.data.edit');

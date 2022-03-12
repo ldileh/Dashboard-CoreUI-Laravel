@@ -23,5 +23,8 @@
       <a class="nav-link" href="{{ route('video') }}">
 	    <i class="nav-icon icon-disc"></i> Video
 	  </a>
+      <a class="nav-link" href="{{ route('business_unit') }}">
+	    <i class="nav-icon icon-magic-wand"></i> Business Unit
+	  </a>
 	</li>
 </ul>
