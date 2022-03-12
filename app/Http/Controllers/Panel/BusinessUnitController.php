@@ -149,7 +149,7 @@ class BusinessUnitController extends Controller
         try {
             // do update data
             $data->title = $request->title;
-            $data->business_unit = $request->business_unit;
+            $data->business_unit_id = $request->business_unit;
             $data->url_page = $request->url_page;
             $data->content = $request->content;
             $data->slug = Str::slug($request->title);
