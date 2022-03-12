@@ -90,13 +90,6 @@ class ConfigSiteHelper{
     {
         return [
             [
-                'name' => 'Facebook',
-                'url' => url('#'),
-                'icon' => 'fa fa-facebook',
-                'iconUrl' => '',
-                'color' => '#056ED8'
-            ],
-            [
                 'name' => 'Youtube',
                 'url' => url('#'),
                 'icon' => 'fa fa-youtube-play',
@@ -104,32 +97,25 @@ class ConfigSiteHelper{
                 'color' => '#E50017'
             ],
             [
-                'name' => 'Twitter',
+                'name' => 'Facebook',
                 'url' => url('#'),
-                'icon' => 'fa fa-twitter',
+                'icon' => 'fa fa-facebook',
                 'iconUrl' => '',
-                'color' => '#2391FF'
+                'color' => '#056ED8'
             ],
             [
-                'name' => 'Linkedin',
+                'name' => 'Instagram',
                 'url' => url('#'),
-                'icon' => 'fa fa-linkedin',
+                'icon' => 'fa fa-instagram',
                 'iconUrl' => '',
-                'color' => '#349affd9'
+                'color' => '#C13584'
             ],
             [
-                'name' => 'Skype',
+                'name' => 'WhatsApp',
                 'url' => url('#'),
-                'icon' => 'fa fa-skype',
+                'icon' => 'fa fa-whatsapp',
                 'iconUrl' => '',
-                'color' => '#4ba3fcd9'
-            ],
-            [
-                'name' => 'Pinterest',
-                'url' => url('#'),
-                'icon' => 'fa fa-pinterest-square',
-                'iconUrl' => '',
-                'color' => '#c2000dd9'
+                'color' => '#4AC959'
             ],
         ];
     }
