@@ -51,7 +51,7 @@
                         @for ($i = 0; $i < count($newsBanner); $i++)
                         <button
                             type="button"
-                            data-bs-target="#carouselAds"
+                            data-bs-target="#carouselExampleIndicators"
                             data-bs-slide-to="{{ $i }}"
                             @if ($i == 0)
                             class="active"
