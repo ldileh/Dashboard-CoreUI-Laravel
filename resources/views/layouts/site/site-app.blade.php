@@ -182,13 +182,13 @@
         {{--<!-- Contact JS -->
         <script src="{{asset('site/js/contact-form-script.js') }}"></script>
         <script src="{{asset('site/js/wow.min.js') }}"></script>--}}
-        <!-- Custom JS -->
-        <script src="{{asset('site/js/main.js') }}"></script>
         {{-- <script src="{{asset('site/js/popper.min.js') }}"></script> --}}
         <script src="{{asset('site/js/slick.min.js') }}"></script>
         <script src="{{asset('site/js/theia-sticky-sidebar.min.js') }}"></script>
         {{-- <script src="{{asset('site/js/magnific-popup.min.js') }}"></script> --}}
         {{-- <script src="{{asset('site/js/carouFredSel.min.js') }}"></script> --}}
+        <!-- Custom JS -->
+        <script src="{{asset('site/js/main.js') }}"></script>
         <script src="{{asset('site/js/custom.js') }}"></script>
         <script defer src="{{asset('site/js/lazyload.min.js')}}"></script>
         <script type="text/javascript" src="{{ asset('site/js/webp-support.js') }}"></script>
