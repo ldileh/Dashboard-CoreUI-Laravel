@@ -47,29 +47,18 @@
             <div class="col-lg-8">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     @if (!$newsBanner->isEmpty())
-                    @php
-                        $newsFirst = $newsBanner->first();
-                        $newsEnd = $newsBanner->last();
-                    @endphp
                     <div class="carousel-indicators">
-                        @if ($newsFirst != null)
+                        @for ($i = 0; $i < count($newsBanner); $i++)
                         <button
                             type="button"
-                            data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide-to="0"
+                            data-bs-target="#carouselAds"
+                            data-bs-slide-to="{{ $i }}"
+                            @if ($i == 0)
                             class="active"
+                            @endif
                             aria-current="true"
-                            aria-label="{{ $newsFirst->title }}"></button>
-                        @endif
-
-                        @if ($newsEnd != null)
-                        <button
-                            type="button"
-                            data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide-to="{{ $newsBanner->count() - 1 }}"
-                            aria-current="true"
-                            aria-label="{{ $newsEnd->title }}"></button>
-                        @endif
+                            aria-label="{{ $newsBanner[$i]->title }}"></button>
+                        @endfor
                     </div>
 
                     {{-- List news header banner --}}
@@ -107,29 +96,18 @@
             <div class="col-lg-4">
                 <div class="single-main-news-inner">
                     <div id="carouselAds" class="carousel slide" data-ride="carousel">
-                        @php
-                            $productFirst = $productBanner->first();
-                            $productEnd = $productBanner->last();
-                        @endphp
                         <div class="carousel-indicators">
-                            @if ($productFirst != null)
+                            @for ($i = 0; $i < count($productBanner); $i++)
                             <button
                                 type="button"
                                 data-bs-target="#carouselAds"
-                                data-bs-slide-to="0"
+                                data-bs-slide-to="{{ $i }}"
+                                @if ($i == 0)
                                 class="active"
+                                @endif
                                 aria-current="true"
-                                aria-label="{{ $productFirst->title }}"></button>
-                            @endif
-
-                            @if ($productEnd != null && $productEnd != $productFirst)
-                            <button
-                                type="button"
-                                data-bs-target="#carouselAds"
-                                data-bs-slide-to="{{ $productBanner->count() - 1 }}"
-                                aria-current="true"
-                                aria-label="{{ $productEnd->title }}"></button>
-                            @endif
+                                aria-label="{{ $productBanner[$i]->title }}"></button>
+                            @endfor
                         </div>
 
                         {{-- List banner products --}}
