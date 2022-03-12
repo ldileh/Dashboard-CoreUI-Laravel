@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="sg-main-content mb-4">
-    <div class="container">
+    <div class="container" style="margin-top: 16px;">
         <div class="row">
             <div class="col-md-7 col-lg-8 sg-sticky">
                 <div class="theiaStickySidebar">

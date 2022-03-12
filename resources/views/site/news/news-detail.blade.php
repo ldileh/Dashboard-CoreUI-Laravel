@@ -9,7 +9,7 @@
 
 @section('content')
 <div class="sg-page-content">
-    <div class="container">
+    <div class="container" style="margin-top: 16px;">
         <div class="entry-header mb-4">
             <div class="entry-thumbnail">
             </div>
@@ -17,7 +17,7 @@
 
         <div class="row">
             <div class="col-md-7 col-lg-8 sg-sticky">
-                <div class="theiaStickySidebar post-details">
+                <div class="theiaStickySidebar">
                     <div class="sg-section">
                         <div class="section-content">
                             <div class="sg-post">
