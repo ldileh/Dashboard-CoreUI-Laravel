@@ -42,8 +42,6 @@
             <link rel="preload" href="{{asset('site/css/rtl.min.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
             <noscript><link  rel="stylesheet" href="{{asset('site/css/rtl.min.css') }}"></noscript>
         @endif --}}
-        <link rel="preload" href="{{asset('site/css/responsive.min.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link  rel="stylesheet" href="{{asset('site/css/responsive.min.css') }}"></noscript>
 
         <!-- Meanmenu CSS -->
         <link href="{{asset('site/css/meanmenu.css') }}" rel="preload" as="style"
