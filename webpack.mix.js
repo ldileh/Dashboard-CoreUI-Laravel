@@ -13,7 +13,6 @@ let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
 	.sass('resources/assets/sass/app.scss', 'public/css')
-	.sass('resources/assets/sass/style_site.scss', 'public/css')
 	.styles([
 		'resources/assets/css/font-awesome.min.css',
 		'resources/assets/css/coreui-icons.min.css',
@@ -53,4 +52,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
 	.copyDirectory('resources/assets/img', 'public/img')
 	.copyDirectory('resources/assets/flags', 'public/flags')
 	.copyDirectory('resources/assets/fonts', 'public/fonts')
-    .copyDirectory('resources/assets/site', 'public/site');
+    .copyDirectory('resources/assets/site', 'public/site')
+    .sass('resources/assets/sass/site/style.scss', 'public/site/css')
+    .sass('resources/assets/sass/site/responsive.scss', 'public/site/css');
