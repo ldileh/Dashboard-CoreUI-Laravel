@@ -34,8 +34,8 @@
         <noscript><link  rel="stylesheet" href="{{asset('site/css/animate.min.css') }}"></noscript>
         <link rel="preload" href="{{asset('site/css/slick.min.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link  rel="stylesheet" href="{{asset('site/css/slick.min.css') }}"></noscript>
-        <link rel="preload" href="{{asset('site/css/structure.min.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link  rel="stylesheet" href="{{asset('site/css/structure.min.css') }}"></noscript>
+        {{-- <link rel="preload" href="{{asset('site/css/structure.min.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link  rel="stylesheet" href="{{asset('site/css/structure.min.css') }}"></noscript> --}}
         <link rel="preload" href="{{asset('site/css/main.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link  rel="stylesheet" href="{{asset('site/css/main.css') }}"></noscript>
         {{-- @if($language->text_direction == "RTL")
@@ -65,17 +65,17 @@
         <noscript>
             <link rel="stylesheet" href="{{asset('site/css/owl.theme.default.min.css') }}">
         </noscript>
-        <!-- Magnific Popup CSS -->
+        {{-- <!-- Magnific Popup CSS -->
         <link href="{{asset('site/css/magnific-popup.min.css') }}" rel="preload" as="style"
             onload="this.onload=null;this.rel='stylesheet'">
         <noscript>
             <link rel="stylesheet" href="{{asset('site/css/magnific-popup.min.css') }}">
-        </noscript>
-        <!-- Nice Select CSS -->
+        </noscript> --}}
+        {{-- <!-- Nice Select CSS -->
         <link href="{{asset('site/css/nice-select.min.css') }}" rel="preload" as="style"
             onload="this.onload=null;this.rel='stylesheet'">
         <noscript>
-            <link rel="stylesheet" href="{{asset('site/css/nice-select.min.css') }}">
+            <link rel="stylesheet" href="{{asset('site/css/nice-select.min.css') }}"> --}}
         </noscript>
         <!-- Style CSS -->
         <link href="{{asset('site/css/style.css') }}" rel="preload" as="style"
@@ -165,33 +165,32 @@
 
         <!-- Jquery Slim JS -->
         <script src="{{asset('site/js/jquery.min.js') }}"></script>
-        <!-- Popper JS -->
-        <script src="{{asset('site/js/popper.min.js') }}"></script>
+        {{-- <!-- Popper JS -->
+        <script src="{{asset('site/js/popper.min.js') }}"></script> --}}
         <!-- Bootstrap JS -->
         <script src="{{asset('site/js/bootstrap.min.js') }}"></script>
         <!-- Meanmenu JS -->
         <script src="{{asset('site/js/jquery.meanmenu.js') }}"></script>
         <!-- Owl Carousel JS -->
         <script src="{{asset('site/js/owl.carousel.min.js') }}"></script>
-        {{--<!-- Magnific Popup JS -->--}}
+        <!-- Magnific Popup JS -->
         <script src="{{asset('site/js/jquery.magnific-popup.min.js') }}"></script>
-        <!-- Nice Select JS -->
-        <script src="{{asset('site/js/nice-select.min.js') }}"></script>
+        <!-- Form Validator JS -->
+        <script src="{{asset('site/js/form-validator.min.js') }}"></script>
         <!-- Ajaxchimp JS -->
         <script src="{{asset('site/js/jquery.ajaxchimp.min.js') }}"></script>
-        {{--<!-- Form Validator JS -->--}}
-        <script src="{{asset('site/js/form-validator.min.js') }}"></script>
-        <!-- Contact JS -->
+        <!-- Nice Select JS -->
+        <script src="{{asset('site/js/nice-select.min.js') }}"></script>
+        {{--<!-- Contact JS -->
         <script src="{{asset('site/js/contact-form-script.js') }}"></script>
-        <!-- Wow JS -->
-        <script src="{{asset('site/js/wow.min.js') }}"></script>
+        <script src="{{asset('site/js/wow.min.js') }}"></script>--}}
         <!-- Custom JS -->
         <script src="{{asset('site/js/main.js') }}"></script>
         {{-- <script src="{{asset('site/js/popper.min.js') }}"></script> --}}
         <script src="{{asset('site/js/slick.min.js') }}"></script>
         <script src="{{asset('site/js/theia-sticky-sidebar.min.js') }}"></script>
         {{-- <script src="{{asset('site/js/magnific-popup.min.js') }}"></script> --}}
-        <script src="{{asset('site/js/carouFredSel.min.js') }}"></script>
+        {{-- <script src="{{asset('site/js/carouFredSel.min.js') }}"></script> --}}
         <script src="{{asset('site/js/custom.js') }}"></script>
         <script defer src="{{asset('site/js/lazyload.min.js')}}"></script>
         <script type="text/javascript" src="{{ asset('site/js/webp-support.js') }}"></script>
