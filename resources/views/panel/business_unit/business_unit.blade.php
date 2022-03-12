@@ -11,7 +11,7 @@
 <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
 @endsection
 
-@section('title', 'Business Unit')
+@section('title', 'Unit Usaha')
 
 @section('content')
 @include('layouts.info-layout')
@@ -22,10 +22,10 @@
         <div class="card">
             <div class="card-header clearfix">
                 <div class="float-left">
-                    <i class="icon icon-menu"></i> Data Business Unit
+                    <i class="icon icon-menu"></i> Data Unit Usaha
                 </div>
 
-                <a class="btn btn-primary btn-sm float-right" href="{{ route('business_unit.create') }}"><i class="fa fa-plus"></i> Create Business Unit Page</a>
+                <a class="btn btn-primary btn-sm float-right" href="{{ route('business_unit.create') }}"><i class="fa fa-plus"></i> Create Unit Usaha Page</a>
             </div>
 
             <div class="card-body">
@@ -33,6 +33,7 @@
                     <thead>
                         <th width="50">No</th>
                         <th>Title</th>
+                        <th>Parent Unit Usaha</th>
                         <th width="200">Created At</th>
                         <th width="50" class="text-center">Action</th>
                     </thead>
@@ -62,6 +63,7 @@
             columns: [
                 { data: 'DT_Row_Index', name: 'DT_Row_Index', orderable: false, searchable: false ,width: '50px'},
                 { data: 'title', name: 'title' },
+                { data: 'parent_title', name: 'parent_title', orderable: false, searchable: false },
                 { data: 'created_at', name: 'created_at' },
                 {
                     data: 'id',

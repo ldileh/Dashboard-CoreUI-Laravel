@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use DataTables;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class BusinessUnitController extends Controller
@@ -22,7 +21,11 @@ class BusinessUnitController extends Controller
 
     public function create()
     {
-        return view('panel.business_unit.business_unit-create');
+        $businessUnitData = BusinessUnit::select('id', 'title')->get();
+
+        return view('panel.business_unit.business_unit-create')->with([
+            'parents' => $businessUnitData
+        ]);
     }
 
     public function edit($businessUnitId)
@@ -36,8 +39,11 @@ class BusinessUnitController extends Controller
         // example using markdown
         //Markdown::convertToHtml($data->content);
 
+        $businessUnitData = BusinessUnit::select('id', 'title')->where('id', '!=', $data->id)->get();
+
         return view('panel.business_unit.business_unit-edit')->with([
-            'data' => $data
+            'data' => $data,
+            'parents' => $businessUnitData
         ]);
     }
 
@@ -87,7 +93,9 @@ class BusinessUnitController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:191',
-            'content' => 'required|string',
+            'business_unit' => 'integer|nullable',
+            'url_page' => 'string|max:225|nullable',
+            'content' => 'string|nullable',
         ]);
 
         DB::beginTransaction();
@@ -95,6 +103,8 @@ class BusinessUnitController extends Controller
             // create record
             BusinessUnit::create([
                 'title' => $request->title,
+                'business_unit_id' => $request->business_unit,
+                'url_page' => $request->url_page,
                 'content' => $request->content,
                 'slug' => Str::slug($request->title),
             ]);
@@ -117,7 +127,9 @@ class BusinessUnitController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:191',
-            'content' => 'required|string'
+            'business_unit' => 'integer|nullable',
+            'url_page' => 'string|max:225|nullable',
+            'content' => 'string|nullable'
         ]);
 
         // find record data
@@ -137,6 +149,8 @@ class BusinessUnitController extends Controller
         try {
             // do update data
             $data->title = $request->title;
+            $data->business_unit = $request->business_unit;
+            $data->url_page = $request->url_page;
             $data->content = $request->content;
             $data->slug = Str::slug($request->title);
             $data->save();
@@ -163,6 +177,9 @@ class BusinessUnitController extends Controller
         ->addIndexColumn()
         ->editColumn('created_at', function(BusinessUnit $data) {
             return $data->created_at->format(config('constants.DATE.DEFAULT'));
+        })
+        ->addColumn('parent_title', function(BusinessUnit $data) {
+            return $data->parent != null ? $data->parent->title : "-";
         })
         ->make(true);
     }

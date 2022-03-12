@@ -35,8 +35,43 @@
                         </div>
                     </div>
 
+                    @if (!$parents->isEmpty())
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label is-required" for="input-content">{{ __('Content') }}</label>
+                        <label class="col-md-3 col-form-label" for="input-business_unit">{{ __('Parent Unit Usaha') }}</label>
+                        <div class="col-md-9">
+                            <select name="business_unit" id="input-business_unit" class="form-control form-select2">
+                                <option></option>
+                                @foreach ($parents as $item)
+                                <option value="{{ $item->id }}"@if ($item->id == old('business_unit'))
+                                 selected='selected'
+                                @endif >{{ $item->title }}</option>
+                                @endforeach
+                            </select>
+
+                            @if ($errors->has('business_unit'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('business_unit') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                    @endif
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="input-url_page">{{ __('Page Url') }}</label>
+                        <div class="col-md-9">
+                            <input type="text" name="url_page" class="form-control" id="input-url_page" maxlength="225" value="{{ old('url_page') }}">
+
+                            @if ($errors->has('url_page'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('url_page') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="input-content">{{ __('Content') }}</label>
                         <div class="col-md-9">
                             <textarea name="content" class="form-control" id="input-content">{{ old('content') }}</textarea>
 

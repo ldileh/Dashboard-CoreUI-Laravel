@@ -10,8 +10,20 @@ class BusinessUnit extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'content', 'slug'
+        'title', 'business_unit_id', 'content', 'url_page', 'slug'
     ];
+
+    // Relations
+
+    public function parent()
+    {
+        return $this->belongsTo(BusinessUnit::class, 'business_unit_id');
+    }
+
+    public function childs()
+    {
+        return $this->hasMany(BusinessUnit::class, 'business_unit_id', 'id');
+    }
 
     /**
      * Get the route key for the model.

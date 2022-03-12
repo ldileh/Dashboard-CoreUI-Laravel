@@ -9,6 +9,7 @@ use App\Models\Member;
 use App\Models\Product;
 use App\Models\Video;
 use App\Http\Controllers\Controller;
+use App\Models\BusinessUnit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -195,10 +196,19 @@ class SiteController extends Controller
             abort(404, "Data gallery tidak ditemukan");
         }
 
-        // dd($gallery->images()->get());
-
         return view('site.gallery.gallery-detail')->with([
             'data' => $gallery
+        ]);
+    }
+
+    public function businessUnit(BusinessUnit $businessUnit)
+    {
+        if($businessUnit == null){
+            abort(404, "Data Unit Usaha tidak ditemukan");
+        }
+
+        return view('site.business_unit.business_unit')->with([
+            'data' => $businessUnit
         ]);
     }
 

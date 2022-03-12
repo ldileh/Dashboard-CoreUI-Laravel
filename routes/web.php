@@ -160,4 +160,9 @@ Route::group([], function () {
         Route::post('register', 'Site\SiteController@saveDataMember')->name('site.member.register.data');
         Route::get('constribution', 'Site\SiteController@memberConstribution')->name('site.member.constribution');
     });
+
+    // Members
+    Route::prefix('unit_usaha')->group(function () {
+        Route::get('{businessUnit}', 'Site\SiteController@businessUnit')->name('site.unit_usaha.detail');
+    });
 });

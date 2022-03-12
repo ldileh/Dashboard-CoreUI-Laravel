@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Models\BusinessUnit;
 use App\Models\Video;
 
 class ConfigSiteHelper{
@@ -13,6 +14,8 @@ class ConfigSiteHelper{
 
     public function menus()
     {
+        $businessUnits = $this->getBusinessUnitMenu();
+
         return [
             [
                 'title' => 'Beranda',
@@ -72,49 +75,7 @@ class ConfigSiteHelper{
                 'title' => 'Unit Usaha',
                 'url' => url('#'),
                 'target' => '',
-                'child' => [
-                    [
-                        'title' => 'Nasional',
-                        'url' => url('#'),
-                        'target' => '_self',
-                        'child' => [
-                            [
-                                'title' => 'Gerai Nusantara',
-                                'url' => 'http://www.gerainusantara.com/',
-                                'target' => '_self'
-                            ],
-                            [
-                                'title' => 'Nusantara Indigineous Coffee',
-                                'url' => 'https://www.instagram.com/indigenous_coffee/?hl=en',
-                                'target' => '_self'
-                            ],
-                            [
-                                'title' => 'Wisata Adat Nusantara Kita',
-                                'url' => url('#'),
-                                'target' => '_self'
-                            ],
-                            [
-                                'title' => 'Pinjaman Modal Usaha Cabang dan Anggota PMUCA',
-                                'url' => url('#'),
-                                'target' => '_self'
-                            ],
-                        ]
-                    ],
-                    [
-                        'title' => 'Wilayah',
-                        'url' => url('#'),
-                        'target' => '_self'
-                    ],
-                    [
-                        'title' => 'Daerah',
-                        'url' => url('#'),
-                        'target' => '_self'
-                    ],[
-                        'title' => 'Komunitas',
-                        'url' => url('#'),
-                        'target' => '_self'
-                    ],
-                ]
+                'child' => $businessUnits
             ],
 
             [
@@ -235,5 +196,36 @@ class ConfigSiteHelper{
     public function footerSocialMedia()
     {
         return $this->socialMedia();
+    }
+
+    private function getBusinessUnitMenu()
+    {
+        $businessUnits = BusinessUnit::whereNull('business_unit_id')->get();
+
+        // do maping result
+        return $businessUnits->map(function($item){
+            if(!$item->childs->isEmpty()){
+                $childs = $item->childs->map(function($child){
+                    return [
+                        'title' => $child->title,
+                        'url' => !empty($child->url_page) ? $child->url_page : route('site.unit_usaha.detail', $child),
+                        'target' => '_self'
+                    ];
+                });
+
+                return [
+                    'title' => $item->title,
+                    'url' => url('#'),
+                    'target' => '_self',
+                    'child' => $childs
+                ];
+            }else{
+                return [
+                    'title' => $item->title,
+                    'url' => !empty($item->url_page) ? $item->url_page : route('site.unit_usaha.detail', $item),
+                    'target' => '_self',
+                ];
+            }
+        });
     }
 }
