@@ -21,6 +21,15 @@ jQuery(function ($) {
 			$(".others-option-for-responsive .container .container").toggleClass("active");
 		});
 
+        /*==============================================================*/
+        // TheiaStickySidebar
+        /*==============================================================*/
+
+        $('.sg-sticky')
+            .theiaStickySidebar({
+                additionalMarginTop: 0
+        });
+
         // Video Slides
 		$('.video-slides').owlCarousel({
 			loop: true,
