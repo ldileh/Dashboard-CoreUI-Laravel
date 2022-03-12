@@ -94,7 +94,7 @@ class ProductController extends Controller
         $request->validate([
             'image' => 'image|mimes:jpeg,png,jpg',
             'title' => 'required|string|max:191',
-            'description' => 'required|string|max:191',
+            'description' => 'required|string',
         ]);
 
         // save image on storage
@@ -135,7 +135,7 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             'image' => 'image|mimes:jpeg,png,jpg',
             'title' => 'required|string|max:191',
-            'description' => 'required|string|max:191'
+            'description' => 'required|string'
         ]);
 
         // find record data
