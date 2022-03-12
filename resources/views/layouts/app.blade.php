@@ -41,8 +41,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <a class="navbar-brand" href="#">
-        <img class="navbar-brand-full" src="{{ asset('img/logo.svg') }}" width="100" alt="Application Logo">
-        <img class="navbar-brand-minimized" src="{{ asset('img/logo-mini.svg') }}" width="30" height="30" alt="Application Logo">
+        <img class="navbar-brand-full" src="{{ asset('img/ic_logo_admin_panel.png') }}" width="100" alt="Application Logo">
+        <img class="navbar-brand-minimized" src="{{ asset('img/icon.png') }}" width="30" height="30" alt="Application Logo">
       </a>
       <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
         <span class="navbar-toggler-icon"></span>
