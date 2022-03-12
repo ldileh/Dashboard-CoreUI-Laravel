@@ -9,7 +9,7 @@
 
 @section('content')
 <div class="sg-page-content">
-    <div class="container" style="margin-top: 16px;">
+    <div class="container">
         <div class="entry-header mb-4">
             <div class="entry-thumbnail">
             </div>
