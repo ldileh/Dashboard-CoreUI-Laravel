@@ -21,7 +21,7 @@ class BusinessUnitController extends Controller
 
     public function create()
     {
-        $businessUnitData = BusinessUnit::select('id', 'title')->get();
+        $businessUnitData = BusinessUnit::select('id', 'title')->whereNull('business_unit_id')->get();
 
         return view('panel.business_unit.business_unit-create')->with([
             'parents' => $businessUnitData
@@ -39,7 +39,7 @@ class BusinessUnitController extends Controller
         // example using markdown
         //Markdown::convertToHtml($data->content);
 
-        $businessUnitData = BusinessUnit::select('id', 'title')->where('id', '!=', $data->id)->get();
+        $businessUnitData = BusinessUnit::select('id', 'title')->whereNull('business_unit_id')->where('id', '!=', $data->id)->get();
 
         return view('panel.business_unit.business_unit-edit')->with([
             'data' => $data,
