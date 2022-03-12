@@ -74,20 +74,22 @@
 
                     {{-- List news header banner --}}
                     <div class="carousel-inner">
-                        @foreach ($newsBanner as $item)
+                        @for ($i = 0; $i < count($newsBanner); $i++)
                         @php
+                            $item = $newsBanner[$i];
                             $bannerImageUrl = empty($item->banner) ? 'site/img/main-news/main-news-1.jpg' : 'storage/images/news/' . $item->banner;
                         @endphp
-                        <div class="carousel-item {{ $item->index == 0 ? 'active' : '' }}">
+                        <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
                             <div class="single-main-news">
                                 <a href="{{ route('site.news.detail', $item) }}">
                                     <img src="{{ asset($bannerImageUrl) }}" data-original="{{ asset($bannerImageUrl) }}" alt="{{ $item->title }}">
                                 </a>
                             </div>
                         </div>
-                        @endforeach
+                        @endfor
                     </div>
 
+                    @if (count($newsBanner) > 1)
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
@@ -97,6 +99,7 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                     @endif
+                    @endif
                 </div>
             </div>
 
@@ -104,15 +107,38 @@
             <div class="col-lg-4">
                 <div class="single-main-news-inner">
                     <div id="carouselAds" class="carousel slide" data-ride="carousel">
+                        @php
+                            $productFirst = $productBanner->first();
+                            $productEnd = $productBanner->last();
+                        @endphp
                         <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselAds" data-bs-slide-to="0"  class="active" aria-current="true" aria-label=""></button>
-                            <button type="button" data-bs-target="#carouselAds" data-bs-slide-to="1"  aria-current="true" aria-label=""></button>
+                            @if ($productFirst != null)
+                            <button
+                                type="button"
+                                data-bs-target="#carouselAds"
+                                data-bs-slide-to="0"
+                                class="active"
+                                aria-current="true"
+                                aria-label="{{ $productFirst->title }}"></button>
+                            @endif
+
+                            @if ($productEnd != null && $productEnd != $productFirst)
+                            <button
+                                type="button"
+                                data-bs-target="#carouselAds"
+                                data-bs-slide-to="{{ $productBanner->count() - 1 }}"
+                                aria-current="true"
+                                aria-label="{{ $productEnd->title }}"></button>
+                            @endif
                         </div>
 
                         {{-- List banner products --}}
                         <div class="carousel-inner">
-                            @foreach ($productBanner as $item)
-                            <div class="carousel-item {{ $item->index == 0 ? 'active' : '' }}">
+                            @for ($i = 0; $i < count($productBanner); $i++)
+                            @php
+                                $item = $productBanner[$i];
+                            @endphp
+                            <div class="carousel-item {{ $i == 0 ? 'active' : '' }}">
                                 <a href="{{ route('site.product.detail', $item) }}">
                                     <img class="img-fluid lazy"
                                         src="{{ asset('storage/images/product/' . $item->image) }}"
@@ -120,8 +146,19 @@
                                         alt="{{ $item->title }}">
                                 </a>
                             </div>
-                            @endforeach
+                            @endfor
                         </div>
+
+                        @if (count($productBanner) > 1)
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselAds" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselAds" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                        @endif
                     </div>
                 </div>
 
