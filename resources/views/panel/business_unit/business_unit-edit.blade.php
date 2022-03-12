@@ -38,7 +38,7 @@
 
                     @if (!$parents->isEmpty())
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label is-required" for="input-business_unit">{{ __('Parent Unit Usaha') }}</label>
+                        <label class="col-md-3 col-form-label" for="input-business_unit">{{ __('Parent Unit Usaha') }}</label>
                         <div class="col-md-9">
                             <select name="business_unit" id="input-business_unit" class="form-control form-select2">
                                 <option></option>
