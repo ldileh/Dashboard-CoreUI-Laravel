@@ -290,10 +290,14 @@
 
             try {
                 var successful = document.execCommand('copy');
-                var msg = successful ? 'successful' : 'unsuccessful';
-                console.log('Fallback: Copying text command was ' + msg);
+
+                if(successful){
+                    window.alert('Success! The text was copied to your clipboard')
+                }else{
+                    window.alert('Fallback: Oops, unable to copy', err)
+                }
             } catch (err) {
-                console.error('Fallback: Oops, unable to copy', err);
+                window.alert('Fallback: Oops, unable to copy', err)
             }
 
             document.body.removeChild(textArea);
