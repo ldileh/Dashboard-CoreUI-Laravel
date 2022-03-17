@@ -14,6 +14,9 @@
 /**
  * Auth Route
  */
+
+use Illuminate\Routing\RouteGroup;
+
 Auth::routes(['register' => false]);
 
 /**
@@ -102,6 +105,13 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
         Route::get('{businessUnitId}/edit', 'Panel\BusinessUnitController@edit')->name('business_unit.edit');
         Route::put('{businessUnitId}/edit', 'Panel\BusinessUnitController@update')->name('business_unit.data.edit');
         Route::delete('{businessUnitId}/delete', 'Panel\BusinessUnitController@destroy')->name('business_unit.data.delete');
+    });
+
+    // Post Image
+    Route::prefix('post_image')->group(function () {
+        Route::get('data', 'Panel\HomeController@getDataPostImage')->name('post_image.data');
+        Route::post('create', 'Panel\HomeController@storeImages')->name('post_image.store');
+        Route::delete('{postImageId}/delete', 'Panel\HomeController@destroyImage')->name('post_image.delete');
     });
 
 	// Others

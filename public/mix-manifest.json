@@ -8,6 +8,7 @@
     "/css/dataTables.bootstrap4.min.css": "/css/dataTables.bootstrap4.min.css",
     "/js/jquery.dataTables.min.js": "/js/jquery.dataTables.min.js",
     "/js/dataTables.bootstrap4.min.js": "/js/dataTables.bootstrap4.min.js",
+    "/js/tooltips.js": "/js/tooltips.js",
     "/css/vex.css": "/css/vex.css",
     "/css/vex-theme-os.css": "/css/vex-theme-os.css",
     "/css/select2.min.css": "/css/select2.min.css",
