@@ -55,7 +55,7 @@
                         <div class="row pt-3">
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d126919.74888614261!2d106.854123!3d-6.231775!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x99ae357bf6658626!2sRumah%20AMAN%20(Indigenous%20Peoples%20Alliance%20of%20the%20Archipelago)!5e0!3m2!1sen!2sid!4v1624552079479!5m2!1sen!2sid"
-                                width="400" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                                width="400" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>

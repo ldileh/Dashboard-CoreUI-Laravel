@@ -475,9 +475,6 @@ jQuery(function ($) {
             });
         });
     }
-    var $myCarousel = $('#home-carousel'),
-        $firstAnimatingElems = $myCarousel.find('.item:first').find("[data-animation ^= 'animated']");
-    $myCarousel.carousel();
 
     doAnimations($firstAnimatingElems);
     $myCarousel.carousel('pause');
