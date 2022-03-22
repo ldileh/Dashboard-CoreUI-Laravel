@@ -31,7 +31,7 @@
                                             $videoId = $configSite->getVideoIdYoutube($data->video_url);
                                         @endphp
                                         @if ($configSite->isVideoYoutube($data->video_url))
-                                        <iframe height="480" src="https://www.youtube.com/embed/{{ $videoId }}"></iframe>
+                                        <iframe width="100%" height="480" src="https://www.youtube.com/embed/{{ $videoId }}"></iframe>
                                         @else
                                         <img class="img-fluid"
                                             src="{{ $configSite->generateAsset('video', $data->banner) }}"
