@@ -8,6 +8,11 @@
 <link rel="stylesheet" href="{{ asset('css/vex-theme-os.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('css/simplemde.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/dropzone.min.css') }}">
+<style>
+    #data-table-post_image_wrapper{
+        padding: 8px;
+    }
+</style>
 @endsection
 
 @section('extra-js')
