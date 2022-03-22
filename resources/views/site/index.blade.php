@@ -36,6 +36,22 @@
     .most-popular-post {
         border: none !important;
     }
+
+    /* For Mobile */
+    @media screen and (max-width: 540px) {
+        .single-main-news > a > img {
+            height: 350px;
+            width: 100%;
+        }
+    }
+
+    /* For Tablets */
+    @media screen and (min-width: 540px) and (max-width: 780px) {
+        .single-main-news > a > img {
+            height: 450px;
+            width: 100%;
+        }
+    }
 </style>
 @endsection
 
