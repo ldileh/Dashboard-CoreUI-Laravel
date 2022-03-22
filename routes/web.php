@@ -165,10 +165,10 @@ Route::group([], function () {
 
     // Members
     Route::prefix('members')->group(function () {
-        Route::get('list', 'Site\SiteController@memberList')->name('site.member.list');
-        Route::get('register', 'Site\SiteController@memberRegister')->name('site.member.register');
-        Route::post('register', 'Site\SiteController@saveDataMember')->name('site.member.register.data');
-        Route::get('constribution', 'Site\SiteController@memberConstribution')->name('site.member.constribution');
+        Route::get('list', 'Site\MemberSiteController@memberList')->name('site.member.list');
+        Route::get('register', 'Site\MemberSiteController@memberRegister')->name('site.member.register');
+        Route::post('register', 'Site\MemberSiteController@saveDataMember')->name('site.member.register.data');
+        Route::get('constribution', 'Site\MemberSiteController@memberConstribution')->name('site.member.constribution');
     });
 
     // Members
