@@ -91,21 +91,21 @@ class ConfigSiteHelper{
         return [
             [
                 'name' => 'Youtube',
-                'url' => url('#'),
+                'url' => 'https://www.youtube.com/user/masyarakatadat',
                 'icon' => 'fa fa-youtube-play',
                 'iconUrl' => '',
                 'color' => '#E50017'
             ],
             [
                 'name' => 'Facebook',
-                'url' => url('#'),
+                'url' => 'https://www.facebook.com/kpamanmandiri?_rdc=1&_rdr',
                 'icon' => 'fa fa-facebook',
                 'iconUrl' => '',
                 'color' => '#056ED8'
             ],
             [
                 'name' => 'Instagram',
-                'url' => url('#'),
+                'url' => 'https://www.instagram.com/rumah.aman/',
                 'icon' => 'fa fa-instagram',
                 'iconUrl' => '',
                 'color' => '#C13584'
