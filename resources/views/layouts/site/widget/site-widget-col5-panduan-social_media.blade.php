@@ -18,7 +18,7 @@
                 <ul class="stay-connected-list">
                     @foreach ($socialMedia as $item)
                     <li class="facebook">
-                        <a href="#" style="background:{{ $item['color'] }}" name="{{ $item['name'] }}">
+                        <a href="{{ $item['url'] }}" style="background:{{ $item['color'] }}" name="{{ $item['name'] }}">
                             <span style="background:{{ $item['color'] }}">
                                 <i class="{{ $item['icon'] }}" aria-hidden="true"></i>
                             </span>
