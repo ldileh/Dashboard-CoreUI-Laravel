@@ -49,5 +49,13 @@ return [
             'KTP' => 'KTP',
             'PASS_PHOTO' => 'PASS_PHOTO'
         ]
+    ],
+
+    'COMPANY_PROFILE' => [
+        'PAGES' => [
+            'PERATURAN' => 1,
+            'LAPORAN' => 2
+        ]
     ]
+
 ];

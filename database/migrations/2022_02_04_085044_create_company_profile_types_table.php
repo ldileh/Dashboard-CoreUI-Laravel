@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProfileCompanyTable extends Migration
+class CreateCompanyProfileTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateProfileCompanyTable extends Migration
      */
     public function up()
     {
-        Schema::create('profile_company', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('company_profile_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
         });
     }
 
@@ -26,6 +26,6 @@ class CreateProfileCompanyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profile_company');
+        Schema::dropIfExists('company_profile_types');
     }
 }
