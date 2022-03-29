@@ -83,11 +83,13 @@
                             '<button type="button" class="btn btn-danger button-delete" data-value="'+data+'"><i class="fa fa-trash"></i></button>' +
                             '<button type="button" class="btn btn-warning button-update-status" data-value="'+data+'" data-name="'+row.name+'"><i class="fa fa-exchange" style="color: white;"></i></button>' +
                             '<a class="btn btn-primary" href="{{ url('panel/member') }}/'+data+'/edit"><i class="fa fa-pencil"></i></a>' +
+                            '<a class="btn btn-primary" href="'+ row.member_url_print +'" target="_blank"><i class="fa fa-print"></i></a>' +
                         '</div>';
                         }else{
                             return '<div class="btn-group btn-group-sm">' +
                             '<button type="button" class="btn btn-danger button-delete" data-value="'+data+'"><i class="fa fa-trash"></i></button>' +
                             '<a class="btn btn-primary" href="{{ url('panel/member') }}/'+data+'/edit"><i class="fa fa-pencil"></i></a>' +
+                            '<a class="btn btn-secondary" href="'+ row.member_url_print +'" target="_blank"><i class="fa fa-print"></i></a>' +
                         '</div>';
                         }
                     }

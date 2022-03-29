@@ -27,6 +27,15 @@ class Member extends Model
         return in_array($this->member_status_id, $status);
     }
 
+    public function genderText()
+    {
+        if($this->gender == 'm'){
+            return "Pria";
+        }else{
+            return "Wanita";
+        }
+    }
+
     public function isApprove()
     {
         return $this->hasRole([ config('constants.MEMBER.STATUS.APPROVE') ]);

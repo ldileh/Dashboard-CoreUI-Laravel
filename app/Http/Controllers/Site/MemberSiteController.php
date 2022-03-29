@@ -37,7 +37,6 @@ class MemberSiteController extends Controller
         return view('site.member.constribution');
     }
 
-
     /**
      * Functions
      */

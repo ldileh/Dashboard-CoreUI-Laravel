@@ -357,6 +357,9 @@ class MemberController extends Controller
         ->addColumn('badge_color', function(Member $query){
             return $query->member_status_id == config('constants.MEMBER.STATUS.REGISTER') ? 'badge-danger' : 'badge-success';
         })
+        ->addColumn('member_url_print', function(Member $query){
+            return route('pdf.member', $query);
+        })
         ->make(true);
     }
 }

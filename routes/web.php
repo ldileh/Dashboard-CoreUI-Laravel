@@ -114,6 +114,11 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
         Route::delete('{postImageId}/delete', 'Panel\HomeController@destroyImage')->name('post_image.delete');
     });
 
+    // PDF Generator
+    Route::prefix('pdf')->group(function () {
+        Route::get('members/{member}', 'PdfGeneratorController@generateMember')->name('pdf.member');
+    });
+
 	// Others
 	Route::get('profile', 'Panel\HomeController@profile')->name('profile');
 	Route::post('profile', 'Panel\HomeController@updateProfile')->name('profile.data.edit');

@@ -164,6 +164,7 @@ return [
          * Others
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -215,6 +216,7 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
         'Carbon' => Illuminate\Support\Carbon::class,
+        'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
     ],
 
 ];
