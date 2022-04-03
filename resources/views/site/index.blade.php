@@ -42,7 +42,7 @@
     /* For Mobile */
     @media screen and (max-width: 540px) {
         .single-main-news > a > img {
-            height: 350px;
+            height: 245px;
             width: 100%;
         }
     }
