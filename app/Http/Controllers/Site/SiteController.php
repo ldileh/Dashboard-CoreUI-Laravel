@@ -111,7 +111,12 @@ class SiteController extends Controller
 
     public function organizationReport()
     {
-        return view('site.organization.report');
+        $companyProfile = CompanyProfile::getByType(config('constants.COMPANY_PROFILE.PAGES.LAPORAN'));
+        $content = $companyProfile != null ? $companyProfile->content : '';
+
+        return view('site.organization.report')->with([
+            'content' => $content
+        ]);;
     }
 
     public function contact()

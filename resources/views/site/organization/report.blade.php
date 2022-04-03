@@ -12,7 +12,7 @@
                                 <div class="entry-content p-4">
                                     <h3>Laporan</h3>
                                     <div class="paragraph p-t-20">
-
+                                        {!! Markdown::convertToHtml($content) !!}
                                     </div>
                                 </div>
                             </div>
