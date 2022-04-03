@@ -19,4 +19,9 @@ class CompanyProfile extends Model
     {
         return $this->belongsTo(CompanyProfileType::class, 'company_profile_type_id');
     }
+
+    public static function getByType($typeId)
+    {
+        return CompanyProfile::where('company_profile_type_id', $typeId)->first();
+    }
 }

@@ -119,6 +119,14 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
         Route::get('members/{member}', 'PdfGeneratorController@generateMember')->name('pdf.member');
     });
 
+    // Company Profile
+    Route::prefix('company_profile')->group(function () {
+        Route::get('/', 'Panel\CompanyProfileController@index')->name('company_profile');
+        Route::get('/data', 'Panel\CompanyProfileController@getData')->name('company_profile.data');
+        Route::get('type/{companyProfileTypeId}/change', 'Panel\CompanyProfileController@change')->name('company_profile.change');
+        Route::put('type/{companyProfileTypeId}/change', 'Panel\CompanyProfileController@update')->name('company_profile.data.change');
+    });
+
 	// Others
 	Route::get('profile', 'Panel\HomeController@profile')->name('profile');
 	Route::post('profile', 'Panel\HomeController@updateProfile')->name('profile.data.edit');

@@ -26,5 +26,8 @@
       <a class="nav-link" href="{{ route('business_unit') }}">
 	    <i class="nav-icon icon-magic-wand"></i> Business Unit
 	  </a>
+      <a class="nav-link" href="{{ route('company_profile') }}">
+	    <i class="nav-icon icon-star"></i> Company Profile
+	  </a>
 	</li>
 </ul>

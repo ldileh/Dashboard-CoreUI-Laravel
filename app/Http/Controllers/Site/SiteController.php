@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Video;
 use App\Http\Controllers\Controller;
 use App\Models\BusinessUnit;
+use App\Models\CompanyProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -100,7 +101,12 @@ class SiteController extends Controller
 
     public function organizationRule()
     {
-        return view('site.organization.rule');
+        $companyProfile = CompanyProfile::getByType(config('constants.COMPANY_PROFILE.PAGES.PERATURAN'));
+        $content = $companyProfile != null ? $companyProfile->content : '';
+
+        return view('site.organization.rule')->with([
+            'content' => $content
+        ]);
     }
 
     public function organizationReport()

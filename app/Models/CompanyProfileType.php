@@ -12,4 +12,9 @@ class CompanyProfileType extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function companyProfile()
+    {
+        return $this->hasOne(CompanyProfile::class, 'company_profile_type_id', 'id');
+    }
 }
