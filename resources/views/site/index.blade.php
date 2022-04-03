@@ -17,7 +17,7 @@
     }
 
     .single-main-news > a > img {
-        height: 645px;
+        height: 545px;
         width: 100%;
     }
 
@@ -31,6 +31,8 @@
     }
     .single-main-news-box img {
         height: 100%;
+        margin-top: 12px;
+        margin-bottom: 12px;
     }
 
     .most-popular-post {
