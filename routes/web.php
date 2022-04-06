@@ -114,11 +114,6 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
         Route::delete('{postImageId}/delete', 'Panel\HomeController@destroyImage')->name('post_image.delete');
     });
 
-    // PDF Generator
-    Route::prefix('pdf')->group(function () {
-        Route::get('members/{member}', 'PdfGeneratorController@generateMember')->name('pdf.member');
-    });
-
     // Company Profile
     Route::prefix('company_profile')->group(function () {
         Route::get('/', 'Panel\CompanyProfileController@index')->name('company_profile');
@@ -130,6 +125,11 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
 	// Others
 	Route::get('profile', 'Panel\HomeController@profile')->name('profile');
 	Route::post('profile', 'Panel\HomeController@updateProfile')->name('profile.data.edit');
+});
+
+// PDF Generator
+Route::prefix('pdf')->group(function () {
+    Route::get('members/{member}', 'PdfGeneratorController@generateMember')->name('pdf.member');
 });
 
 

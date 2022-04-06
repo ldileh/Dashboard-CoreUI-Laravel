@@ -133,5 +133,16 @@
         </form>
     </div>
 </div>
-
 @endsection
+
+{{-- do open new page to download  --}}
+@if (session('download_pdf_member_url'))
+@push('script')
+<script type="text/javascript">
+    $(function(){
+
+        window.open("{{ session('download_pdf_member_url') }}", '_blank');
+    });
+</script>
+@endpush
+@endif

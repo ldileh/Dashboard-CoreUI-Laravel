@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\PdfGeneratorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -72,9 +73,10 @@ class MemberSiteController extends Controller
         }
 
         DB::beginTransaction();
+        $member = null;
         try {
             // create record
-            Member::create([
+            $member = Member::create([
                 'name' => $request->name,
                 'birth_place' => $request->birth_place,
                 'birth_date' => Carbon::parse($request->birth_date)->format(config('constants.DATE.INPUT_DATE')),
@@ -103,6 +105,7 @@ class MemberSiteController extends Controller
 
         return redirect()->route('site.member.register')->with([
             'success' => 'Success to create data.',
+            'download_pdf_member_url' => route('pdf.member', $member),
         ]);
     }
 
