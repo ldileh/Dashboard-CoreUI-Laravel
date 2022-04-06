@@ -53,6 +53,8 @@
 
         // do request data table
         var table = $('#data-table').DataTable({
+            searching: false,
+            paging: false,
             processing: true,
             serverSide: true,
             ajax: '{!! route('company_profile.data') !!}',
