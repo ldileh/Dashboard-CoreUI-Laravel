@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Panel;
 
 use App\Models\PostImage;
 use App\Http\Controllers\Controller;
+use App\Models\MemberStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -157,6 +158,22 @@ class HomeController extends Controller
             'message' => 'Success delete image gallery',
         ]);
     }
+
+    public function getDataMemberChart()
+    {
+        $query = DB::table('member_statuses')
+        ->select('member_statuses.name', DB::raw('(SELECT count(*) from members where members.member_status_id = member_statuses.id) as number_member'))
+        ->get();
+
+        $data = [
+            'code' => 200,
+            'data' => $query
+        ];
+
+        return response()->json($data, 200);
+    }
+
+    // Others
 
     private function getStorage()
     {

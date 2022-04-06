@@ -122,8 +122,14 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
         Route::put('type/{companyProfileTypeId}/change', 'Panel\CompanyProfileController@update')->name('company_profile.data.change');
     });
 
+    // Chart
+    Route::prefix('chart')->group(function () {
+        Route::get('member', 'Panel\HomeController@getDataMemberChart')->name('chart.member');
+    });
+
 	// Others
 	Route::get('profile', 'Panel\HomeController@profile')->name('profile');
+	Route::post('profile', 'Panel\HomeController@updateProfile')->name('profile.data.edit');
 	Route::post('profile', 'Panel\HomeController@updateProfile')->name('profile.data.edit');
 });
 
