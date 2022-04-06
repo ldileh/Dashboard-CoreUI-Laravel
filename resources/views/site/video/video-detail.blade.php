@@ -66,7 +66,7 @@
                                         <h1>Komentar</h1>
                                     </div>
 
-                                    <form class="contact-form" name="contact-form" method="post" action="http://dev.kpam.online/article/post/comment">
+                                    <form class="contact-form" name="contact-form" method="post" action="{{ route('site.video.detail.comment', $data) }}">
                                         @csrf
 
                                         <div class="row">

@@ -52,16 +52,16 @@
                             <div class="sg-section">
                                 <div class="section-content">
                                     <div class="section-title">
-                                        <h1>komentar / balasan dari</h1>
+                                        <h1>Komentar</h1>
                                     </div>
 
-                                    <form class="contact-form" name="contact-form" method="post" action="http://dev.kpam.online/article/post/comment">
+                                    <form class="contact-form" name="contact-form" method="post" action="{{ route('site.news.detail.comment', $data) }}">
                                         @csrf
 
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="four">komentar</label>
+                                                    <label for="four">Komentar</label>
                                                     <textarea
                                                         id="four"
                                                         name="comment"
@@ -73,7 +73,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <button class="btn btn-primary" type="submit">Komentar</button>
+                                            <button class="btn btn-primary" type="submit">Kirim Komentar</button>
                                         </div>
                                     </form>
                                 </div>

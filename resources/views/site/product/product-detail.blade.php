@@ -53,7 +53,7 @@
                                         <h1>Komentar</h1>
                                     </div>
 
-                                    <form class="contact-form" name="contact-form" method="post" action="http://dev.kpam.online/article/post/comment">
+                                    <form class="contact-form" name="contact-form" method="post" action="{{ route('site.product.detail.comment', $data) }}">
                                         @csrf
 
                                         <div class="row">
@@ -71,7 +71,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <button class="btn btn-primary" type="submit">Kirim</button>
+                                            <button class="btn btn-primary" type="submit">Kirim Komentar</button>
                                         </div>
                                     </form>
                                 </div>

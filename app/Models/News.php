@@ -21,6 +21,11 @@ class News extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(NewsThread::class, 'news_id', 'id');
+    }
+
     /**
      * Get the route key for the model.
      *

@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Site;
 use App\Mail\Contact as ContactMail;
 use App\Models\Gallery;
 use App\Models\News;
-use App\Models\Member;
 use App\Models\Product;
 use App\Models\Video;
 use App\Http\Controllers\Controller;
 use App\Models\BusinessUnit;
 use App\Models\CompanyProfile;
+use App\Models\NewsThread;
+use App\Models\ProductThread;
+use App\Models\VideoThread;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class SiteController extends Controller
@@ -219,6 +222,78 @@ class SiteController extends Controller
         ]));
 
         return redirect()->route('site.contact');
+    }
+
+    public function saveCommentNews(Request $request, News $news)
+    {
+        $request->validate([
+            'comment' => 'required|string|max:191',
+        ]);
+
+        if($news == null){
+            abort(404, 'Data news invalid');
+        }
+
+        DB::beginTransaction();
+        try {
+            $news->comments()->save(new NewsThread([ 'description' => $request->comment ]));
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+        }
+
+        return redirect()->route('site.news.detail', $news)->with([
+            'success' => 'Success to submit comment.',
+        ]);
+    }
+
+    public function saveCommentProduct(Request $request, Product $product)
+    {
+        $request->validate([
+            'comment' => 'required|string|max:191',
+        ]);
+
+        if($product == null){
+            abort(404, 'Data product invalid');
+        }
+
+        DB::beginTransaction();
+        try {
+            $product->threads()->save(new ProductThread([ 'description' => $request->comment ]));
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+        }
+
+        return redirect()->route('site.product.detail', $product)->with([
+            'success' => 'Success to submit comment.',
+        ]);
+    }
+
+    public function saveCommentVideo(Request $request, Video $video)
+    {
+        $request->validate([
+            'comment' => 'required|string|max:191',
+        ]);
+
+        if($video == null){
+            abort(404, 'Data video invalid');
+        }
+
+        DB::beginTransaction();
+        try {
+            $video->threads()->save(new VideoThread([ 'description' => $request->comment ]));
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+        }
+
+        return redirect()->route('site.video.detail', $video)->with([
+            'success' => 'Success to submit comment.',
+        ]);
     }
 
     /**

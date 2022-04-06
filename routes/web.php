@@ -154,19 +154,22 @@ Route::group([], function () {
     // News
     Route::prefix('news')->group(function () {
         Route::get('/', 'Site\SiteController@news')->name('site.news');
-        Route::get('detail/{news}', 'Site\SiteController@newsDetail')->name('site.news.detail');
+        Route::get('{news}', 'Site\SiteController@newsDetail')->name('site.news.detail');
+        Route::post('{news}', 'Site\SiteController@saveCommentNews')->name('site.news.detail.comment');
     });
 
     // Product
     Route::prefix('product')->group(function () {
         Route::get('/', 'Site\SiteController@product')->name('site.product');
         Route::get('{product}', 'Site\SiteController@productDetail')->name('site.product.detail');
+        Route::post('{product}', 'Site\SiteController@saveCommentProduct')->name('site.product.detail.comment');
     });
 
     // Video
     Route::prefix('video')->group(function () {
         Route::get('/', 'Site\SiteController@video')->name('site.video');
         Route::get('{video}', 'Site\SiteController@videoDetail')->name('site.video.detail');
+        Route::post('{video}', 'Site\SiteController@saveCommentVideo')->name('site.video.detail.comment');
     });
 
     // Gallery
