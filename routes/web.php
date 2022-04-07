@@ -131,6 +131,7 @@ Route::group([ 'prefix' => 'panel', 'middleware' => [ 'auth', 'auth.panel' ] ], 
 	Route::get('profile', 'Panel\HomeController@profile')->name('profile');
 	Route::post('profile', 'Panel\HomeController@updateProfile')->name('profile.data.edit');
 	Route::post('profile', 'Panel\HomeController@updateProfile')->name('profile.data.edit');
+    Route::get('pdf/members', 'PdfGeneratorController@generateMembers')->name('pdf.members');
 });
 
 // PDF Generator

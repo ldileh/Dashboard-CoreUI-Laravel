@@ -25,7 +25,8 @@
                     <i class="icon icon-menu"></i> Data Member
                 </div>
 
-                <a class="btn btn-primary btn-sm float-right" href="{{ route('member.create') }}"><i class="fa fa-plus"></i> Create Member</a>
+                <a class="btn btn-primary btn-sm float-right" href="{{ route('member.create') }}" style="margin-left: 8px;"><i class="fa fa-plus"></i> Create Member</a>
+                <a class="btn btn-primary btn-sm float-right" href="{{ route('pdf.members') }}" target="_blank"><i class="fa fa-download"></i> Import All</a>
             </div>
 
             <div class="card-body">

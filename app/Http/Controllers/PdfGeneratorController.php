@@ -12,13 +12,14 @@ class PdfGeneratorController extends Controller
 
     public function generateMembers()
     {
-        $data = Member::where('member_status_id', config('constants.MEMBER.STATUS.APPROVE'))->get();
+        $data = Member::get();
 
-        if($data.isEmpty()){
+        if($data->isEmpty()){
             abort(500, "Tidak ada data member");
         }
-
-        $pdf = PDF::loadView('members-pdf', $data);
+        $pdf = PDF::loadView('pdf.members-pdf', [
+            'data' => $data
+        ])->setPaper('a3', 'landscape');
 
         return $pdf->download('members-' . time() . '.pdf');
     }

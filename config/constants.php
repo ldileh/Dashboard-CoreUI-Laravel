@@ -23,6 +23,7 @@ return [
         'DEFAULT' => 'd/F/Y H:m:s',
         'INPUT_DATE' => 'Y-m-d',
         'DATE_SIMPLE' => 'F d, Y',
+        'DATE_FORMAL' => 'd F Y',
     ],
 
     'STORAGE' => [
