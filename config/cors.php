@@ -26,12 +26,12 @@ return [
     /*
     * Matches the request method. `['*']` allows all methods.
     */
-    'allowed_methods' => ['*'],
+    'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE'],
 
     /*
      * Matches the request origin. `['*']` allows all origins. Wildcards can be used, eg `*.mydomain.com`
      */
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['http://kpam.co.id'],
 
     /*
      * Patterns that can be used with `preg_match` to match the origin.
@@ -41,17 +41,17 @@ return [
     /*
      * Sets the Access-Control-Allow-Headers response header. `['*']` allows all headers.
      */
-    'allowed_headers' => ['*'],
+    'allowed_headers' => ['content-type', 'accept', 'x-custom-header'],
 
     /*
      * Sets the Access-Control-Expose-Headers response header with these headers.
      */
-    'exposed_headers' => [],
+    'exposed_headers' => ['x-custom-response-header'],
 
     /*
      * Sets the Access-Control-Max-Age response header when > 0.
      */
-    'max_age' => 0,
+    'max_age' => 60,
 
     /*
      * Sets the Access-Control-Allow-Credentials header.
