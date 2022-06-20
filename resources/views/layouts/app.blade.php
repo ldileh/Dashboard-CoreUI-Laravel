@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
 
     <!-- Main styles for this application-->
-    <link href="https://kpam.co.id/css/style-main.css" rel="stylesheet">
+    <link href="{{ asset('css/style-main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     @yield('extra-css')

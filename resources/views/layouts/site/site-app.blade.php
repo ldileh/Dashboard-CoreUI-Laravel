@@ -8,7 +8,7 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Bootstrap CSS -->
-        <link href="{{asset('site/css/bootstrap.min.css') }}" rel="preload" as="style"
+        <link href="http://kpam.co.id/site/css/bootstrap.min.css" rel="preload" as="style"
             onload="this.onload=null;this.rel='stylesheet'">
         <noscript>
             <link rel="stylesheet" href="{{asset('site/css/bootstrap.min.css') }}">
