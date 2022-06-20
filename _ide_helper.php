@@ -15680,6 +15680,53 @@
      
 }
 
+    namespace GrahamCampbell\Markdown\Facades { 
+            /**
+     * This is the markdown facade class.
+     *
+     * @author Graham Campbell <graham@alt-three.com>
+     */ 
+        class Markdown {
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getEnvironment()
+        {            //Method inherited from \League\CommonMark\MarkdownConverter         
+                        /** @var \League\CommonMark\CommonMarkConverter $instance */
+                        return $instance->getEnvironment();
+        }
+                    /**
+         * Converts CommonMark to HTML.
+         *
+         * @param string $commonMark
+         * @throws \RuntimeException
+         * @return string 
+         * @api 
+         * @static 
+         */ 
+        public static function convertToHtml($commonMark)
+        {            //Method inherited from \League\CommonMark\Converter         
+                        /** @var \League\CommonMark\CommonMarkConverter $instance */
+                        return $instance->convertToHtml($commonMark);
+        }
+         
+    }
+     
+}
+
+    namespace Illuminate\Support { 
+            /**
+     * 
+     *
+     */ 
+        class Carbon {
+         
+    }
+     
+}
+
     namespace Barryvdh\DomPDF\Facade { 
             /**
      * 
@@ -19787,6 +19834,8 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class DataTables extends \Yajra\DataTables\Facades\DataTables {}
+            class Markdown extends \GrahamCampbell\Markdown\Facades\Markdown {}
+            class Carbon extends \Illuminate\Support\Carbon {}
             class PDF extends \Barryvdh\DomPDF\Facade\Pdf {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
             class Image extends \Intervention\Image\Facades\Image {}
