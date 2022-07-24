@@ -35,7 +35,7 @@
                                 <p style="color: white !important;" class="paragraph-style">Jalan Jendral Sudirman No. 15F Bogor<br/>
                                     Telepon / Fax : +62 21 8297954 / +62 21 837 06282<br/>
                                     Email : kpam@aman.or.id<br/>
-                                    Website : www.kpam.or.id
+                                    Website : www.kpam.co.id
                                 </p>
                             </div>
                             <div class="single-footer-widget">
