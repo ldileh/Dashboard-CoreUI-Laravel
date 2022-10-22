@@ -1,7 +1,5 @@
 <?php
 
-namespace Database\Seeders;
-
 use App\Models\UserRole;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +14,8 @@ class UserRoleSeeder extends Seeder
     {
         UserRole::insert([
         	[ 'id' => 1, 'name' => 'Admin' ],
-        	[ 'id' => 2, 'name' => 'Management' ],
+        	[ 'id' => 2, 'name' => 'Dosen' ],
+        	[ 'id' => 3, 'name' => 'Mahasiswa' ],
         ]);
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Mahasiswa')
 
 @section('content')
 @include('layouts.info-layout')
@@ -11,10 +11,10 @@
         <div class="card">
             <div class="card-header clearfix">
                 <div class="float-left">
-                    <i class="icon icon-menu"></i> Data User
+                    <i class="icon icon-menu"></i> Data Mahasiswa
                 </div>
                 
-                <a class="btn btn-primary btn-sm float-right" href="{{ route('user.create') }}"><i class="fa fa-plus"></i> Create User</a>
+                {{-- <a class="btn btn-primary btn-sm float-right" href="{{ route('user.create') }}"><i class="fa fa-plus"></i> Create User</a> --}}
             </div>
 
             <div class="card-body">
@@ -23,7 +23,6 @@
                         <th width="50">No</th>
                         <th width="200">Name</th>
                         <th>Email</th>
-                        <th width="80">Role</th>
                         <th width="50" class="text-center">Action</th>
                     </thead>
                 </table>
@@ -48,20 +47,11 @@
         var table = $('#data-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('user.data') !!}',
+            ajax: '{!! route('user.mahasiswa.data') !!}',
             columns: [
                 { data: 'DT_Row_Index', name: 'DT_Row_Index', orderable: false, searchable: false ,width: '50px'},
                 { data: 'name', name: 'name' },
                 { data: 'email', name: 'email' },
-                { 
-                    data: 'user_role', 
-                    name: 'user_roles.name', 
-                    orderable: false, 
-                    searchable: false,
-                    render: function(data, type, row, meta){
-                        return '<span class="badge badge-success">'+data+'</span>';
-                    }
-                },
                 { 
                     data: 'id',
                     orderable: false,
@@ -76,7 +66,7 @@
             ],
             'columnDefs': [
                 {
-                    'targets': 4,
+                    'targets': 3,
                     'className': 'text-center',
                 }
             ]

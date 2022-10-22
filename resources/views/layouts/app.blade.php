@@ -13,7 +13,18 @@
     <link href="{{ asset('css/style-main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    @yield('extra-css')
+    {{-- datatables --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
+
+    {{-- vex --}}
+    <link rel="stylesheet" href="{{ asset('css/vex.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vex-theme-os.css') }}" />
+
+    {{-- select 2 --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/select2.css') }}">
+
+    {{-- datapicker --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-datepicker.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,15 +32,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="icon" href="{{ asset('img/icon.png') }}">
-    <link rel="apple-touch-icon" sizes="144x144"
-        href="{{asset('site/images/ico/apple-touch-icon-precomposed.png') }}">
-    <link rel="apple-touch-icon" sizes="114x114"
-        href="{{asset('site/images/ico/apple-touch-icon-114-precomposed.png') }}">
-    <link rel="apple-touch-icon" sizes="72x72"
-        href="{{asset('site/images/ico/apple-touch-icon-72-precomposed.png') }}">
-    <link rel="apple-touch-icon" sizes="57x57"
-        href="{{asset('site/images/ico/apple-touch-icon-57-precomposed.png') }}">
   </head>
   <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
     <div id="loading">
@@ -41,8 +43,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <a class="navbar-brand" href="#">
-        <img class="navbar-brand-full" src="{{ asset('img/ic_logo_admin_panel.png') }}" width="100" alt="Application Logo">
-        <img class="navbar-brand-minimized" src="{{ asset('img/icon.png') }}" width="30" height="30" alt="Application Logo">
+        <img class="navbar-brand-full" src="{{ asset('img/logo.svg') }}" width="100" alt="Application Logo">
+        <img class="navbar-brand-minimized" src="{{ asset('img/logo-mini.svg') }}" width="30" height="30" alt="Application Logo">
       </a>
       <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
         <span class="navbar-toggler-icon"></span>
@@ -74,15 +76,18 @@
     </div>
     <footer class="app-footer">
       <div>
-        <a href="{{url('')}}">KPAM Company Profile</a>
-        <span>&copy; 2022 KPAM.</span>
+        <a href="https://ldileh.blogspot.com">Project</a>
+        <span>&copy; 2018 ldileh.</span>
       </div>
     </footer>
 
     {{-- load script --}}
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/script-main.js') }}"></script>
-    @yield('extra-js')
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/select2.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
 
     <script type="text/javascript">
       $.ajaxSetup({

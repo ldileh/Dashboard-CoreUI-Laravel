@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'Asia/Jakarta',
+    'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -164,7 +164,6 @@ return [
          * Others
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -214,9 +213,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
-        'Carbon' => Illuminate\Support\Carbon::class,
-        'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
     ],
 
 ];

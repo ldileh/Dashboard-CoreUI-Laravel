@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     // Views
-
+    
     public function index()
     {
     	return view('panel.user.user');
@@ -38,7 +38,7 @@ class UserController extends Controller
     }
 
     // Functions
-
+    
     public function getData(Request $request)
     {
         $model = User::userExceptAdmin();
@@ -98,8 +98,8 @@ class UserController extends Controller
         ]);
 
         $validator->sometimes('email', 'required|string|email|max:255|unique:users', function($request) use ($data){
-            return $request->email != $data->email;
-        });
+            return $request->email != $data->email; 
+        }); 
 
         if ($validator->fails()) {
             return redirect()
@@ -107,7 +107,7 @@ class UserController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-
+        
         // do update data
         $data->name = $request->name;
         $data->email = $request->email;
@@ -122,7 +122,7 @@ class UserController extends Controller
     }
 
     // Others
-
+    
     private function _datatable($model)
     {
     	return DataTables::eloquent($model)
